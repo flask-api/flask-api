@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+export PYTHONPATH=.
+set -e
+
+coverage run --source=flaskapi flaskapi/tests/runtests.py $@
+flake8 flaskapi --ignore=E128,E501 --exclude=__init__.py
+echo
+coverage report
