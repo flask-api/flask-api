@@ -2,4 +2,10 @@
 
 **Work in progress**
 
-[![Build Status](https://travis-ci.org/tomchristie/flaskapi.png?branch=master)](https://travis-ci.org/tomchristie/flaskapi)
+[![Build Status][travis-image]][travis-link]
+[![Coverage Status][coveralls-image]][coveralls-link]
+
+[travis-image]: https://travis-ci.org/tomchristie/flaskapi.png?branch=master
+[travis-link]: https://travis-ci.org/tomchristie/flaskapi
+[coveralls-image]: https://coveralls.io/repos/tomchristie/flaskapi/badge.png
+[coveralls-link]: https://coveralls.io/r/tomchristie/flaskapi
