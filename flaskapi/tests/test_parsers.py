@@ -17,7 +17,7 @@ class ParserTests(unittest.TestCase):
         stream = io.BytesIO(b'{key: 1, "other": "two"}')
         with self.assertRaises(exceptions.ParseError) as context:
             parser.parse(stream, 'application/json')
-        detail = context.exception.detail
+        detail = str(context.exception)
         expected_py2 = 'JSON parse error - Expecting property name: line 1 column 1 (char 1)'
         expected_py3 = 'JSON parse error - Expecting property name enclosed in double quotes: line 1 column 2 (char 1)'
         self.assertIn(detail, (expected_py2, expected_py3))
