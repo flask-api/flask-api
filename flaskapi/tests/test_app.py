@@ -60,7 +60,8 @@ class ParserTests(unittest.TestCase):
         with app.test_client() as client:
             response = client.get('/api_exception/')
             self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
-            self.assertEqual(response.get_data().decode('utf8'), '{"message": "You do not have permission to perform this action."}')
+            expected = '{"message": "You do not have permission to perform this action."}'
+            self.assertEqual(response.get_data().decode('utf8'), expected)
 
     def test_abort_view(self):
         with app.test_client() as client:
