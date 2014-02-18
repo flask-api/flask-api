@@ -9,8 +9,6 @@ class BaseRenderer(object):
     charset = 'utf-8'
 
     # handles_empty_responses
-    # handles_form
-    # handles_files
 
     def render(self, data, media_type):
         msg = '`render()` method must be implemented for class "%s"'

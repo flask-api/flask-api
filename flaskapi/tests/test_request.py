@@ -19,13 +19,6 @@ class MediaTypeParsingTests(unittest.TestCase):
         with app.test_request_context(**kwargs):
             self.assertEqual(request.data, {"key": 1, "other": "two"})
 
-    def test_no_content_request(self):
-        kwargs = {
-            'method': 'PUT'
-        }
-        with app.test_request_context(**kwargs):
-            self.assertFalse(request.data)
-
     def test_invalid_content_type_request(self):
         kwargs = {
             'method': 'PUT',
@@ -35,3 +28,17 @@ class MediaTypeParsingTests(unittest.TestCase):
         with app.test_request_context(**kwargs):
             with self.assertRaises(exceptions.UnsupportedMediaType):
                 request.data
+
+    def test_no_content_request(self):
+        """
+        Ensure that requests with no data do not populate the
+        `.data`, `.form` or `.files` attributes.
+        """
+        with app.test_request_context(method='PUT'):
+            self.assertFalse(request.data)
+
+        with app.test_request_context(method='PUT'):
+            self.assertFalse(request.form)
+
+        with app.test_request_context(method='PUT'):
+            self.assertFalse(request.files)

@@ -21,25 +21,25 @@ class ParseError(APIException):
 
 # class AuthenticationFailed(APIException):
 #     status_code = status.HTTP_401_UNAUTHORIZED
-#     default_detail = 'Incorrect authentication credentials.'
+#     detail = 'Incorrect authentication credentials.'
 
 
 # class NotAuthenticated(APIException):
 #     status_code = status.HTTP_401_UNAUTHORIZED
-#     default_detail = 'Authentication credentials were not provided.'
+#     detail = 'Authentication credentials were not provided.'
 
 
-# class PermissionDenied(APIException):
-#     status_code = status.HTTP_403_FORBIDDEN
-#     default_detail = 'You do not have permission to perform this action.'
+class PermissionDenied(APIException):
+    status_code = status.HTTP_403_FORBIDDEN
+    detail = 'You do not have permission to perform this action.'
 
 
 # class MethodNotAllowed(APIException):
 #     status_code = status.HTTP_405_METHOD_NOT_ALLOWED
-#     default_detail = 'Request method "%s" not allowed.'
+#     detail = 'Request method "%s" not allowed.'
 
 #     def __init__(self, method, detail=None):
-#         self.detail = (detail or self.default_detail) % method
+#         self.detail = (detail or self.detail) % method
 
 
 class NotAcceptable(APIException):
@@ -54,14 +54,14 @@ class UnsupportedMediaType(APIException):
 
 # class Throttled(APIException):
 #     status_code = status.HTTP_429_TOO_MANY_REQUESTS
-#     default_detail = 'Request was throttled.'
+#     detail = 'Request was throttled.'
 #     extra_detail = 'Expected available in %d second%s.'
 
 #     def __init__(self, wait=None, detail=None):
 #         if wait is None:
-#             self.detail = detail or self.default_detail
+#             self.detail = detail or self.detail
 #             self.wait = None
 #         else:
-#             format = (detail or self.default_detail) + ' ' + self.extra_detail
+#             format = (detail or self.detail) + ' ' + self.extra_detail
 #             self.detail = format % (wait, wait != 1 and 's' or '')
 #             self.wait = math.ceil(wait)

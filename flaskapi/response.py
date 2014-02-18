@@ -11,7 +11,7 @@ class APIResponse(Response):
 
     def __init__(self, content, *args, **kwargs):
         media_type = None
-        if isinstance(content, dict) or isinstance(content, list):
+        if isinstance(content, (list, dict)):
             negotiator = self.negotiator_class()
             renderers = [renderer() for renderer in self.renderer_classes]
             renderer, media_type = negotiator.select_renderer(renderers)

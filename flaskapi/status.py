@@ -1,8 +1,11 @@
+# coding: utf8
 """
 Descriptive HTTP status codes, for code readability.
 
-See RFC 2616 - http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
-And RFC 6585 - http://tools.ietf.org/html/rfc6585
+See RFC 2616 and RFC 6585.
+
+RFC 2616: http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+RFC 6585: http://tools.ietf.org/html/rfc6585
 """
 from __future__ import unicode_literals
 

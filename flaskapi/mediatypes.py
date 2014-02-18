@@ -57,6 +57,8 @@ class MediaType(object):
         params = {}
         for token in parts[1:]:
             key, sep, value = [s.strip() for s in token.partition('=')]
+            if value.startswith('"') and value.endswith('"'):
+                value = value[1:-1]
             params[key] = value
         main_type, sep, sub_type = [s.strip() for s in parts[0].partition('/')]
         return (main_type, sub_type, params)
