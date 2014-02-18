@@ -4,9 +4,9 @@ from flaskapi import FlaskAPI
 app = FlaskAPI(__name__)
 
 
-@app.route("/")
+@app.route("/", methods=['GET', 'POST'])
 def hello():
-    return {"foo": "Hello World!"}
+    return {"foo": request.data}
 
 
 if __name__ == "__main__":

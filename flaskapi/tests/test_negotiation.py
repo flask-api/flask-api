@@ -31,6 +31,14 @@ class TestRendererNegotiation(unittest.TestCase):
             self.assertEqual(renderer, HTML)
             self.assertEqual(str(media_type), 'application/html')
 
+    def test_select_renderer_no_accept_header(self):
+        negotiation = DefaultNegotiation()
+        renderers = [JSON, HTML]
+        with app.test_request_context():
+            renderer, media_type = negotiation.select_renderer(renderers)
+            self.assertEqual(renderer, JSON)
+            self.assertEqual(str(media_type), 'application/json')
+
     def test_select_renderer_server_preference(self):
         negotiation = DefaultNegotiation()
         renderers = [JSON, HTML]

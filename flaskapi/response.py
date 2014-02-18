@@ -10,21 +10,14 @@ class APIResponse(Response):
     negotiator_class = DefaultNegotiation
 
     def __init__(self, content, *args, **kwargs):
-        super(APIResponse, self).__init__(None, *args, **kwargs)
-        self._content = content
+        media_type = None
+        if isinstance(content, dict) or isinstance(content, list):
+            negotiator = self.negotiator_class()
+            renderers = [renderer() for renderer in self.renderer_classes]
+            renderer, media_type = negotiator.select_renderer(renderers)
+            content = renderer.render(content, media_type)
 
-    def render(self):
-        if self._content is None:
-            self.response = []
-            return
+        super(APIResponse, self).__init__(content, *args, **kwargs)
 
-        negotiator = self.negotiator_class()
-        renderers = [renderer() for renderer in self.renderer_classes]
-        renderer, media_type = negotiator.select_renderer(renderers)
-
-        response = renderer.render(self._content, media_type)
-        if response is None:
-            self.response = []
-        else:
-            self.set_data(response)
-            self.headers['Content-Type'] = str(media_type)
+        if media_type is not None:
+            self.headers['Content-Type'] = media_type
