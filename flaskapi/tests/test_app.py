@@ -23,7 +23,7 @@ def set_headers():
 @app.route('/make_response_view/')
 def make_response_view():
     response = make_response({'example': 'content'})
-    response.headers = {'Location': 'http://example.com/456'}
+    response.headers['Location'] = 'http://example.com/456'
     return response
 
 
@@ -37,29 +37,39 @@ def abort_view():
     abort(status.HTTP_403_FORBIDDEN)
 
 
-class ParserTests(unittest.TestCase):
+class AppTests(unittest.TestCase):
     def test_set_status_and_headers(self):
         with app.test_client() as client:
             response = client.get('/set_status_and_headers/')
             self.assertEqual(response.status_code, status.HTTP_201_CREATED)
             self.assertEqual(response.headers['Location'], 'http://example.com/456')
+            self.assertEqual(response.content_type, 'application/json')
+            expected = '{"example": "content"}'
+            self.assertEqual(response.get_data().decode('utf8'), expected)
 
     def test_set_headers(self):
         with app.test_client() as client:
             response = client.get('/set_headers/')
             self.assertEqual(response.status_code, status.HTTP_200_OK)
             self.assertEqual(response.headers['Location'], 'http://example.com/456')
+            self.assertEqual(response.content_type, 'application/json')
+            expected = '{"example": "content"}'
+            self.assertEqual(response.get_data().decode('utf8'), expected)
 
     def test_make_response(self):
         with app.test_client() as client:
             response = client.get('/make_response_view/')
-            self.assertEqual(response.status_code, status.HTTP_200_OK)
+            self.assertEqual(response.content_type, 'application/json')
             self.assertEqual(response.headers['Location'], 'http://example.com/456')
+            self.assertEqual(response.content_type, 'application/json')
+            expected = '{"example": "content"}'
+            self.assertEqual(response.get_data().decode('utf8'), expected)
 
     def test_api_exception(self):
         with app.test_client() as client:
             response = client.get('/api_exception/')
             self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+            self.assertEqual(response.content_type, 'application/json')
             expected = '{"message": "You do not have permission to perform this action."}'
             self.assertEqual(response.get_data().decode('utf8'), expected)
 
