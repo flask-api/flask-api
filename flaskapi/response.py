@@ -1,6 +1,7 @@
 # coding: utf8
 from __future__ import unicode_literals
 from flask import Response
+from flask._compat import text_type
 from flaskapi.renderers import JSONRenderer
 from flaskapi.negotiation import DefaultNegotiation
 
@@ -11,7 +12,7 @@ class APIResponse(Response):
 
     def __init__(self, content, *args, **kwargs):
         media_type = None
-        if isinstance(content, (list, dict)):
+        if isinstance(content, (list, dict, text_type)):
             negotiator = self.negotiator_class()
             renderers = [renderer() for renderer in self.renderer_classes]
             renderer, media_type = negotiator.select_renderer(renderers)

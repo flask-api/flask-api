@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 from flask import request, Flask
 from flask._compat import reraise, string_types, text_type
+from flaskapi.parsers import JSONParser, URLEncodedParser, MultiPartParser
 from flaskapi.exceptions import APIException
 from flaskapi.request import APIRequest
 from flaskapi.response import APIResponse
@@ -14,7 +15,15 @@ class FlaskAPI(Flask):
     request_class = APIRequest
     response_class = APIResponse
 
+    # def preprocess_request(self):
+    #     request.parser_classes = [JSONParser, URLEncodedParser, MultiPartParser]
+    #     return super(FlaskAPI, self).preprocess_request()
+
     def make_response(self, rv):
+        """
+        We override `make_response` so that we can additionally handle
+        list and dict types by default.
+        """
         status_or_headers = headers = None
         if isinstance(rv, tuple):
             rv, status_or_headers, headers = rv + (None,) * (3 - len(rv))
@@ -43,6 +52,9 @@ class FlaskAPI(Flask):
         return rv
 
     def handle_user_exception(self, e):
+        """
+        We override `handle_user_exception` to deal with APIException.
+        """
         exc_type, exc_value, tb = sys.exc_info()
         assert exc_value is e
 
