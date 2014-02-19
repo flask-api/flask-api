@@ -2,7 +2,6 @@
 from __future__ import unicode_literals
 from flask import request, Flask
 from flask._compat import reraise, string_types, text_type
-from flaskapi.parsers import JSONParser, URLEncodedParser, MultiPartParser
 from flaskapi.exceptions import APIException
 from flaskapi.request import APIRequest
 from flaskapi.response import APIResponse
