@@ -1,5 +1,3 @@
-{% load url from future %}
-{% load rest_framework %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -10,15 +8,15 @@
         <meta name="robots" content="NONE,NOARCHIVE" />
         {% endblock %}
 
-        <title>{% block title %}Django REST framework{% endblock %}</title>
+        <title>{% block title %}Flask API{% endblock %}</title>
 
         {% block style %}
         {% block bootstrap_theme %}
-            <link rel="stylesheet" type="text/css" href="{% static "rest_framework/css/bootstrap.min.css" %}"/>
-            <link rel="stylesheet" type="text/css" href="{% static "rest_framework/css/bootstrap-tweaks.css" %}"/>
+            <link rel="stylesheet" type="text/css" href="/flask-api/static/css/bootstrap.min.css"/>
+            <link rel="stylesheet" type="text/css" href="/flask-api/static/css/bootstrap-tweaks.css"/>
         {% endblock %}
-        <link rel="stylesheet" type="text/css" href="{% static "rest_framework/css/prettify.css" %}"/>
-        <link rel="stylesheet" type="text/css" href="{% static "rest_framework/css/default.css" %}"/>
+        <link rel="stylesheet" type="text/css" href="/flask-api/static/css/prettify.css"/>
+        <link rel="stylesheet" type="text/css" href="/flask-api/static/css/default.css"/>
         {% endblock %}
 
     {% endblock %}
@@ -33,23 +31,23 @@
         <div class="navbar-inner">
             <div class="container-fluid">
                 <span href="/">
-                    {% block branding %}<a class='brand' rel="nofollow" href='http://www.django-rest-framework.org'>Django REST framework <span class="version">{{ version }}</span></a>{% endblock %}
+                    {% block branding %}<a class='brand' rel="nofollow" href='http://www.flask-api.org'>Flask API <span class="version">{{ version }}</span></a>{% endblock %}
                 </span>
                 <ul class="nav pull-right">
                     {% block userlinks %}
-                        {% if user.is_authenticated %}
+                        <!--{ if user.is_authenticated }
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     {{ user }}
                                     <b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li>{% optional_logout request %}</li>
+                                    <li>optional_logout request</li>
                                 </ul>
                             </li>
-                        {% else %}
-                            <li>{% optional_login request %}</li>
-                        {% endif %}
+                        { else }-->
+                            <li><!-- optional_login request --></li>
+                        <!--{ endif }-->
                     {% endblock %}
                 </ul>
             </div>
@@ -82,7 +80,7 @@
                         <ul class="dropdown-menu">
                             {% for format in available_formats %}
                                 <li>
-                                    <a class="js-tooltip format-option" href='{% add_query_param request api_settings.URL_FORMAT_OVERRIDE format %}' rel="nofollow" title="Make a GET request on the {{ name }} resource with the format set to `{{ format }}`">{{ format }}</a>
+                                    <a class="js-tooltip format-option" href='<!-- add_query_param request api_settings.URL_FORMAT_OVERRIDE format -->' rel="nofollow" title="Make a GET request on the {{ name }} resource with the format set to `{{ format }}`">{{ format }}</a>
                                 </li>
                             {% endfor %}
                         </ul>
@@ -94,7 +92,7 @@
 
         {% if options_form %}
             <form class="button-form" action="{{ request.get_full_path }}" method="POST" class="pull-right">
-                {% csrf_token %}
+                <!-- csrf_token -->
                 <input type="hidden" name="{{ api_settings.FORM_METHOD_OVERRIDE }}" value="OPTIONS" />
                 <button class="btn btn-primary js-tooltip" title="Make an OPTIONS request on the {{ name }} resource">OPTIONS</button>
             </form>
@@ -102,7 +100,7 @@
 
         {% if delete_form %}
             <form class="button-form" action="{{ request.get_full_path }}" method="POST" class="pull-right">
-                {% csrf_token %}
+                <!-- csrf_token -->
                 <input type="hidden" name="{{ api_settings.FORM_METHOD_OVERRIDE }}" value="DELETE" />
                 <button class="btn btn-danger js-tooltip" title="Make a DELETE request on the {{ name }} resource">DELETE</button>
             </form>
@@ -117,10 +115,10 @@
                 <pre class="prettyprint"><b>{{ request.method }}</b> {{ request.get_full_path }}</pre>
             </div>
             <div class="response-info">
-                <pre class="prettyprint"><div class="meta nocode"><b>HTTP {{ response.status_code }} {{ response.status_text }}</b>{% autoescape off %}
-{% for key, val in response.items %}<b>{{ key }}:</b> <span class="lit">{{ val|break_long_headers|urlize_quoted_links }}</span>
+                <pre class="prettyprint"><div class="meta nocode"><b>HTTP {{ status }}</b>{% autoescape off %}
+{% for key, val in headers.items() %}<b>{{ key }}:</b> <span class="lit"><!--{ val|break_long_headers|urlize_quoted_links }--></span>
 {% endfor %}
-</div>{{ content|urlize_quoted_links }}</pre>{% endautoescape %}
+</div>{{ content }}<!-- |urlize_quoted_links --></pre>{% endautoescape %}
             </div>
         </div>
 
@@ -224,10 +222,10 @@
     {% endblock %}
 
     {% block script %}
-    <script src="{% static "rest_framework/js/jquery-1.8.1-min.js" %}"></script>
-    <script src="{% static "rest_framework/js/bootstrap.min.js" %}"></script>
-    <script src="{% static "rest_framework/js/prettify-min.js" %}"></script>
-    <script src="{% static "rest_framework/js/default.js" %}"></script>
+    <script src="/flask-api/static/rest_framework/js/jquery-1.8.1-min.js"></script>
+    <script src="/flask-api/static/rest_framework/js/bootstrap.min.js"></script>
+    <script src="/flask-api/static/rest_framework/js/prettify-min.js"></script>
+    <script src="/flask-api/static/rest_framework/js/default.js"></script>
     {% endblock %}
   </body>
 </html>

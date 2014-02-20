@@ -1,6 +1,6 @@
 # coding: utf8
 from __future__ import unicode_literals
-from flask import request, Flask
+from flask import request, Flask, Blueprint
 from flask._compat import reraise, string_types, text_type
 from flaskapi.exceptions import APIException
 from flaskapi.request import APIRequest
@@ -11,6 +11,12 @@ from werkzeug.exceptions import HTTPException
 import sys
 
 
+api_resources = Blueprint(
+    'flask-api', __name__,
+    template_folder='templates', static_folder='static'
+)
+
+
 class FlaskAPI(Flask):
     request_class = APIRequest
     response_class = APIResponse
@@ -18,6 +24,7 @@ class FlaskAPI(Flask):
     def __init__(self, *args, **kwargs):
         super(FlaskAPI, self).__init__(*args, **kwargs)
         self.api_settings = APISettings(self.config)
+        self.register_blueprint(api_resources)
 
     def preprocess_request(self):
         request.parser_classes = self.api_settings.DEFAULT_PARSERS
