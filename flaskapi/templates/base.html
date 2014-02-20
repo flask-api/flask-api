@@ -31,7 +31,7 @@
         <div class="navbar-inner">
             <div class="container-fluid">
                 <span href="/">
-                    {% block branding %}<a class='brand' rel="nofollow" href='http://www.flask-api.org'>Flask API <span class="version">{{ version }}</span></a>{% endblock %}
+                    {% block branding %}<a class='brand' rel="nofollow" href='http://www.flask-api.org'>Flask API<!-- <span class="version">{{ version }}</span>--></a>{% endblock %}
                 </span>
                 <ul class="nav pull-right">
                     {% block userlinks %}
@@ -55,6 +55,7 @@
     </div>
     {% endblock %}
 
+    <!--
     {% block breadcrumbs %}
     <ul class="breadcrumb">
         {% for breadcrumb_name, breadcrumb_url in breadcrumblist %}
@@ -64,6 +65,8 @@
         {% endfor %}
     </ul>
     {% endblock %}
+    -->
+    <div style="height: 50px"></div>
 
     <!-- Content -->
     <div id="content">
@@ -112,11 +115,11 @@
             {{ description }}
             {% endblock %}
             <div class="request-info" style="clear: both" >
-                <pre class="prettyprint"><b>{{ request.method }}</b> {{ request.get_full_path }}</pre>
+                <pre class="prettyprint"><b>{{ request.method }}</b> {{ request.path }}</pre>
             </div>
             <div class="response-info">
                 <pre class="prettyprint"><div class="meta nocode"><b>HTTP {{ status }}</b>{% autoescape off %}
-{% for key, val in headers.items() %}<b>{{ key }}:</b> <span class="lit"><!--{ val|break_long_headers|urlize_quoted_links }--></span>
+{% for key, val in headers.items() %}<b>{{ key }}:</b> <span class="lit">{{ val }}<!--{ val|break_long_headers|urlize_quoted_links }--></span>
 {% endfor %}
 </div>{{ content }}<!-- |urlize_quoted_links --></pre>{% endautoescape %}
             </div>
