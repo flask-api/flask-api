@@ -1,24 +1,31 @@
 # coding: utf8
 from __future__ import unicode_literals
-from flask import Response
+from flask import request, Response
 from flask._compat import text_type
-from flaskapi.renderers import JSONRenderer
-from flaskapi.negotiation import DefaultNegotiation
 
 
 class APIResponse(Response):
-    renderer_classes = [JSONRenderer]
-    negotiator_class = DefaultNegotiation
-
     def __init__(self, content, *args, **kwargs):
+        super(APIResponse, self).__init__(None, *args, **kwargs)
+
         media_type = None
         if isinstance(content, (list, dict, text_type)):
-            negotiator = self.negotiator_class()
-            renderers = [renderer() for renderer in self.renderer_classes]
-            renderer, media_type = negotiator.select_renderer(renderers)
-            content = renderer.render(content, media_type)
+            renderer = request.accepted_renderer
+            media_type = request.accepted_media_type
+            options = self.get_renderer_options()
+            content = renderer.render(content, media_type, **options)
 
-        super(APIResponse, self).__init__(content, *args, **kwargs)
+        if isinstance(content, (text_type, bytes, bytearray)):
+            self.set_data(content)
+        else:
+            self.response = content
 
         if media_type is not None:
             self.headers['Content-Type'] = media_type
+
+    def get_renderer_options(self):
+        return {
+            'status': self.status,
+            'status_code': self.status_code,
+            'headers': self.headers
+        }

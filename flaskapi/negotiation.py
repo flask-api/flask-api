@@ -42,7 +42,7 @@ class DefaultNegotiation(BaseNegotiation):
             for renderer in renderers:
                 server_media_type = MediaType(renderer.media_type)
                 for client_media_type in client_media_types:
-                    if server_media_type.satisfies(client_media_type):
+                    if client_media_type.satisfies(server_media_type):
                         if server_media_type.precedence > client_media_type.precedence:
                             return (renderer, server_media_type)
                         else:

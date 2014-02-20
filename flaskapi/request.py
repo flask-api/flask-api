@@ -9,6 +9,7 @@ from werkzeug.wsgi import get_content_length
 
 class APIRequest(Request):
     parser_classes = default_settings.DEFAULT_PARSERS
+    renderer_classes = default_settings.DEFAULT_RENDERERS
     negotiator_class = DefaultNegotiation
     empty_data_class = MultiDict
 
@@ -30,6 +31,18 @@ class APIRequest(Request):
             self._parse()
         return self._files
 
+    @property
+    def accepted_renderer(self):
+        if not hasattr(self, '_accepted_renderer'):
+            self._perform_content_negotiation()
+        return self._accepted_renderer
+
+    @property
+    def accepted_media_type(self):
+        if not hasattr(self, '_accepted_media_type'):
+            self._perform_content_negotiation()
+        return self._accepted_media_type
+
     def _parse(self):
         content_length = get_content_length(self.environ)
         content_type = self.environ.get('CONTENT_TYPE')
@@ -40,9 +53,10 @@ class APIRequest(Request):
 
         negotiator = self.negotiator_class()
         parsers = [parser_cls() for parser_cls in self.parser_classes]
+        options = self._get_parser_options()
         try:
             parser, media_type = negotiator.select_parser(parsers)
-            ret = parser.parse(self.stream, media_type, content_length)
+            ret = parser.parse(self.stream, media_type, **options)
         except:
             # Ensure that accessing `request.data` again does not reraise
             # the exception, so that eg exceptions can handle properly.
@@ -58,10 +72,18 @@ class APIRequest(Request):
 
         self._form = self._data if parser.handles_form_data else self.empty_data_class()
 
+    def _get_parser_options(self):
+        return {'content_length': get_content_length(self.environ)}
+
     def _set_empty_data(self):
         self._data = self.empty_data_class()
         self._form = self.empty_data_class()
         self._files = self.empty_data_class()
+
+    def _perform_content_negotiation(self):
+        negotiator = self.negotiator_class()
+        renderers = [renderer() for renderer in self.renderer_classes]
+        self._accepted_renderer, self._accepted_media_type = negotiator.select_renderer(renderers)
 
     # @property
     # def auth(self):

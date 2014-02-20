@@ -10,3 +10,13 @@ def set_parsers(parsers=None):
             return func(*args, **kwargs)
         return decorated_function
     return decorator
+
+
+def set_renderers(renderers=None):
+    def decorator(func):
+        @wraps(func)
+        def decorated_function(*args, **kwargs):
+            request.renderer_classes = renderers
+            return func(*args, **kwargs)
+        return decorated_function
+    return decorator

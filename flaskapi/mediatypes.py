@@ -73,7 +73,11 @@ class MediaType(object):
         return hash(self.media_type)
 
     def __eq__(self, other):
-        return self.media_type == other.media_type
+        # Compare two MediaType instances, ignoring parameter ordering.
+        return (
+            self.full_type == other.full_type and
+            self.params == other.params
+        )
 
 
 def parse_accept_header(accept):

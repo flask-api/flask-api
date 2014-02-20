@@ -21,6 +21,7 @@ class FlaskAPI(Flask):
 
     def preprocess_request(self):
         request.parser_classes = self.api_settings.DEFAULT_PARSERS
+        request.renderer_classes = self.api_settings.DEFAULT_RENDERERS
         return super(FlaskAPI, self).preprocess_request()
 
     def make_response(self, rv):

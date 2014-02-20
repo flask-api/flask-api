@@ -43,8 +43,9 @@ class ParserTests(unittest.TestCase):
     def test_invalid_multipart(self):
         parser = parsers.MultiPartParser()
         stream = io.BytesIO(b'invalid')
+        media_type = mediatypes.MediaType('multipart/form-data; boundary="foo"')
         with self.assertRaises(exceptions.ParseError) as context:
-            parser.parse(stream, mediatypes.MediaType('multipart/form-data; boundary="foo"'))
+            parser.parse(stream, media_type, content_length=len('invalid'))
         detail = str(context.exception)
         expected = 'Multipart parse error - Expected boundary at start of multipart data'
         self.assertEqual(detail, expected)

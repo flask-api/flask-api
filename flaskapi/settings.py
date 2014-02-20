@@ -44,5 +44,14 @@ class APISettings(object):
         val = self.user_config.get('DEFAULT_PARSERS', default)
         return perform_imports(val, 'DEFAULT_PARSERS')
 
+    @property
+    def DEFAULT_RENDERERS(self):
+        default = [
+            'flaskapi.renderers.JSONRenderer',
+            # 'flaskapi.renderers.BrowsableAPIRenderer'
+        ]
+        val = self.user_config.get('DEFAULT_RENDERERS', default)
+        return perform_imports(val, 'DEFAULT_RENDERERS')
+
 
 default_settings = APISettings()
