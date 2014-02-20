@@ -1,8 +1,6 @@
 # coding: utf8
 from __future__ import unicode_literals
-from flask import request
 from flask.json import JSONEncoder
-from flaskapi.mediatypes import MediaType
 import json
 
 
