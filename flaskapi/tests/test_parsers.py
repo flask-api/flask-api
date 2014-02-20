@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 from flask import request
 from flaskapi import exceptions, parsers, status, mediatypes, FlaskAPI
+from flaskapi.decorators import set_parsers
 import io
 import json
 import unittest
@@ -104,5 +105,58 @@ class ParserTests(unittest.TestCase):
                 "data": {"example": "example"},
                 "form": {"example": "example"},
                 "files": {"upload": {"name": "name.txt", "contents": "file contents"}}
+            }
+            self.assertEqual(data, expected)
+
+
+class OverrideParserSettings(unittest.TestCase):
+    def setUp(self):
+        class CustomParser1(parsers.BaseParser):
+            media_type = '*/*'
+
+            def parse(self, stream, media_type, content_length=None):
+                return 'custom parser 1'
+
+        class CustomParser2(parsers.BaseParser):
+            media_type = '*/*'
+
+            def parse(self, stream, media_type, content_length=None):
+                return 'custom parser 2'
+
+        app = FlaskAPI(__name__)
+        app.config['DEFAULT_PARSERS'] = [CustomParser1]
+
+        @app.route('/custom_parser_1/', methods=['POST'])
+        def custom_parser_1():
+            return {'data': request.data}
+
+        @app.route('/custom_parser_2/', methods=['POST'])
+        @set_parsers([CustomParser2])
+        def custom_parser_2():
+            return {'data': request.data}
+
+        self.app = app
+
+    def test_overridden_parsers_with_settings(self):
+        with self.app.test_client() as client:
+            data = {'example': 'example'}
+            response = client.post('/custom_parser_1/', data=data)
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+            self.assertEqual(response.headers['Content-Type'], 'application/json')
+            data = json.loads(response.get_data().decode('utf8'))
+            expected = {
+                "data": "custom parser 1",
+            }
+            self.assertEqual(data, expected)
+
+    def test_overridden_parsers_with_decorator(self):
+        with self.app.test_client() as client:
+            data = {'example': 'example'}
+            response = client.post('/custom_parser_2/', data=data)
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+            self.assertEqual(response.headers['Content-Type'], 'application/json')
+            data = json.loads(response.get_data().decode('utf8'))
+            expected = {
+                "data": "custom parser 2",
             }
             self.assertEqual(data, expected)

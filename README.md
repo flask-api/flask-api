@@ -7,6 +7,11 @@
 
 ## Installation
 
+Requirements:
+
+* Python 2.7 or 3.3.
+* Flask 0.10.
+
 Install using `pip`.
 
     pip install flaskapi

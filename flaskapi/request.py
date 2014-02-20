@@ -1,14 +1,14 @@
 # coding: utf8
 from __future__ import unicode_literals
 from flask import Request
-from flaskapi.parsers import JSONParser, URLEncodedParser, MultiPartParser
 from flaskapi.negotiation import DefaultNegotiation
+from flaskapi.settings import default_settings
 from werkzeug.datastructures import MultiDict
 from werkzeug.wsgi import get_content_length
 
 
 class APIRequest(Request):
-    parser_classes = [JSONParser, URLEncodedParser, MultiPartParser]
+    parser_classes = default_settings.DEFAULT_PARSERS
     negotiator_class = DefaultNegotiation
     empty_data_class = MultiDict
 

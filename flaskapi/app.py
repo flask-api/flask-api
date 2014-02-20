@@ -5,6 +5,7 @@ from flask._compat import reraise, string_types, text_type
 from flaskapi.exceptions import APIException
 from flaskapi.request import APIRequest
 from flaskapi.response import APIResponse
+from flaskapi.settings import APISettings
 from itertools import chain
 from werkzeug.exceptions import HTTPException
 import sys
@@ -14,9 +15,13 @@ class FlaskAPI(Flask):
     request_class = APIRequest
     response_class = APIResponse
 
-    # def preprocess_request(self):
-    #     request.parser_classes = [JSONParser, URLEncodedParser, MultiPartParser]
-    #     return super(FlaskAPI, self).preprocess_request()
+    def __init__(self, *args, **kwargs):
+        super(FlaskAPI, self).__init__(*args, **kwargs)
+        self.api_settings = APISettings(self.config)
+
+    def preprocess_request(self):
+        request.parser_classes = self.api_settings.DEFAULT_PARSERS
+        return super(FlaskAPI, self).preprocess_request()
 
     def make_response(self, rv):
         """
