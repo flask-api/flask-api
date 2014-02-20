@@ -45,4 +45,4 @@ class BrowsableAPIRenderer(BaseRenderer):
         headers = options['headers']
         headers['Content-Type'] = str(mock_media_type)
 
-        return render_template('base.html', request=request, status=status, headers=headers, content=mock_content)
+        return render_template('base.html', status=status, headers=headers, content=mock_content)
