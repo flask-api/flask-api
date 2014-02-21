@@ -31,7 +31,7 @@
         <div class="navbar-inner">
             <div class="container-fluid">
                 <span href="/">
-                    {% block branding %}<a class='brand' rel="nofollow" href='http://www.flask-api.org'>Flask API<!-- <span class="version">{{ version }}</span>--></a>{% endblock %}
+                    {% block branding %}<a class='brand' rel="nofollow" href='http://www.flask-api.org'>Flask API <span class="version">{{ version }}</span></a>{% endblock %}
                 </span>
                 <ul class="nav pull-right">
                     {% block userlinks %}
@@ -93,29 +93,27 @@
             </form>
         {% endif %}
 
-        {% if options_form %}
-            <form class="button-form" action="{{ request.get_full_path }}" method="POST" class="pull-right">
+        {% if 'OPTIONS' in allowed_methods %}
+            <form class="button-form" action="{{ request.full_path }}" method="POST" class="pull-right">
                 <!-- csrf_token -->
-                <input type="hidden" name="{{ api_settings.FORM_METHOD_OVERRIDE }}" value="OPTIONS" />
-                <button class="btn btn-primary js-tooltip" title="Make an OPTIONS request on the {{ name }} resource">OPTIONS</button>
+                <input type="hidden" name="_method" value="OPTIONS" />
+                <button class="btn btn-primary js-tooltip" title="Make an OPTIONS request on the resource">OPTIONS</button>
             </form>
         {% endif %}
 
-        {% if delete_form %}
-            <form class="button-form" action="{{ request.get_full_path }}" method="POST" class="pull-right">
+        {% if 'DELETE' in allowed_methods %}
+            <form class="button-form" action="{{ request.full_path }}" method="POST" class="pull-right">
                 <!-- csrf_token -->
-                <input type="hidden" name="{{ api_settings.FORM_METHOD_OVERRIDE }}" value="DELETE" />
-                <button class="btn btn-danger js-tooltip" title="Make a DELETE request on the {{ name }} resource">DELETE</button>
+                <input type="hidden" name="_method" value="DELETE" />
+                <button class="btn btn-danger js-tooltip" title="Make a DELETE request on the resource">DELETE</button>
             </form>
         {% endif %}
 
         <div class="content-main">
-            <div class="page-header"><h1>{{ name }}</h1></div>
-            {% block description %}
-            {{ description }}
-            {% endblock %}
+            <div class="page-header"><h1>{{ view_name }}</h1></div>
+            {% if view_description %}<div style="margin-top: -10px; margin-bottom: 10px">{{ view_description }}</div>{% endif %}
             <div class="request-info" style="clear: both" >
-                <pre class="prettyprint"><b>{{ request.method }}</b> {{ request.path }}</pre>
+                <pre class="prettyprint"><b>{{ request.method }}</b> {{ request.full_path }}</pre>
             </div>
             <div class="response-info">
                 <pre class="prettyprint"><div class="meta nocode"><b>HTTP {{ status }}</b>{% autoescape off %}
@@ -125,89 +123,47 @@
             </div>
         </div>
 
-            {% if display_edit_forms %}
 
-                {% if post_form or raw_data_post_form %}
-                <div {% if post_form %}class="tabbable"{% endif %}>
-                    {% if post_form %}
-                    <ul class="nav nav-tabs form-switcher">
-                        <li><a name='html-tab' href="#object-form" data-toggle="tab">HTML form</a></li>
-                        <li><a name='raw-tab' href="#generic-content-form" data-toggle="tab">Raw data</a></li>
-                    </ul>
-                    {% endif %}
-                    <div class="well tab-content">
-                        {% if post_form %}
-                        <div class="tab-pane" id="object-form">
-                            {% with form=post_form %}
-                            <form action="{{ request.get_full_path }}" method="POST" enctype="multipart/form-data" class="form-horizontal">
+                {% if 'POST' in allowed_methods or 'PUT' in allowed_methods or 'PATCH' in allowed_methods %}
+                <div>
+                    <div class="well">
+                        <div id="generic-content-form">
+                            <form action="{{ request.full_path }}" method="POST" class="form-horizontal">
                                 <fieldset>
-                                    {{ post_form }}
-                                    <div class="form-actions">
-                                        <button class="btn btn-primary" title="Make a POST request on the {{ name }} resource">POST</button>
+<div class="control-group">
+        <label for="id__content_type" class="control-label">Media type:</label>
+        <div class="controls">
+            <select id="id__content_type" name="_content_type">
+<option value="application/json" selected="selected">application/json</option>
+<option value="application/x-www-form-urlencoded">application/x-www-form-urlencoded</option>
+<option value="multipart/form-data">multipart/form-data</option>
+</select>
+            <span class="help-block"></span>
+        </div>
+    </div>
+                                <div class="control-group">
+                                    <label for="id__content" class="control-label">Content:</label>
+                                    <div class="controls">
+                                        <textarea name="_content" cols="40" rows="10"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    {% if 'POST' in allowed_methods %}
+                                    <button class="btn btn-primary" title="Make a POST request on the resource">POST</button>
+                                    {% endif %}
+                                    {% if 'PUT' in allowed_methods %}
+                                    <button class="btn btn-primary js-tooltip" name="_method" value="PUT" title="Make a PUT request on the resource">PUT</button>
+                                    {% endif %}
+                                    {% if 'PATCH' in allowed_methods %}
+                                    <button class="btn btn-primary js-tooltip" name="_method" value="PATCH" title="Make a PATCH request on the resource">PATCH</button>
+                                    {% endif %}
                                     </div>
                                 </fieldset>
                             </form>
-                            {% endwith %}
-                        </div>
-                        {% endif %}
-                        <div {% if post_form %}class="tab-pane"{% endif %} id="generic-content-form">
-                            {% with form=raw_data_post_form %}
-                            <form action="{{ request.get_full_path }}" method="POST" class="form-horizontal">
-                                <fieldset>
-                                    {% include "rest_framework/raw_data_form.html" %}
-                                    <div class="form-actions">
-                                        <button class="btn btn-primary" title="Make a POST request on the {{ name }} resource">POST</button>
-                                    </div>
-                                </fieldset>
-                            </form>
-                            {% endwith %}
                         </div>
                     </div>
                 </div>
                 {% endif %}
-
-                {% if put_form or raw_data_put_form or raw_data_patch_form %}
-                <div {% if put_form %}class="tabbable"{% endif %}>
-                    {% if put_form %}
-                    <ul class="nav nav-tabs form-switcher">
-                        <li><a name='html-tab' href="#object-form" data-toggle="tab">HTML form</a></li>
-                        <li><a  name='raw-tab' href="#generic-content-form" data-toggle="tab">Raw data</a></li>
-                    </ul>
-                    {% endif %}
-                    <div class="well tab-content">
-                        {% if put_form %}
-                        <div class="tab-pane" id="object-form">
-                            <form action="{{ request.get_full_path }}" method="POST" enctype="multipart/form-data" class="form-horizontal">
-                                <fieldset>
-                                    {{ put_form }}
-                                    <div class="form-actions">
-                                        <button class="btn btn-primary js-tooltip" name="{{ api_settings.FORM_METHOD_OVERRIDE }}" value="PUT" title="Make a PUT request on the {{ name }} resource">PUT</button>
-                                    </div>
-                                </fieldset>
-                            </form>
-                        </div>
-                        {% endif %}
-                        <div {% if put_form %}class="tab-pane"{% endif %} id="generic-content-form">
-                            {% with form=raw_data_put_or_patch_form %}
-                            <form action="{{ request.get_full_path }}" method="POST" class="form-horizontal">
-                                <fieldset>
-                                    {% include "rest_framework/raw_data_form.html" %}
-                                    <div class="form-actions">
-                                        {% if raw_data_put_form %}
-                                        <button class="btn btn-primary js-tooltip" name="{{ api_settings.FORM_METHOD_OVERRIDE }}" value="PUT" title="Make a PUT request on the {{ name }} resource">PUT</button>
-                                        {% endif %}
-                                        {% if raw_data_patch_form %}
-                                        <button class="btn btn-primary js-tooltip" name="{{ api_settings.FORM_METHOD_OVERRIDE }}" value="PATCH" title="Make a PATCH request on the {{ name }} resource">PATCH</button>
-                                        {% endif %}
-                                    </div>
-                                </fieldset>
-                            </form>
-                            {% endwith %}
-                        </div>
-                    </div>
-                </div>
-                {% endif %}
-            {% endif %}
 
         </div>
         <!-- END content-main -->

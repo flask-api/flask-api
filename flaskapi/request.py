@@ -85,6 +85,12 @@ class APIRequest(Request):
         renderers = [renderer() for renderer in self.renderer_classes]
         self._accepted_renderer, self._accepted_media_type = negotiator.select_renderer(renderers)
 
+    @property
+    def full_path(self):
+        if not self.query_string:
+            return self.path
+        return self.path + u'?' + self.query_string
+
     # @property
     # def auth(self):
     #     if not has_attribute(self, '_auth'):
