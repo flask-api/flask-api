@@ -21,7 +21,7 @@ class DefaultNegotiation(BaseNegotiation):
         Determine which parser to use for parsing the request body.
         Returns a two-tuple of (parser, content type).
         """
-        content_type_header = request.headers['Content-Type']
+        content_type_header = request.content_type
 
         client_media_type = MediaType(content_type_header)
         for parser in parsers:

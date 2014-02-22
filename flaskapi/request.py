@@ -4,7 +4,9 @@ from flask import Request
 from flaskapi.negotiation import DefaultNegotiation
 from flaskapi.settings import default_settings
 from werkzeug.datastructures import MultiDict
+from werkzeug.urls import url_decode_stream
 from werkzeug.wsgi import get_content_length
+import io
 
 
 class APIRequest(Request):
@@ -43,9 +45,29 @@ class APIRequest(Request):
             self._perform_content_negotiation()
         return self._accepted_media_type
 
+    @property
+    def method(self):
+        if not hasattr(self, '_method'):
+            self._perform_method_overloading()
+        return self._method
+
+    @property
+    def content_type(self):
+        if not hasattr(self, '_content_type'):
+            self._perform_method_overloading()
+        return self._content_type
+
+    # TODO: content_length property
+
+    @property
+    def stream(self):
+        if not hasattr(self, '_stream'):
+            self._perform_method_overloading()
+        return self._stream
+
     def _parse(self):
-        content_length = get_content_length(self.environ)
-        content_type = self.environ.get('CONTENT_TYPE')
+        content_length = get_content_length(self.environ)  # TODO: self.content_length
+        content_type = self.content_type
 
         if not content_type or not content_length:
             self._set_empty_data()
@@ -84,6 +106,23 @@ class APIRequest(Request):
         negotiator = self.negotiator_class()
         renderers = [renderer() for renderer in self.renderer_classes]
         self._accepted_renderer, self._accepted_media_type = negotiator.select_renderer(renderers)
+
+    def _perform_method_overloading(self):
+        self._method = super(APIRequest, self).method
+        self._stream = super(APIRequest, self).stream
+        self._content_type = self.headers.get('Content-Type')
+        # TODO: set content_length
+
+        if self._content_type == 'application/x-www-form-urlencoded':
+            body = self.get_data()
+            data = url_decode_stream(io.BytesIO(body))
+            self._stream = io.BytesIO(body)
+            if '_method' in data:
+                self._method = data['_method']
+            if '_content' in data and '_content_type' in data:
+                self._stream = io.BytesIO(data['_content'].encode('utf8'))
+                self._content_type = data['_content_type']
+                # TODO: Set content_length
 
     @property
     def full_path(self):
