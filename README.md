@@ -18,10 +18,13 @@ Future work on getting Flask API to a 1.0 release will include:
 * Authentication, including session, basic and token authentication.
 * Permissions, including a simple user-is-authenticated permission.
 * Throttling, including a base rate throttling implementation.
+* Support for using class based views, including the base view class.
 * Browsable API improvements, such as breadcrumb generation.
 * Customizable exception handling.
 * CSRF protection for session authenticated requests.
 * Login and logout views for the browsable API.
+* Documentation on how to deal with request validation.
+* Documentation on how to deal with hyperlinking.
 
 ## Installation
 
