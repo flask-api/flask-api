@@ -1,9 +1,27 @@
 # FlaskAPI
 
-**Work in progress**
+**Browsable Web APIs for Flask**
 
 [![Build Status][travis-image]][travis-link]
 [![Coverage Status][coveralls-image]][coveralls-link]
+
+## Overview
+
+Flask API is an implementation of the same web browsable APIs that [Django REST framework][django-rest-framework] provides.
+
+It gives you properly content negotiated responses and smart request parsing.
+
+It is currently a work in progress, but the fundamentals are in place and you can already start building kick-ass browsable Web APIs with it.  If you want to start using Flask API right now go ahead and do so, but be sure to follow the release notes of new versions carefully.
+
+Future work on getting Flask API to a 1.0 release will include:
+
+* Authentication, including session, basic and token authentication.
+* Permissions, including a simple user-is-authenticated permission.
+* Throttling, including a base rate throttling implementation.
+* Browsable API improvements, such as breadcrumb generation.
+* Customizable exception handling.
+* CSRF protection for session authenticated requests.
+* Login and logout views for the browsable API.
 
 ## Installation
 
@@ -95,7 +113,7 @@ Now run the webapp:
      * Running on http://127.0.0.1:5000/
      * Restarting with reloader
 
-You can now interact with the API both from the command line:
+You can now interact with the API from the command line:
 
     $ curl -X GET http://127.0.0.1:5000/
     {"0": {"text": "do the shopping"}, "1": {"text": "build the codez"}, "2": {"text": "paint the door"}}
@@ -108,3 +126,4 @@ And from your web browser:
 [travis-link]: https://travis-ci.org/tomchristie/flaskapi
 [coveralls-image]: https://coveralls.io/repos/tomchristie/flaskapi/badge.png?branch=master
 [coveralls-link]: https://coveralls.io/r/tomchristie/flaskapi?branch=master
+[django-rest-framework]: http://www.django-rest-framework.org
