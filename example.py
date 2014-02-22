@@ -10,6 +10,7 @@ notes = {
     2: {'text': 'paint the door'},
 }
 
+
 @app.route("/", methods=['GET', 'POST'])
 def notes_list():
     if request.method == 'POST':
