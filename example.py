@@ -14,9 +14,8 @@ notes = {
 @app.route("/", methods=['GET', 'POST'])
 def notes_list():
     if request.method == 'POST':
-        global idx
         note = {'text': str(request.data.get('text', ''))}
-        idx = max(list(notes.keys())) + 1
+        idx = max(notes.keys()) + 1
         notes[idx] = note
         return note, status.HTTP_201_CREATED
 
