@@ -1,7 +1,7 @@
 # coding: utf8
 from __future__ import unicode_literals
 from flask import request, Response
-from flask._compat import text_type
+from flask._compat import text_type, string_types
 
 
 class APIResponse(Response):
@@ -9,11 +9,14 @@ class APIResponse(Response):
         super(APIResponse, self).__init__(None, *args, **kwargs)
 
         media_type = None
-        if isinstance(content, (list, dict, text_type)):
+        if isinstance(content, (list, dict, text_type, string_types)):
             renderer = request.accepted_renderer
-            media_type = request.accepted_media_type
-            options = self.get_renderer_options()
-            content = renderer.render(content, media_type, **options)
+            if content != '' or renderer.handles_empty_responses:
+                media_type = request.accepted_media_type
+                options = self.get_renderer_options()
+                content = renderer.render(content, media_type, **options)
+                if self.status_code == 204:
+                    self.status_code = 200
 
         if isinstance(content, (text_type, bytes, bytearray)):
             self.set_data(content)

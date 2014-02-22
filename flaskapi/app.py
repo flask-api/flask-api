@@ -41,7 +41,7 @@ class FlaskAPI(Flask):
         if isinstance(rv, tuple):
             rv, status_or_headers, headers = rv + (None,) * (3 - len(rv))
 
-        if rv is None:
+        if rv is None and status_or_headers:
             raise ValueError('View function did not return a response')
 
         if isinstance(status_or_headers, (dict, list)):

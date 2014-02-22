@@ -31,8 +31,7 @@ def dedent(content):
 class BaseRenderer(object):
     media_type = None
     charset = 'utf-8'
-
-    # handles_empty_responses
+    handles_empty_responses = False
 
     def render(self, data, media_type, **options):
         msg = '`render()` method must be implemented for class "%s"'
@@ -50,6 +49,7 @@ class JSONRenderer(BaseRenderer):
 
 class BrowsableAPIRenderer(BaseRenderer):
     media_type = 'text/html'
+    handles_empty_responses = True
 
     def render(self, data, media_type, **options):
         # Render the content as it would have been if the client
@@ -61,7 +61,10 @@ class BrowsableAPIRenderer(BaseRenderer):
         assert available_renderers, 'BrowsableAPIRenderer cannot be the only renderer'
         mock_renderer = available_renderers[0]()
         mock_media_type = MediaType(mock_renderer.media_type)
-        mock_content = mock_renderer.render(data, mock_media_type, indent=4)
+        if data == '' and not mock_renderer.handles_empty_responses:
+            mock_content = None
+        else:
+            mock_content = mock_renderer.render(data, mock_media_type, indent=4)
 
         # Determine the allowed methods on this view.
         adapter = _request_ctx_stack.top.url_adapter

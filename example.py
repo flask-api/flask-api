@@ -32,7 +32,7 @@ def notes_detail(key):
 
     elif request.method == 'DELETE':
         notes.pop(key, None)
-        return None, status.HTTP_204_NO_CONTENT
+        return '', status.HTTP_204_NO_CONTENT
 
     # request.method == 'GET'
     if key not in notes:
