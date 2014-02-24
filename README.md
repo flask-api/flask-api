@@ -1,4 +1,4 @@
-# FlaskAPI
+# Flask API
 
 **Browsable Web APIs for Flask**
 
@@ -123,7 +123,7 @@ You can now interact with the API from the command line:
 
 And from your web browser:
 
-![Screenshot](screenshot.png)
+![Screenshot](docs/screenshot.png)
 
 [travis-image]: https://travis-ci.org/tomchristie/flaskapi.png?branch=master
 [travis-link]: https://travis-ci.org/tomchristie/flaskapi
