@@ -1,3 +1,4 @@
 Flask==0.10.1
 coverage==3.7.1
 flake8==2.1.0
+mkdocs==0.4
