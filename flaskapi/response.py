@@ -24,7 +24,7 @@ class APIResponse(Response):
             self.response = content
 
         if media_type is not None:
-            self.headers['Content-Type'] = media_type
+            self.headers['Content-Type'] = str(media_type)
 
     def get_renderer_options(self):
         return {

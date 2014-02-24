@@ -4,9 +4,11 @@ from __future__ import unicode_literals
 
 class MediaType(object):
     def __init__(self, media_type):
-        self.media_type = media_type
         self.main_type, self.sub_type, self.params = self._parse(media_type)
-        self.full_type = self.main_type + '/' + self.sub_type
+
+    @property
+    def full_type(self):
+        return self.main_type + '/' + self.sub_type
 
     @property
     def precedence(self):
@@ -53,24 +55,35 @@ class MediaType(object):
         Parse a media type string, like "application/json; indent=4" into a
         three-tuple, like: ('application', 'json', {'indent': 4})
         """
-        parts = media_type.split(';')
+        full_type, sep, param_string = media_type.partition(';')
         params = {}
-        for token in parts[1:]:
+        for token in param_string.strip().split(','):
             key, sep, value = [s.strip() for s in token.partition('=')]
             if value.startswith('"') and value.endswith('"'):
                 value = value[1:-1]
-            params[key] = value
-        main_type, sep, sub_type = [s.strip() for s in parts[0].partition('/')]
+            if key:
+                params[key] = value
+        main_type, sep, sub_type = [s.strip() for s in full_type.partition('/')]
         return (main_type, sub_type, params)
 
     def __repr__(self):
-        return '<%s "%s">' % (self.__class__.__name__, self.media_type)
+        return "<%s '%s'>" % (self.__class__.__name__, str(self))
 
     def __str__(self):
-        return self.media_type
+        """
+        Return a canonical string representing the media type.
+        Note that this ensures the params are sorted.
+        """
+        if self.params:
+            params_str = ', '.join([
+                '%s="%s"' % (key, val)
+                for key, val in sorted(self.params.items())
+            ])
+            return self.full_type + '; ' + params_str
+        return self.full_type
 
     def __hash__(self):
-        return hash(self.media_type)
+        return hash(str(self))
 
     def __eq__(self, other):
         # Compare two MediaType instances, ignoring parameter ordering.

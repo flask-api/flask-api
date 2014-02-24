@@ -6,18 +6,18 @@ import unittest
 
 class MediaTypeParsingTests(unittest.TestCase):
     def test_media_type_with_params(self):
-        media = MediaType('application/xml; schema=foobar; q=0.5')
-        self.assertEqual(str(media), 'application/xml; schema=foobar; q=0.5')
+        media = MediaType('application/xml; schema=foobar, q=0.5')
+        self.assertEqual(str(media), 'application/xml; q="0.5", schema="foobar"')
         self.assertEqual(media.main_type, 'application')
         self.assertEqual(media.sub_type, 'xml')
         self.assertEqual(media.full_type, 'application/xml')
         self.assertEqual(media.params, {'schema': 'foobar', 'q': '0.5'})
         self.assertEqual(media.precedence, 3)
-        self.assertEqual(repr(media), '<MediaType "application/xml; schema=foobar; q=0.5">')
+        self.assertEqual(repr(media), '<MediaType \'application/xml; q="0.5", schema="foobar"\'>')
 
     def test_media_type_with_q_params(self):
         media = MediaType('application/xml; q=0.5')
-        self.assertEqual(str(media), 'application/xml; q=0.5')
+        self.assertEqual(str(media), 'application/xml; q="0.5"')
         self.assertEqual(media.main_type, 'application')
         self.assertEqual(media.sub_type, 'xml')
         self.assertEqual(media.full_type, 'application/xml')
