@@ -6,3 +6,4 @@ pages:
   - ['api-guide/status-codes.md', 'API Guide', 'Status codes']
   - ['about/release-notes.md', 'About', 'Release Notes']
   - ['about/license.md', 'About', 'License']
+repo_url: https://github.com/tomchristie/flaskapi
