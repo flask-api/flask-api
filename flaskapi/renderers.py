@@ -43,7 +43,13 @@ class JSONRenderer(BaseRenderer):
     charset = None
 
     def render(self, data, media_type, **options):
-        indent = options.get('indent')
+        # Requested indentation may be set in the Accept header.
+        try:
+            indent = max(min(int(media_type.params['indent']), 8), 0)
+        except (KeyError, ValueError, TypeError):
+            indent = None
+        # Indent may be set explicitly, eg when rendered by the browsable API.
+        indent = options.get('indent', indent)
         return json.dumps(data, cls=JSONEncoder, ensure_ascii=False, indent=indent)
 
 
