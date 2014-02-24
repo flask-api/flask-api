@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+
+        <title>Status codes - Flask API</title>
+
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.0.3.css" rel="stylesheet">
+        <link href="../../css/prettify-1.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+        
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <!-- Main title -->
+            <a class="navbar-brand" href="../..">Flask API</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+            <!-- Main navigation -->
+            <ul class="nav navbar-nav">
+            
+            
+                <li >
+                    <a href="../..">Home</a>
+                </li>
+            
+            
+            
+                <li class="dropdown active">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">API Guide <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        <li >
+                            <a href="../renderers/">Renderers</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../parsers/">Parsers</a>
+                        </li>
+                    
+                        <li class="active">
+                            <a href="./">Status codes</a>
+                        </li>
+                    
+                    </ul>
+                </li>
+            
+            
+            
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">About <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        <li >
+                            <a href="../../about/release-notes/">Release Notes</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../../about/license/">License</a>
+                        </li>
+                    
+                    </ul>
+                </li>
+            
+            
+            </ul>
+
+            <!-- Search, Navigation and Repo links -->
+            <ul class="nav navbar-nav navbar-right">
+                
+                <li >
+                    <a rel="next" href="../parsers/">
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </li>
+                <li >
+                    <a rel="prev" href="../../about/release-notes/">
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+            <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+    
+        <li class="main active"><a href="#status-codes">Status Codes</a></li>
+        
+            <li><a href="#informational-1xx">Informational - 1xx</a></li>
+        
+            <li><a href="#successful-2xx">Successful - 2xx</a></li>
+        
+            <li><a href="#redirection-3xx">Redirection - 3xx</a></li>
+        
+            <li><a href="#client-error-4xx">Client Error - 4xx</a></li>
+        
+            <li><a href="#server-error-5xx">Server Error - 5xx</a></li>
+        
+            <li><a href="#helper-functions">Helper functions</a></li>
+        
+    
+    </ul>
+</div></div>
+            <div class="col-md-9" role="main">
+
+<h1 id="status-codes">Status Codes</h1>
+<p>Flask API includes a set of named constants that you can use to make more code more obvious and readable.</p>
+<pre class="prettyprint well"><code>from flaskapi import status
+
+...
+
+@app.route('/empty-view/')
+def empty_view(self):
+    content = {'please move along': 'nothing to see here'}
+    return content, status.HTTP_404_NOT_FOUND
+</code></pre>
+<p>The full set of HTTP status codes included in the <code>status</code> module is listed below.</p>
+<p>The module also includes a set of helper functions for testing if a status code is in a given range.</p>
+<pre class="prettyprint well"><code>from flaskapi import status
+import unittest
+
+...
+
+class ExampleTestCase(unittest.TestCase):
+    def test_success(self):
+        with app.test_client() as client:
+            response = client.get('/')
+            self.assertTrue(status.is_success(response.status_code))
+</code></pre>
+<p>For more information on proper usage of HTTP status codes see <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html">RFC 2616</a>
+and <a href="http://tools.ietf.org/html/rfc6585">RFC 6585</a>.</p>
+<h2 id="informational-1xx">Informational - 1xx</h2>
+<p>This class of status code indicates a provisional response.  There are no 1xx status codes used in REST framework by default.</p>
+<pre class="prettyprint well"><code>HTTP_100_CONTINUE
+HTTP_101_SWITCHING_PROTOCOLS
+</code></pre>
+<h2 id="successful-2xx">Successful - 2xx</h2>
+<p>This class of status code indicates that the client's request was successfully received, understood, and accepted.</p>
+<pre class="prettyprint well"><code>HTTP_200_OK
+HTTP_201_CREATED
+HTTP_202_ACCEPTED
+HTTP_203_NON_AUTHORITATIVE_INFORMATION
+HTTP_204_NO_CONTENT
+HTTP_205_RESET_CONTENT
+HTTP_206_PARTIAL_CONTENT
+</code></pre>
+<h2 id="redirection-3xx">Redirection - 3xx</h2>
+<p>This class of status code indicates that further action needs to be taken by the user agent in order to fulfill the request.</p>
+<pre class="prettyprint well"><code>HTTP_300_MULTIPLE_CHOICES
+HTTP_301_MOVED_PERMANENTLY
+HTTP_302_FOUND
+HTTP_303_SEE_OTHER
+HTTP_304_NOT_MODIFIED
+HTTP_305_USE_PROXY
+HTTP_306_RESERVED
+HTTP_307_TEMPORARY_REDIRECT
+</code></pre>
+<h2 id="client-error-4xx">Client Error - 4xx</h2>
+<p>The 4xx class of status code is intended for cases in which the client seems to have erred.  Except when responding to a HEAD request, the server SHOULD include an entity containing an explanation of the error situation, and whether it is a temporary or permanent condition.</p>
+<pre class="prettyprint well"><code>HTTP_400_BAD_REQUEST
+HTTP_401_UNAUTHORIZED
+HTTP_402_PAYMENT_REQUIRED
+HTTP_403_FORBIDDEN
+HTTP_404_NOT_FOUND
+HTTP_405_METHOD_NOT_ALLOWED
+HTTP_406_NOT_ACCEPTABLE
+HTTP_407_PROXY_AUTHENTICATION_REQUIRED
+HTTP_408_REQUEST_TIMEOUT
+HTTP_409_CONFLICT
+HTTP_410_GONE
+HTTP_411_LENGTH_REQUIRED
+HTTP_412_PRECONDITION_FAILED
+HTTP_413_REQUEST_ENTITY_TOO_LARGE
+HTTP_414_REQUEST_URI_TOO_LONG
+HTTP_415_UNSUPPORTED_MEDIA_TYPE
+HTTP_416_REQUESTED_RANGE_NOT_SATISFIABLE
+HTTP_417_EXPECTATION_FAILED
+HTTP_428_PRECONDITION_REQUIRED
+HTTP_429_TOO_MANY_REQUESTS
+HTTP_431_REQUEST_HEADER_FIELDS_TOO_LARGE
+</code></pre>
+<h2 id="server-error-5xx">Server Error - 5xx</h2>
+<p>Response status codes beginning with the digit "5" indicate cases in which the server is aware that it has erred or is incapable of performing the request.  Except when responding to a HEAD request, the server SHOULD include an entity containing an explanation of the error situation, and whether it is a temporary or permanent condition.</p>
+<pre class="prettyprint well"><code>HTTP_500_INTERNAL_SERVER_ERROR
+HTTP_501_NOT_IMPLEMENTED
+HTTP_502_BAD_GATEWAY
+HTTP_503_SERVICE_UNAVAILABLE
+HTTP_504_GATEWAY_TIMEOUT
+HTTP_505_HTTP_VERSION_NOT_SUPPORTED
+HTTP_511_NETWORK_AUTHENTICATION_REQUIRED
+</code></pre>
+<h2 id="helper-functions">Helper functions</h2>
+<p>The following helper functions are available for identifying the category of the response code.</p>
+<pre class="prettyprint well"><code>is_informational()  # 1xx
+is_success()        # 2xx
+is_redirect()       # 3xx
+is_client_error()   # 4xx
+is_server_error()   # 5xx
+</code></pre>
+</div>
+        </div>
+
+        
+
+        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/prettify-1.0.min.js"></script>
+        <script src="../../js/base.js"></script>
+    </body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+
+        <title>Exceptions - Flask API</title>
+
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.0.3.css" rel="stylesheet">
+        <link href="../../css/prettify-1.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+        
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <!-- Main title -->
+            <a class="navbar-brand" href="../..">Flask API</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+            <!-- Main navigation -->
+            <ul class="nav navbar-nav">
+            
+            
+                <li >
+                    <a href="../..">Home</a>
+                </li>
+            
+            
+            
+                <li class="dropdown active">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">API Guide <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        <li >
+                            <a href="../renderers/">Renderers</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../parsers/">Parsers</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../status-codes/">Status codes</a>
+                        </li>
+                    
+                        <li class="active">
+                            <a href="./">Exceptions</a>
+                        </li>
+                    
+                    </ul>
+                </li>
+            
+            
+            </ul>
+
+            <!-- Search, Navigation and Repo links -->
+            <ul class="nav navbar-nav navbar-right">
+                
+                <li >
+                    <a rel="next" href="../status-codes/">
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </li>
+                <li class="disabled">
+                    <a rel="prev" >
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+            <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+    
+        <li class="main active"><a href="#exceptions">Exceptions</a></li>
+        
+            <li><a href="#exception-handling-in-flask-api">Exception handling in Flask API</a></li>
+        
+            <li><a href="#custom-exception-handling">Custom exception handling</a></li>
+        
+    
+        <li class="main "><a href="#api-reference">API Reference</a></li>
+        
+            <li><a href="#apiexception">APIException</a></li>
+        
+            <li><a href="#parseerror">ParseError</a></li>
+        
+            <li><a href="#authenticationfailed">AuthenticationFailed</a></li>
+        
+            <li><a href="#notauthenticated">NotAuthenticated</a></li>
+        
+            <li><a href="#permissiondenied">PermissionDenied</a></li>
+        
+            <li><a href="#methodnotallowed">MethodNotAllowed</a></li>
+        
+            <li><a href="#unsupportedmediatype">UnsupportedMediaType</a></li>
+        
+            <li><a href="#throttled">Throttled</a></li>
+        
+    
+    </ul>
+</div></div>
+            <div class="col-md-9" role="main">
+
+<p><a class="github" href="exceptions.py"></a></p>
+<h1 id="exceptions">Exceptions</h1>
+<h2 id="exception-handling-in-flask-api">Exception handling in Flask API</h2>
+<p>REST framework's views handle various exceptions, and deal with returning appropriate error responses.</p>
+<p>The handled exceptions are:</p>
+<ul>
+<li>Subclasses of <code>APIException</code> raised inside REST framework.</li>
+<li>Django's <code>Http404</code> exception.</li>
+<li>Django's <code>PermissionDenied</code> exception.</li>
+</ul>
+<p>In each case, REST framework will return a response with an appropriate status code and content-type.  The body of the response will include any additional details regarding the nature of the error.</p>
+<p>By default all error responses will include a key <code>detail</code> in the body of the response, but other keys may also be included.</p>
+<p>For example, the following request:</p>
+<pre class="prettyprint well"><code>DELETE http://api.example.com/foo/bar HTTP/1.1
+Accept: application/json
+</code></pre>
+<p>Might receive an error response indicating that the <code>DELETE</code> method is not allowed on that resource:</p>
+<pre class="prettyprint well"><code>HTTP/1.1 405 Method Not Allowed
+Content-Type: application/json
+Content-Length: 42
+
+{"detail": "Method 'DELETE' not allowed."}
+</code></pre>
+<h2 id="custom-exception-handling">Custom exception handling</h2>
+<p>You can implement custom exception handling by creating a handler function that converts exceptions raised in your API views into response objects.  This allows you to control the style of error responses used by your API.</p>
+<p>The function must take a single argument, which is the exception to be handled, and should either return a <code>Response</code> object, or return <code>None</code> if the exception cannot be handled.  If the handler returns <code>None</code> then the exception will be re-raised and Django will return a standard HTTP 500 'server error' response.</p>
+<p>For example, you might want to ensure that all error responses include the HTTP status code in the body of the response, like so:</p>
+<pre class="prettyprint well"><code>HTTP/1.1 405 Method Not Allowed
+Content-Type: application/json
+Content-Length: 62
+
+{"status_code": 405, "detail": "Method 'DELETE' not allowed."}
+</code></pre>
+<p>In order to alter the style of the response, you could write the following custom exception handler:</p>
+<pre class="prettyprint well"><code>from rest_framework.views import exception_handler
+
+def custom_exception_handler(exc):
+    # Call REST framework's default exception handler first,
+    # to get the standard error response.
+    response = exception_handler(exc)
+
+    # Now add the HTTP status code to the response.
+    if response is not None:
+        response.data['status_code'] = response.status_code
+
+    return response
+</code></pre>
+<p>The exception handler must also be configured in your settings, using the <code>EXCEPTION_HANDLER</code> setting key. For example:</p>
+<pre class="prettyprint well"><code>REST_FRAMEWORK = {
+    'EXCEPTION_HANDLER': 'my_project.my_app.utils.custom_exception_handler'
+}
+</code></pre>
+<p>If not specified, the <code>'EXCEPTION_HANDLER'</code> setting defaults to the standard exception handler provided by REST framework:</p>
+<pre class="prettyprint well"><code>REST_FRAMEWORK = {
+    'EXCEPTION_HANDLER': 'rest_framework.views.exception_handler'
+}
+</code></pre>
+<p>Note that the exception handler will only be called for responses generated by raised exceptions.  It will not be used for any responses returned directly by the view, such as the <code>HTTP_400_BAD_REQUEST</code> responses that are returned by the generic views when serializer validation fails.</p>
+<hr />
+<h1 id="api-reference">API Reference</h1>
+<h2 id="apiexception">APIException</h2>
+<p><strong>Signature:</strong> <code>APIException()</code></p>
+<p>The <strong>base class</strong> for all exceptions raised inside REST framework.</p>
+<p>To provide a custom exception, subclass <code>APIException</code> and set the <code>.status_code</code> and <code>.default_detail</code> properties on the class.</p>
+<p>For example, if your API relies on a third party service that may sometimes be unreachable, you might want to implement an exception for the "503 Service Unavailable" HTTP response code.  You could do this like so:</p>
+<pre class="prettyprint well"><code>from rest_framework.exceptions import APIException
+
+class ServiceUnavailable(APIException):
+    status_code = 503
+    default_detail = 'Service temporarily unavailable, try again later.'
+</code></pre>
+<h2 id="parseerror">ParseError</h2>
+<p><strong>Signature:</strong> <code>ParseError(detail=None)</code></p>
+<p>Raised if the request contains malformed data when accessing <code>request.DATA</code> or <code>request.FILES</code>.</p>
+<p>By default this exception results in a response with the HTTP status code "400 Bad Request".</p>
+<h2 id="authenticationfailed">AuthenticationFailed</h2>
+<p><strong>Signature:</strong> <code>AuthenticationFailed(detail=None)</code></p>
+<p>Raised when an incoming request includes incorrect authentication.</p>
+<p>By default this exception results in a response with the HTTP status code "401 Unauthenticated", but it may also result in a "403 Forbidden" response, depending on the authentication scheme in use.</p>
+<h2 id="notauthenticated">NotAuthenticated</h2>
+<p><strong>Signature:</strong> <code>NotAuthenticated(detail=None)</code></p>
+<p>Raised when an unauthenticated request fails the permission checks.</p>
+<p>By default this exception results in a response with the HTTP status code "401 Unauthenticated", but it may also result in a "403 Forbidden" response, depending on the authentication scheme in use.</p>
+<h2 id="permissiondenied">PermissionDenied</h2>
+<p><strong>Signature:</strong> <code>PermissionDenied(detail=None)</code></p>
+<p>Raised when an authenticated request fails the permission checks.</p>
+<p>By default this exception results in a response with the HTTP status code "403 Forbidden".</p>
+<h2 id="methodnotallowed">MethodNotAllowed</h2>
+<p><strong>Signature:</strong> <code>MethodNotAllowed(method, detail=None)</code></p>
+<p>Raised when an incoming request occurs that does not map to a handler method on the view.</p>
+<p>By default this exception results in a response with the HTTP status code "405 Method Not Allowed".</p>
+<h2 id="unsupportedmediatype">UnsupportedMediaType</h2>
+<p><strong>Signature:</strong> <code>UnsupportedMediaType(media_type, detail=None)</code></p>
+<p>Raised if there are no parsers that can handle the content type of the request data when accessing <code>request.DATA</code> or <code>request.FILES</code>.</p>
+<p>By default this exception results in a response with the HTTP status code "415 Unsupported Media Type".</p>
+<h2 id="throttled">Throttled</h2>
+<p><strong>Signature:</strong> <code>Throttled(wait=None, detail=None)</code></p>
+<p>Raised when an incoming request fails the throttling checks.</p>
+<p>By default this exception results in a response with the HTTP status code "429 Too Many Requests".</p>
+</div>
+        </div>
+
+        
+
+        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/prettify-1.0.min.js"></script>
+        <script src="../../js/base.js"></script>
+    </body>
+</html>

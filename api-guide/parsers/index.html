@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+
+        <title>Parsers - Flask API</title>
+
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.0.3.css" rel="stylesheet">
+        <link href="../../css/prettify-1.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+        
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <!-- Main title -->
+            <a class="navbar-brand" href="../..">Flask API</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+            <!-- Main navigation -->
+            <ul class="nav navbar-nav">
+            
+            
+                <li >
+                    <a href="../..">Home</a>
+                </li>
+            
+            
+            
+                <li class="dropdown active">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">API Guide <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        <li >
+                            <a href="../renderers/">Renderers</a>
+                        </li>
+                    
+                        <li class="active">
+                            <a href="./">Parsers</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../status-codes/">Status codes</a>
+                        </li>
+                    
+                    </ul>
+                </li>
+            
+            
+            
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">About <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        <li >
+                            <a href="../../about/release-notes/">Release Notes</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../../about/license/">License</a>
+                        </li>
+                    
+                    </ul>
+                </li>
+            
+            
+            </ul>
+
+            <!-- Search, Navigation and Repo links -->
+            <ul class="nav navbar-nav navbar-right">
+                
+                <li >
+                    <a rel="next" href="../renderers/">
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </li>
+                <li >
+                    <a rel="prev" href="../status-codes/">
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+            <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+    
+        <li class="main active"><a href="#parsers">Parsers</a></li>
+        
+            <li><a href="#how-the-parser-is-determined">How the parser is determined</a></li>
+        
+            <li><a href="#setting-the-parsers">Setting the parsers</a></li>
+        
+    
+        <li class="main "><a href="#api-reference">API Reference</a></li>
+        
+            <li><a href="#jsonparser">JSONParser</a></li>
+        
+            <li><a href="#formparser">FormParser</a></li>
+        
+            <li><a href="#multipartparser">MultiPartParser</a></li>
+        
+    
+        <li class="main "><a href="#custom-parsers">Custom parsers</a></li>
+        
+            <li><a href="#example">Example</a></li>
+        
+    
+    </ul>
+</div></div>
+            <div class="col-md-9" role="main">
+
+<h1 id="parsers">Parsers</h1>
+<p>Parsers are responsible for taking the content of the request body as a bytestream, and transforming it into a native Python data representation.</p>
+<p>Flask API includes a few built-in parser classes and also provides support for defining your own custom parsers.</p>
+<h2 id="how-the-parser-is-determined">How the parser is determined</h2>
+<p>The set of valid parsers for a view is always defined as a list of classes.  When any of the properties <code>request.data</code>, <code>request.form</code> or <code>request.files</code> are accessed, Flask API will examine the <code>Content-Type</code> header on the incoming request, and determine which parser to use to handle the request content.</p>
+<hr />
+<p><strong>Note</strong>: When developing client applications always remember to make sure you're setting the <code>Content-Type</code> header when sending data in an HTTP request.</p>
+<p>If you don't set the content type, most clients will default to using <code>'application/x-www-form-urlencoded'</code>, which may not be what you wanted.</p>
+<p>As an example, if you are sending <code>json</code> encoded data using jQuery with the <a href="http://api.jquery.com/jQuery.ajax/">.ajax() method</a>, you should make sure to include the <code>contentType: 'application/json'</code> setting.</p>
+<hr />
+<h2 id="setting-the-parsers">Setting the parsers</h2>
+<p>The default set of parsers may be set globally, using the <code>DEFAULT_PARSERS</code> configuration key.  The default configuration will deal with parsing either JSON or form encoded requests.</p>
+<pre class="prettyprint well"><code>app.config['DEFAULT_PARSERS'] = [
+    'flaskapi.parsers.JSONParser',
+    'flaskapi.parsers.URLEncodedParser',
+    'flaskapi.parsers.MultiPartParser'
+]
+</code></pre>
+<p>You can also set the parsers used for an individual view, using the <code>set_parsers</code> decorator.</p>
+<pre class="prettyprint well"><code>from flaskapi.decorators import set_parsers
+
+...
+
+@app.route('/example_view/')
+@set_parsers(JSONParser, MyCustomXMLParser)
+def example():
+    return {
+        'example': 'Setting renderers on a per-view basis',
+        'request data': request.data
+    }
+</code></pre>
+<hr />
+<h1 id="api-reference">API Reference</h1>
+<h2 id="jsonparser">JSONParser</h2>
+<p>Parses <code>JSON</code> request content and populates <code>request.data</code>.</p>
+<p><strong>media_type</strong>: <code>application/json</code></p>
+<h2 id="formparser">FormParser</h2>
+<p>Parses HTML form content.  <code>request.data</code> will be populated with a <code>MultiDict</code> of data.</p>
+<p>You will typically want to use both <code>FormParser</code> and <code>MultiPartParser</code> together in order to fully support HTML form data.</p>
+<p><strong>media_type</strong>: <code>application/x-www-form-urlencoded</code></p>
+<h2 id="multipartparser">MultiPartParser</h2>
+<p>Parses multipart HTML form content, which supports file uploads.  Both <code>request.data</code> and <code>request.files</code> will be populated with a <code>MultiDict</code>.</p>
+<p>You will typically want to use both <code>FormParser</code> and <code>MultiPartParser</code> together in order to fully support HTML form data.</p>
+<p><strong>media_type</strong>: <code>multipart/form-data</code></p>
+<hr />
+<h1 id="custom-parsers">Custom parsers</h1>
+<p>To implement a custom parser, you should override <code>BaseParser</code>, set the <code>.media_type</code> property, and implement the <code>.parse(self, stream, media_type, **options)</code> method.</p>
+<p>The method should return the data that will be used to populate the <code>request.data</code> property.</p>
+<p>The arguments passed to <code>.parse()</code> are:</p>
+<p><strong><code>stream</code></strong></p>
+<p>A bytestream representing the body of the request.</p>
+<p><strong><code>media_type</code></strong></p>
+<p>An instance of MediaType indicating media type of the incoming request.</p>
+<p>Depending on the request's <code>Content-Type:</code> header, this may be more specific than the renderer's <code>media_type</code> attribute, and may include media type parameters.  For example <code>"text/plain; charset=utf-8"</code>.</p>
+<p><strong><code>**options</code></strong></p>
+<p>Any additional contextual arguments that may be required in order to parse the request.
+By default this includes a single keyword argument:</p>
+<ul>
+<li><code>content_length</code> - An integer representing the length of the request body in bytes.</li>
+</ul>
+<h2 id="example">Example</h2>
+<p>The following is an example plaintext parser that will populate the <code>request.data</code> property with a string representing the body of the request. </p>
+<pre class="prettyprint well"><code>class PlainTextParser(BaseParser):
+    """
+    Plain text parser.
+    """
+    media_type = 'text/plain'
+
+    def parse(self, stream, media_type, **options):
+        """
+        Simply return a string representing the body of the request.
+        """
+        return stream.read().decode('utf8')
+</code></pre>
+</div>
+        </div>
+
+        
+
+        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/prettify-1.0.min.js"></script>
+        <script src="../../js/base.js"></script>
+    </body>
+</html>

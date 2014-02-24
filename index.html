@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="./img/favicon.ico">
+
+        <title>Flask API</title>
+
+        <link href="./css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="./css/font-awesome-4.0.3.css" rel="stylesheet">
+        <link href="./css/prettify-1.0.css" rel="stylesheet">
+        <link href="./css/base.css" rel="stylesheet">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+        
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <!-- Main title -->
+            <a class="navbar-brand" href=".">Flask API</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+            <!-- Main navigation -->
+            <ul class="nav navbar-nav">
+            
+            
+                <li class="active">
+                    <a href=".">Home</a>
+                </li>
+            
+            
+            
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">API Guide <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        <li >
+                            <a href="api-guide/renderers/">Renderers</a>
+                        </li>
+                    
+                        <li >
+                            <a href="api-guide/parsers/">Parsers</a>
+                        </li>
+                    
+                        <li >
+                            <a href="api-guide/status-codes/">Status codes</a>
+                        </li>
+                    
+                    </ul>
+                </li>
+            
+            
+            
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">About <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        <li >
+                            <a href="about/release-notes/">Release Notes</a>
+                        </li>
+                    
+                        <li >
+                            <a href="about/license/">License</a>
+                        </li>
+                    
+                    </ul>
+                </li>
+            
+            
+            </ul>
+
+            <!-- Search, Navigation and Repo links -->
+            <ul class="nav navbar-nav navbar-right">
+                
+                <li class="disabled">
+                    <a rel="next" >
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </li>
+                <li >
+                    <a rel="prev" href="api-guide/renderers/">
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+            <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+    
+        <li class="main active"><a href="#overview">Overview</a></li>
+        
+    
+        <li class="main "><a href="#installation">Installation</a></li>
+        
+    
+        <li class="main "><a href="#returning-responses">Returning responses</a></li>
+        
+    
+        <li class="main "><a href="#request-data">Request data</a></li>
+        
+    
+        <li class="main "><a href="#a-full-example">A full example</a></li>
+        
+    
+    </ul>
+</div></div>
+            <div class="col-md-9" role="main">
+
+<div style="text-align: center">
+<h1 style="font-size: 60px">Flask API</h1>
+
+<p>Browsable Web APIs for Flask</p>
+</div>
+
+<hr />
+<h2 id="overview">Overview</h2>
+<p>Flask API is an implementation of the same web browsable APIs that <a href="http://www.django-rest-framework.org">Django REST framework</a> provides.</p>
+<p>It gives you properly content negotiated responses and smart request parsing.</p>
+<p>It is currently a work in progress, but the fundamentals are in place and you can already start building kick-ass browsable Web APIs with it.  If you want to start using Flask API right now go ahead and do so, but be sure to follow the release notes of new versions carefully.</p>
+<p>Future work on getting Flask API to a 1.0 release will include:</p>
+<ul>
+<li>Authentication, including session, basic and token authentication.</li>
+<li>Permissions, including a simple user-is-authenticated permission.</li>
+<li>Throttling, including a base rate throttling implementation.</li>
+<li>Support for using class based views, including the base view class.</li>
+<li>Browsable API improvements, such as breadcrumb generation.</li>
+<li>Customizable exception handling.</li>
+<li>CSRF protection for session authenticated requests.</li>
+<li>Login and logout views for the browsable API.</li>
+<li>Documentation on how to deal with request validation.</li>
+<li>Documentation on how to deal with hyperlinking.</li>
+</ul>
+<h2 id="installation">Installation</h2>
+<p>Requirements:</p>
+<ul>
+<li>Python 2.7 or 3.3.</li>
+<li>Flask 0.10.</li>
+</ul>
+<p>Install using <code>pip</code>.</p>
+<pre class="prettyprint well"><code>pip install flaskapi
+</code></pre>
+<p>Import and initialize your application.</p>
+<pre class="prettyprint well"><code>from flaskapi import FlaskAPI
+
+app = FlaskAPI(__main__)
+</code></pre>
+<h2 id="returning-responses">Returning responses</h2>
+<p>Return any valid response object as normal, or return a <code>list</code> or <code>dict</code>.</p>
+<pre class="prettyprint well"><code>@app.route('/example/')
+def example():
+    return {'hello': 'world'}
+</code></pre>
+<p>A renderer for the response data will be selected using content negotation based on the client 'Accept' header. If you're making the API request from a regular client, this will default to a JSON response. If you're viewing the API in a browser it'll default to the browsable API HTML. </p>
+<h2 id="request-data">Request data</h2>
+<p>Access the parsed request data using <code>request.data</code>.  This will handle JSON or form data by default.</p>
+<pre class="prettyprint well"><code>@app.route('/example/')
+def example():
+    return {'request data': request.data}
+</code></pre>
+<h2 id="a-full-example">A full example</h2>
+<p>The following example demonstates a simple API for creating, listing, updating and deleting notes.</p>
+<pre class="prettyprint well"><code>from flask import request
+from flaskapi import FlaskAPI, status, exceptions
+
+app = FlaskAPI(__name__)
+
+
+notes = {
+    0: {'text': 'do the shopping'},
+    1: {'text': 'build the codez'},
+    2: {'text': 'paint the door'},
+}
+
+
+@app.route("/", methods=['GET', 'POST'])
+def notes_list():
+    if request.method == 'POST':
+        note = {'text': str(request.data.get('text', ''))}
+        idx = max(notes.keys()) + 1
+        notes[idx] = note
+        return note, status.HTTP_201_CREATED
+
+    # request.method == 'GET'
+    return notes
+
+
+@app.route("/&lt;int:key&gt;/", methods=['GET', 'PUT', 'DELETE'])
+def notes_detail(key):
+    if request.method == 'PUT':
+        note = {'text': str(request.data.get('text', ''))}
+        notes[key] = note
+        return note
+
+    elif request.method == 'DELETE':
+        notes.pop(key, None)
+        return '', status.HTTP_204_NO_CONTENT
+
+    # request.method == 'GET'
+    if key not in notes:
+        raise exceptions.NotFound()
+    return notes[key]
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
+</code></pre>
+<p>Now run the webapp:</p>
+<pre class="prettyprint well"><code>$ python ./example.py
+ * Running on http://127.0.0.1:5000/
+ * Restarting with reloader
+</code></pre>
+<p>You can now interact with the API from the command line:</p>
+<pre class="prettyprint well"><code>$ curl -X GET http://127.0.0.1:5000/
+{"0": {"text": "do the shopping"}, "1": {"text": "build the codez"}, "2": {"text": "paint the door"}}
+</code></pre>
+<p>And from your web browser:</p>
+<p><img alt="Screenshot" src="screenshot.png" /></p>
+</div>
+        </div>
+
+        
+
+        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="./js/bootstrap-3.0.3.min.js"></script>
+        <script src="./js/prettify-1.0.min.js"></script>
+        <script src="./js/base.js"></script>
+    </body>
+</html>
