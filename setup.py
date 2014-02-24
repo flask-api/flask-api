@@ -10,7 +10,7 @@ import sys
 
 name = 'flaskapi'
 package = 'flaskapi'
-description = 'In progress.'
+description = 'Browsable web APIs for Flask.'
 url = 'http://www.flaskapi.org'
 author = 'Tom Christie'
 author_email = 'tom@tomchristie.com'
@@ -19,7 +19,7 @@ install_requires = [
     'Flask==0.10.1',
 ]
 
-long_description = """Work in progress."""
+long_description = """Browsable web APIs for Flask."""
 
 
 def get_version(package):
