@@ -6,3 +6,4 @@ flaskapi.egg-info/
 *.pyc
 __pycache__
 .coverage
+site/
