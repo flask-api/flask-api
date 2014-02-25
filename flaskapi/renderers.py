@@ -28,6 +28,10 @@ def dedent(content):
     return content.strip()
 
 
+def convert_to_title(name):
+    return name.replace('-', ' ').replace('_', ' ').capitalize()
+
+
 class BaseRenderer(object):
     media_type = None
     charset = 'utf-8'
@@ -93,7 +97,7 @@ class BrowsableAPIRenderer(BaseRenderer):
             'headers': headers,
             'content': mock_content,
             'allowed_methods': allowed_methods,
-            'view_name': view_name,
+            'view_name': convert_to_title(view_name),
             'view_description': view_description,
             'version': __version__
         }
