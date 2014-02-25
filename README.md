@@ -1,9 +1,10 @@
-# Flask API
+<div style="text-align: center">
+<h1 style="font-size: 60px">Flask API</h1>
 
-**Browsable Web APIs for Flask**
+<p>Browsable Web APIs for Flask</p>
+</div>
 
-[![Build Status][travis-image]][travis-link]
-[![Coverage Status][coveralls-image]][coveralls-link]
+---
 
 ## Overview
 
@@ -12,6 +13,10 @@ Flask API is an implementation of the same web browsable APIs that [Django REST 
 It gives you properly content negotiated responses and smart request parsing.
 
 It is currently a work in progress, but the fundamentals are in place and you can already start building kick-ass browsable Web APIs with it.  If you want to start using Flask API right now go ahead and do so, but be sure to follow the release notes of new versions carefully.
+
+![Screenshot](docs/screenshot.png)
+
+## Roadmap
 
 Future work on getting Flask API to a 1.0 release will include:
 
@@ -25,6 +30,8 @@ Future work on getting Flask API to a 1.0 release will include:
 * Login and logout views for the browsable API.
 * Documentation on how to deal with request validation.
 * Documentation on how to deal with hyperlinking.
+
+It is also possible that the core of Flask API could be refactored into an external dependancy, in order to make browsable APIs easily available to any Python web framework.
 
 ## Installation
 
@@ -116,17 +123,24 @@ Now run the webapp:
      * Running on http://127.0.0.1:5000/
      * Restarting with reloader
 
-You can now interact with the API from the command line:
+You can now open a new tab and interact with the API from the command line:
 
     $ curl -X GET http://127.0.0.1:5000/
     {"0": {"text": "do the shopping"}, "1": {"text": "build the codez"}, "2": {"text": "paint the door"}}
+    $ curl -X GET http://127.0.0.1:5000/1/
+    {"1": {"text": "build the codez"}}
+    $ curl -X PUT http://127.0.0.1:5000/1/ -d text="flask api is teh awesomez"
+    {"text": "flask api is teh awesomez"}
 
-And from your web browser:
+You can also open the API directly in your browser and make `GET`, `PUT`, `POST` and `DELETE` requests.
 
-![Screenshot](docs/screenshot.png)
+---
+
+To stay up to date with progress on Flask API, follow Tom Christie on twitter, [here][tomchristie].
 
 [travis-image]: https://travis-ci.org/tomchristie/flaskapi.png?branch=master
 [travis-link]: https://travis-ci.org/tomchristie/flaskapi
 [coveralls-image]: https://coveralls.io/repos/tomchristie/flaskapi/badge.png?branch=master
 [coveralls-link]: https://coveralls.io/r/tomchristie/flaskapi?branch=master
 [django-rest-framework]: http://www.django-rest-framework.org
+[tomchristie]: https://twitter.com/_tomchristie
