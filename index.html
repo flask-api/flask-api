@@ -130,6 +130,9 @@
         <li class="main active"><a href="#overview">Overview</a></li>
         
     
+        <li class="main "><a href="#roadmap">Roadmap</a></li>
+        
+    
         <li class="main "><a href="#installation">Installation</a></li>
         
     
@@ -157,6 +160,8 @@
 <p>Flask API is an implementation of the same web browsable APIs that <a href="http://www.django-rest-framework.org">Django REST framework</a> provides.</p>
 <p>It gives you properly content negotiated responses and smart request parsing.</p>
 <p>It is currently a work in progress, but the fundamentals are in place and you can already start building kick-ass browsable Web APIs with it.  If you want to start using Flask API right now go ahead and do so, but be sure to follow the release notes of new versions carefully.</p>
+<p><img alt="Screenshot" src="screenshot.png" /></p>
+<h2 id="roadmap">Roadmap</h2>
 <p>Future work on getting Flask API to a 1.0 release will include:</p>
 <ul>
 <li>Authentication, including session, basic and token authentication.</li>
@@ -170,6 +175,7 @@
 <li>Documentation on how to deal with request validation.</li>
 <li>Documentation on how to deal with hyperlinking.</li>
 </ul>
+<p>It is also possible that the core of Flask API could be refactored into an external dependancy, in order to make browsable APIs easily available to any Python web framework.</p>
 <h2 id="installation">Installation</h2>
 <p>Requirements:</p>
 <ul>
@@ -249,12 +255,17 @@ if __name__ == "__main__":
  * Running on http://127.0.0.1:5000/
  * Restarting with reloader
 </code></pre>
-<p>You can now interact with the API from the command line:</p>
+<p>You can now open a new tab and interact with the API from the command line:</p>
 <pre class="prettyprint well"><code>$ curl -X GET http://127.0.0.1:5000/
 {"0": {"text": "do the shopping"}, "1": {"text": "build the codez"}, "2": {"text": "paint the door"}}
+$ curl -X GET http://127.0.0.1:5000/1/
+{"1": {"text": "build the codez"}}
+$ curl -X PUT http://127.0.0.1:5000/1/ -d text="flask api is teh awesomez"
+{"text": "flask api is teh awesomez"}
 </code></pre>
-<p>And from your web browser:</p>
-<p><img alt="Screenshot" src="screenshot.png" /></p>
+<p>You can also open the API directly in your browser and make <code>GET</code>, <code>PUT</code>, <code>POST</code> and <code>DELETE</code> requests.</p>
+<hr />
+<p>To stay up to date with progress on Flask API, follow Tom Christie on twitter, <a href="https://twitter.com/_tomchristie">here</a>.</p>
 </div>
         </div>
 
