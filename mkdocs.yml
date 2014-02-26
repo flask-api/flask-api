@@ -7,3 +7,6 @@ pages:
   - ['about/release-notes.md', 'About', 'Release Notes']
   - ['about/license.md', 'About', 'License']
 repo_url: https://github.com/tomchristie/flaskapi
+theme_center_homepage_lead: true
+copyright: Copyright &copy; 2014, <a href="https://twitter.com/_tomchristie">Tom Christie</a>.
+google_analytics: ['UA-27795084-4', 'flaskapi.org']

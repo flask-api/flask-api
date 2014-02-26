@@ -1,8 +1,6 @@
-<div style="text-align: center">
-<h1 style="font-size: 60px">Flask API</h1>
+# Flask API
 
-<p>Browsable Web APIs for Flask</p>
-</div>
+Browsable Web APIs for Flask
 
 ---
 
