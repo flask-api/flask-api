@@ -122,7 +122,7 @@
                 </li>
                 
                 <li>
-                    <a href="https://github.com/tomchristie/flaskapi">
+                    <a href="https://github.com/tomchristie/flask-api">
                         
                             <i class="fa fa-github"></i>
                         
@@ -177,13 +177,14 @@
 <h2 id="setting-the-parsers">Setting the parsers</h2>
 <p>The default set of parsers may be set globally, using the <code>DEFAULT_PARSERS</code> configuration key.  The default configuration will deal with parsing either JSON or form encoded requests.</p>
 <pre class="prettyprint well"><code>app.config['DEFAULT_PARSERS'] = [
-    'flaskapi.parsers.JSONParser',
-    'flaskapi.parsers.URLEncodedParser',
-    'flaskapi.parsers.MultiPartParser'
+    'flask.ext.api.parsers.JSONParser',
+    'flask.ext.api.parsers.URLEncodedParser',
+    'flask.ext.api.parsers.MultiPartParser'
 ]
 </code></pre>
 <p>You can also set the parsers used for an individual view, using the <code>set_parsers</code> decorator.</p>
-<pre class="prettyprint well"><code>from flaskapi.decorators import set_parsers
+<pre class="prettyprint well"><code>from flask.ext.api.decorators import set_parsers
+from flask.ext.api.parsers import JSONParser
 
 ...
 
@@ -244,7 +245,7 @@ By default this includes a single keyword argument:</p>
         <footer class="col-md-12">
             <hr>
             
-            <p>Copyright &copy; 2014, <a href="https://twitter.com/_tomchristie">Tom Christie</a>.</p>
+            <p><a href="/about/license">BSD licensed</a> <b>&middot;</b> Copyright &copy; 2014, <a href="https://twitter.com/_tomchristie">Tom Christie</a>.</p>
             
             <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>

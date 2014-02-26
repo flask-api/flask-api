@@ -133,7 +133,7 @@
                 </li>
                 
                 <li>
-                    <a href="https://github.com/tomchristie/flaskapi">
+                    <a href="https://github.com/tomchristie/flask-api">
                         
                             <i class="fa fa-github"></i>
                         
@@ -158,11 +158,13 @@
         
             <li><a href="#installation">Installation</a></li>
         
-            <li><a href="#returning-responses">Returning responses</a></li>
+            <li><a href="#responses">Responses</a></li>
         
-            <li><a href="#request-data">Request data</a></li>
+            <li><a href="#requests">Requests</a></li>
         
-            <li><a href="#a-full-example">A full example</a></li>
+            <li><a href="#example">Example</a></li>
+        
+            <li><a href="#credits">Credits</a></li>
         
     
     </ul>
@@ -199,30 +201,30 @@
 <li>Flask 0.10.</li>
 </ul>
 <p>Install using <code>pip</code>.</p>
-<pre class="prettyprint well"><code>pip install flaskapi
+<pre class="prettyprint well"><code>pip install Flask-API
 </code></pre>
 <p>Import and initialize your application.</p>
-<pre class="prettyprint well"><code>from flaskapi import FlaskAPI
+<pre class="prettyprint well"><code>from flask.ext.api import FlaskAPI
 
 app = FlaskAPI(__main__)
 </code></pre>
-<h2 id="returning-responses">Returning responses</h2>
+<h2 id="responses">Responses</h2>
 <p>Return any valid response object as normal, or return a <code>list</code> or <code>dict</code>.</p>
 <pre class="prettyprint well"><code>@app.route('/example/')
 def example():
     return {'hello': 'world'}
 </code></pre>
 <p>A renderer for the response data will be selected using content negotation based on the client 'Accept' header. If you're making the API request from a regular client, this will default to a JSON response. If you're viewing the API in a browser it'll default to the browsable API HTML. </p>
-<h2 id="request-data">Request data</h2>
+<h2 id="requests">Requests</h2>
 <p>Access the parsed request data using <code>request.data</code>.  This will handle JSON or form data by default.</p>
 <pre class="prettyprint well"><code>@app.route('/example/')
 def example():
     return {'request data': request.data}
 </code></pre>
-<h2 id="a-full-example">A full example</h2>
+<h2 id="example">Example</h2>
 <p>The following example demonstates a simple API for creating, listing, updating and deleting notes.</p>
 <pre class="prettyprint well"><code>from flask import request
-from flaskapi import FlaskAPI, status, exceptions
+from flask.ext.api import FlaskAPI, status, exceptions
 
 app = FlaskAPI(__name__)
 
@@ -280,15 +282,16 @@ $ curl -X PUT http://127.0.0.1:5000/1/ -d text="flask api is teh awesomez"
 {"text": "flask api is teh awesomez"}
 </code></pre>
 <p>You can also open the API directly in your browser and make <code>GET</code>, <code>PUT</code>, <code>POST</code> and <code>DELETE</code> requests.</p>
-<hr />
+<h2 id="credits">Credits</h2>
 <p>To stay up to date with progress on Flask API, follow Tom Christie on twitter, <a href="https://twitter.com/_tomchristie">here</a>.</p>
+<p>Many thanks to <a href="https://github.com/namlook/">Nicolas Clairon</a> for making the <code>flask_api</code> PyPI package available.</p>
 </div>
         </div>
 
         <footer class="col-md-12">
             <hr>
             
-            <p>Copyright &copy; 2014, <a href="https://twitter.com/_tomchristie">Tom Christie</a>.</p>
+            <p><a href="/about/license">BSD licensed</a> <b>&middot;</b> Copyright &copy; 2014, <a href="https://twitter.com/_tomchristie">Tom Christie</a>.</p>
             
             <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>

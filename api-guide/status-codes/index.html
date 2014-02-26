@@ -122,7 +122,7 @@
                 </li>
                 
                 <li>
-                    <a href="https://github.com/tomchristie/flaskapi">
+                    <a href="https://github.com/tomchristie/flask-api">
                         
                             <i class="fa fa-github"></i>
                         
@@ -160,7 +160,7 @@
 
 <h1 id="status-codes">Status Codes</h1>
 <p>Flask API includes a set of named constants that you can use to make more code more obvious and readable.</p>
-<pre class="prettyprint well"><code>from flaskapi import status
+<pre class="prettyprint well"><code>from flask.ext.api import status
 
 ...
 
@@ -171,7 +171,7 @@ def empty_view(self):
 </code></pre>
 <p>The full set of HTTP status codes included in the <code>status</code> module is listed below.</p>
 <p>The module also includes a set of helper functions for testing if a status code is in a given range.</p>
-<pre class="prettyprint well"><code>from flaskapi import status
+<pre class="prettyprint well"><code>from flask.ext.api import status
 import unittest
 
 ...
@@ -258,7 +258,7 @@ is_server_error()   # 5xx
         <footer class="col-md-12">
             <hr>
             
-            <p>Copyright &copy; 2014, <a href="https://twitter.com/_tomchristie">Tom Christie</a>.</p>
+            <p><a href="/about/license">BSD licensed</a> <b>&middot;</b> Copyright &copy; 2014, <a href="https://twitter.com/_tomchristie">Tom Christie</a>.</p>
             
             <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>

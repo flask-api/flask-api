@@ -122,7 +122,7 @@
                 </li>
                 
                 <li>
-                    <a href="https://github.com/tomchristie/flaskapi">
+                    <a href="https://github.com/tomchristie/flask-api">
                         
                             <i class="fa fa-github"></i>
                         
@@ -175,12 +175,13 @@
 <h2 id="setting-the-renderers">Setting the renderers</h2>
 <p>The default set of renderers may be set globally, using the <code>DEFAULT_RENDERERS</code> configuration key.  The default configuration will render to JSON as standard, or will render the browsable API if the client requests HTML.</p>
 <pre class="prettyprint well"><code>app.config['DEFAULT_RENDERERS'] = [
-    'flaskapi.renderers.JSONRenderer',
-    'flaskapi.renderers.BrowsableAPIRenderer',
+    'flask.ext.api.renderers.JSONRenderer',
+    'flask.ext.api.renderers.BrowsableAPIRenderer',
 ]
 </code></pre>
 <p>You can also set the renderers used for an individual view, using the <code>set_renderers</code> decorator.</p>
-<pre class="prettyprint well"><code>from flaskapi.decorators import set_renderers
+<pre class="prettyprint well"><code>from flask.ext.api.decorators import set_renderers
+from flask.ext.api.renderers import JSONRenderer
 
 ...
 
@@ -237,7 +238,7 @@ By default this includes:</p>
 </ul>
 <h2 id="example">Example</h2>
 <p>The following is an custom renderer that returns YAML.</p>
-<pre class="prettyprint well"><code>from flaskapi import renderers
+<pre class="prettyprint well"><code>from flask.ext.api import renderers
 import yaml
 
 
@@ -272,7 +273,7 @@ If the renderer returns a bytestring representing raw binary content, you should
         <footer class="col-md-12">
             <hr>
             
-            <p>Copyright &copy; 2014, <a href="https://twitter.com/_tomchristie">Tom Christie</a>.</p>
+            <p><a href="/about/license">BSD licensed</a> <b>&middot;</b> Copyright &copy; 2014, <a href="https://twitter.com/_tomchristie">Tom Christie</a>.</p>
             
             <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
