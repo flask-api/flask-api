@@ -1,9 +1,9 @@
 env/
 dist/
 htmlcov/
+site/
 .tox/
-flaskapi.egg-info/
+Flask_API.egg-info/
 *.pyc
 __pycache__
 .coverage
-site/

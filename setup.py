@@ -8,7 +8,7 @@ import os
 import sys
 
 
-name = 'flask_api'
+name = 'Flask-API'
 package = 'flask_api'
 description = 'Browsable web APIs for Flask.'
 url = 'http://www.flaskapi.org'

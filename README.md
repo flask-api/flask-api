@@ -43,7 +43,7 @@ Requirements:
 
 Install using `pip`.
 
-    pip install flask-api
+    pip install Flask-API
 
 Import and initialize your application.
 
