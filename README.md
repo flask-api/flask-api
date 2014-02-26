@@ -141,10 +141,10 @@ To stay up to date with progress on Flask API, follow Tom Christie on twitter, [
 
 Many thanks to [Nicolas Clairon][nicolas-clarion] for making the `flask_api` PyPI package available.
 
-[travis-image]: https://travis-ci.org/tomchristie/flaskapi.png?branch=master
-[travis-link]: https://travis-ci.org/tomchristie/flaskapi
-[coveralls-image]: https://coveralls.io/repos/tomchristie/flaskapi/badge.png?branch=master
-[coveralls-link]: https://coveralls.io/r/tomchristie/flaskapi?branch=master
+[travis-image]: https://travis-ci.org/tomchristie/flask-api.png?branch=master
+[travis-link]: https://travis-ci.org/tomchristie/flask-api
+[coveralls-image]: https://coveralls.io/repos/tomchristie/flask-api/badge.png?branch=master
+[coveralls-link]: https://coveralls.io/r/tomchristie/flask-api?branch=master
 [django-rest-framework]: http://www.django-rest-framework.org
 [tomchristie]: https://twitter.com/_tomchristie
 [nicolas-clarion]: https://github.com/namlook/
