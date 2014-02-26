@@ -40,7 +40,7 @@ Requirements:
 
 Install using `pip`.
 
-    pip install flask_api
+    pip install flask-api
 
 Import and initialize your application.
 
