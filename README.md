@@ -2,6 +2,9 @@
 
 Browsable Web APIs for Flask
 
+[![Build Status][travis-image]][travis-link]
+[![Coverage Status][coveralls-image]][coveralls-link]
+
 ---
 
 ## Overview
@@ -48,7 +51,7 @@ Import and initialize your application.
 
     app = FlaskAPI(__main__)
 
-## Returning responses
+## Responses
 
 Return any valid response object as normal, or return a `list` or `dict`.
 
@@ -58,7 +61,7 @@ Return any valid response object as normal, or return a `list` or `dict`.
 
 A renderer for the response data will be selected using content negotation based on the client 'Accept' header. If you're making the API request from a regular client, this will default to a JSON response. If you're viewing the API in a browser it'll default to the browsable API HTML. 
 
-## Request data
+## Requests
 
 Access the parsed request data using `request.data`.  This will handle JSON or form data by default.
 
@@ -66,7 +69,7 @@ Access the parsed request data using `request.data`.  This will handle JSON or f
     def example():
         return {'request data': request.data}
 
-## A full example
+## Example
 
 The following example demonstates a simple API for creating, listing, updating and deleting notes.
 
@@ -132,9 +135,11 @@ You can now open a new tab and interact with the API from the command line:
 
 You can also open the API directly in your browser and make `GET`, `PUT`, `POST` and `DELETE` requests.
 
----
+## Credits
 
 To stay up to date with progress on Flask API, follow Tom Christie on twitter, [here][tomchristie].
+
+Many thanks to [Nicolas Clairon][nicolas-clarion] for making the `flask_api` PyPI package available.
 
 [travis-image]: https://travis-ci.org/tomchristie/flaskapi.png?branch=master
 [travis-link]: https://travis-ci.org/tomchristie/flaskapi
@@ -142,3 +147,4 @@ To stay up to date with progress on Flask API, follow Tom Christie on twitter, [
 [coveralls-link]: https://coveralls.io/r/tomchristie/flaskapi?branch=master
 [django-rest-framework]: http://www.django-rest-framework.org
 [tomchristie]: https://twitter.com/_tomchristie
+[nicolas-clarion]: https://github.com/namlook/
