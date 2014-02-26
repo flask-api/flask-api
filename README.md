@@ -1,8 +1,6 @@
-<div style="text-align: center">
-<h1 style="font-size: 60px">Flask API</h1>
+# Flask API
 
-<p>Browsable Web APIs for Flask</p>
-</div>
+Browsable Web APIs for Flask
 
 ---
 
@@ -42,11 +40,11 @@ Requirements:
 
 Install using `pip`.
 
-    pip install flaskapi
+    pip install flask-api
 
 Import and initialize your application.
 
-    from flaskapi import FlaskAPI
+    from flask.ext.api import FlaskAPI
 
     app = FlaskAPI(__main__)
 
@@ -73,7 +71,7 @@ Access the parsed request data using `request.data`.  This will handle JSON or f
 The following example demonstates a simple API for creating, listing, updating and deleting notes.
 
     from flask import request
-    from flaskapi import FlaskAPI, status, exceptions
+    from flask.ext.api import FlaskAPI, status, exceptions
 
     app = FlaskAPI(__name__)
 

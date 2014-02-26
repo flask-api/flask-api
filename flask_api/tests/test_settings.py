@@ -1,6 +1,6 @@
 # coding: utf8
 from __future__ import unicode_literals
-from flaskapi.settings import APISettings
+from flask_api.settings import APISettings
 import unittest
 
 

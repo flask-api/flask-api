@@ -1,7 +1,7 @@
 # coding: utf8
 from __future__ import unicode_literals
 from flask._compat import text_type
-from flaskapi import exceptions
+from flask_api import exceptions
 from werkzeug.formparser import MultiPartParser as WerkzeugMultiPartParser
 from werkzeug.formparser import default_stream_factory
 from werkzeug.urls import url_decode_stream

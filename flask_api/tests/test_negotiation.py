@@ -1,12 +1,12 @@
 # coding: utf8
 from __future__ import unicode_literals
 import unittest
-import flaskapi
-from flaskapi import exceptions
-from flaskapi.negotiation import BaseNegotiation, DefaultNegotiation
+import flask_api
+from flask_api import exceptions
+from flask_api.negotiation import BaseNegotiation, DefaultNegotiation
 
 
-app = flaskapi.FlaskAPI(__name__)
+app = flask_api.FlaskAPI(__name__)
 
 
 class JSON(object):

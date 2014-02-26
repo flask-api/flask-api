@@ -1,12 +1,12 @@
 # coding: utf8
 from __future__ import unicode_literals
 from flask import request
-from flaskapi import exceptions
-import flaskapi
+from flask_api import exceptions
+import flask_api
 import io
 import unittest
 
-app = flaskapi.FlaskAPI(__name__)
+app = flask_api.FlaskAPI(__name__)
 
 
 class MediaTypeParsingTests(unittest.TestCase):

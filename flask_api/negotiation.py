@@ -1,8 +1,8 @@
 # coding: utf8
 from __future__ import unicode_literals
 from flask import request
-from flaskapi import exceptions
-from flaskapi.mediatypes import MediaType, parse_accept_header
+from flask_api import exceptions
+from flask_api.mediatypes import MediaType, parse_accept_header
 
 
 class BaseNegotiation(object):

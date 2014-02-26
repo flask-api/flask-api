@@ -23,14 +23,15 @@ As an example, if you are sending `json` encoded data using jQuery with the [.aj
 The default set of parsers may be set globally, using the `DEFAULT_PARSERS` configuration key.  The default configuration will deal with parsing either JSON or form encoded requests.
 
     app.config['DEFAULT_PARSERS'] = [
-        'flaskapi.parsers.JSONParser',
-        'flaskapi.parsers.URLEncodedParser',
-        'flaskapi.parsers.MultiPartParser'
+        'flask.ext.api.parsers.JSONParser',
+        'flask.ext.api.parsers.URLEncodedParser',
+        'flask.ext.api.parsers.MultiPartParser'
     ]
 
 You can also set the parsers used for an individual view, using the `set_parsers` decorator.
 
-    from flaskapi.decorators import set_parsers
+    from flask.ext.api.decorators import set_parsers
+    from flask.ext.api.parsers import JSONParser
 
     ...
 

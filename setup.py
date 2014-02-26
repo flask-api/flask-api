@@ -8,8 +8,8 @@ import os
 import sys
 
 
-name = 'flaskapi'
-package = 'flaskapi'
+name = 'flask_api'
+package = 'flask_api'
 description = 'Browsable web APIs for Flask.'
 url = 'http://www.flaskapi.org'
 author = 'Tom Christie'

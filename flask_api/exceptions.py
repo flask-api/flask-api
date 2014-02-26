@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-from flaskapi import status
+from flask_api import status
 
 
 class APIException(Exception):

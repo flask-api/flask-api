@@ -1,5 +1,5 @@
 from flask import request
-from flaskapi import FlaskAPI, status, exceptions
+from flask.ext.api import FlaskAPI, status, exceptions
 
 app = FlaskAPI(__name__)
 

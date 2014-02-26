@@ -1,8 +1,8 @@
 # coding: utf8
 from __future__ import unicode_literals
 from flask import request
-from flaskapi import exceptions, parsers, status, mediatypes, FlaskAPI
-from flaskapi.decorators import set_parsers
+from flask_api import exceptions, parsers, status, mediatypes, FlaskAPI
+from flask_api.decorators import set_parsers
 import io
 import json
 import unittest

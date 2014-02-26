@@ -9,4 +9,4 @@ modules = [filename.rsplit('.', 1)[0]
             if filename.endswith('.py') and filename.startswith('test_')]
 
 for module in modules:
-    exec("from flaskapi.tests.%s import *" % module)
+    exec("from flask_api.tests.%s import *" % module)

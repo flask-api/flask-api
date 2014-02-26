@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 from flask import request, render_template, current_app
 from flask.json import JSONEncoder
 from flask.globals import _request_ctx_stack
-from flaskapi.mediatypes import MediaType
+from flask_api.mediatypes import MediaType
 import json
 import re
 
@@ -90,7 +90,7 @@ class BrowsableAPIRenderer(BaseRenderer):
         headers = options['headers']
         headers['Content-Type'] = str(mock_media_type)
 
-        from flaskapi import __version__
+        from flask_api import __version__
 
         context = {
             'status': status,

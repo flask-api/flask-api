@@ -1,8 +1,8 @@
 # coding: utf8
 from __future__ import unicode_literals
-from flaskapi import renderers, status, FlaskAPI
-from flaskapi.decorators import set_renderers
-from flaskapi.mediatypes import MediaType
+from flask_api import renderers, status, FlaskAPI
+from flask_api.decorators import set_renderers
+from flask_api.mediatypes import MediaType
 import unittest
 
 

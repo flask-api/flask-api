@@ -15,13 +15,14 @@ The basic process of content negotiation involves examining the request's `Accep
 The default set of renderers may be set globally, using the `DEFAULT_RENDERERS` configuration key.  The default configuration will render to JSON as standard, or will render the browsable API if the client requests HTML.
 
     app.config['DEFAULT_RENDERERS'] = [
-        'flaskapi.renderers.JSONRenderer',
-        'flaskapi.renderers.BrowsableAPIRenderer',
+        'flask.ext.api.renderers.JSONRenderer',
+        'flask.ext.api.renderers.BrowsableAPIRenderer',
     ]
 
 You can also set the renderers used for an individual view, using the `set_renderers` decorator.
 
-    from flaskapi.decorators import set_renderers
+    from flask.ext.api.decorators import set_renderers
+    from flask.ext.api.renderers import JSONRenderer
 
     ...
 
@@ -110,7 +111,7 @@ By default this includes:
 
 The following is an custom renderer that returns YAML.
 
-    from flaskapi import renderers
+    from flask.ext.api import renderers
     import yaml
 
 
