@@ -57,6 +57,14 @@ class JSONRenderer(BaseRenderer):
         return json.dumps(data, cls=JSONEncoder, ensure_ascii=False, indent=indent)
 
 
+class HTMLRenderer(object):
+    media_type = 'text/html'
+    charset = 'utf-8'
+
+    def render(self, data, media_type, **options):
+        return data.encode(self.charset)
+
+
 class BrowsableAPIRenderer(BaseRenderer):
     media_type = 'text/html'
     handles_empty_responses = True
