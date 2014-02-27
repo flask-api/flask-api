@@ -19,14 +19,14 @@ class ParseError(APIException):
     detail = 'Malformed request.'
 
 
-# class AuthenticationFailed(APIException):
-#     status_code = status.HTTP_401_UNAUTHORIZED
-#     detail = 'Incorrect authentication credentials.'
+class AuthenticationFailed(APIException):
+    status_code = status.HTTP_401_UNAUTHORIZED
+    detail = 'Incorrect authentication credentials.'
 
 
-# class NotAuthenticated(APIException):
-#     status_code = status.HTTP_401_UNAUTHORIZED
-#     detail = 'Authentication credentials were not provided.'
+class NotAuthenticated(APIException):
+    status_code = status.HTTP_401_UNAUTHORIZED
+    detail = 'Authentication credentials were not provided.'
 
 
 class PermissionDenied(APIException):
@@ -56,10 +56,9 @@ class UnsupportedMediaType(APIException):
     detail = 'Unsupported media type in the request Content-Type header.'
 
 
-# class Throttled(APIException):
-#     status_code = status.HTTP_429_TOO_MANY_REQUESTS
-#     detail = 'Request was throttled.'
-#     extra_detail = 'Expected available in %d second%s.'
+class Throttled(APIException):
+    status_code = status.HTTP_429_TOO_MANY_REQUESTS
+    detail = 'Request was throttled.'
 
 #     def __init__(self, wait=None, detail=None):
 #         if wait is None:
