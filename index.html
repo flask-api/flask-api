@@ -4,9 +4,9 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        
-        
+
+
+
         <link rel="shortcut icon" href="./img/favicon.ico">
 
         <title>Flask API</title>
@@ -22,7 +22,7 @@
             <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
 
-        
+
         <script>
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -32,9 +32,9 @@
             ga('create', 'UA-27795084-4', 'flaskapi.org');
             ga('send', 'pageview');
         </script>
-        
 
-        
+
+
         <style>
             div.col-md-9 h1:first-of-type {
                 text-align: center;
@@ -45,7 +45,7 @@
                 text-align: center;
             }
         </style>
-        
+
     </head>
 
     <body>
@@ -71,60 +71,60 @@
         <div class="navbar-collapse collapse">
             <!-- Main navigation -->
             <ul class="nav navbar-nav">
-            
-            
+
+
                 <li class="active">
                     <a href=".">Home</a>
                 </li>
-            
-            
-            
+
+
+
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">API Guide <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                    
+
                         <li >
                             <a href="api-guide/renderers/">Renderers</a>
                         </li>
-                    
+
                         <li >
                             <a href="api-guide/parsers/">Parsers</a>
                         </li>
-                    
+
                         <li >
                             <a href="api-guide/exceptions/">Exceptions</a>
                         </li>
-                    
+
                         <li >
                             <a href="api-guide/status-codes/">Status codes</a>
                         </li>
-                    
+
                     </ul>
                 </li>
-            
-            
-            
+
+
+
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">About <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                    
+
                         <li >
                             <a href="about/release-notes/">Release Notes</a>
                         </li>
-                    
+
                         <li >
                             <a href="about/license/">License</a>
                         </li>
-                    
+
                     </ul>
                 </li>
-            
-            
+
+
             </ul>
 
             <!-- Search, Navigation and Repo links -->
             <ul class="nav navbar-nav navbar-right">
-                
+
                 <li class="disabled">
                     <a rel="next" >
                         <i class="fa fa-arrow-left"></i> Previous
@@ -135,16 +135,16 @@
                         Next <i class="fa fa-arrow-right"></i>
                     </a>
                 </li>
-                
+
                 <li>
                     <a href="https://github.com/tomchristie/flask-api">
-                        
+
                             <i class="fa fa-github"></i>
-                        
+
                         GitHub
                     </a>
                 </li>
-                
+
             </ul>
         </div>
     </div>
@@ -153,28 +153,35 @@
         <div class="container">
             <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-    
+
         <li class="main active"><a href="#flask-api">Flask API</a></li>
-        
+
             <li><a href="#overview">Overview</a></li>
-        
+
             <li><a href="#roadmap">Roadmap</a></li>
-        
+
             <li><a href="#installation">Installation</a></li>
-        
+
             <li><a href="#responses">Responses</a></li>
-        
+
             <li><a href="#requests">Requests</a></li>
-        
+
             <li><a href="#example">Example</a></li>
-        
+
             <li><a href="#credits">Credits</a></li>
-        
-    
+
+
     </ul>
 </div></div>
             <div class="col-md-9" role="main">
-
+<div class="badges">
+    <iframe src="http://ghbtns.com/github-btn.html?user=tomchristie&amp;repo=flask-api&amp;type=watch&amp;count=true" class="github-star-button" allowtransparency="true" frameborder="0" scrolling="0" width="110px" height="20px"></iframe>
+    <a href="https://travis-ci.org/tomchristie/flask-api">
+        <img src="https://travis-ci.org/tomchristie/flask-api.png?branch=master" class="travis-badge-image">
+    </a>
+    <a href='https://coveralls.io/r/tomchristie/flask-api?branch=master'><img src="https://coveralls.io/repos/tomchristie/flask-api/badge.png?branch=master" alt="Coverage Status" class="coveralls-badge-image" /></a>
+</div>
+<hr />
 <h1 id="flask-api">Flask API</h1>
 <p>Browsable Web APIs for Flask</p>
 <hr />
@@ -306,13 +313,13 @@ $ curl -X PUT http://127.0.0.1:5000/1/ -d text="flask api is teh awesomez"
 
         <footer class="col-md-12">
             <hr>
-            
+
             <p><a href="/about/license">BSD licensed</a> <b>&middot;</b> Copyright &copy; 2014, <a href="https://twitter.com/_tomchristie">Tom Christie</a>.</p>
-            
+
             <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
 
-        
+
 
         <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
         <script src="./js/bootstrap-3.0.3.min.js"></script>
