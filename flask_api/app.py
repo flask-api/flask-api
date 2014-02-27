@@ -8,6 +8,7 @@ from flask_api.response import APIResponse
 from flask_api.settings import APISettings
 from itertools import chain
 from werkzeug.exceptions import HTTPException
+import re
 import sys
 
 
@@ -16,6 +17,9 @@ api_resources = Blueprint(
     url_prefix='/flask-api',
     template_folder='templates', static_folder='static'
 )
+
+def urlize_quoted_links(content):
+    return re.sub(r'"(https?://[^"]*)"', r'"<a href="\1">\1</a>"', content)
 
 
 class FlaskAPI(Flask):
@@ -26,6 +30,7 @@ class FlaskAPI(Flask):
         super(FlaskAPI, self).__init__(*args, **kwargs)
         self.api_settings = APISettings(self.config)
         self.register_blueprint(api_resources)
+        self.jinja_env.filters['urlize_quoted_links'] = json_urlize
 
     def preprocess_request(self):
         request.parser_classes = self.api_settings.DEFAULT_PARSERS
@@ -34,7 +39,7 @@ class FlaskAPI(Flask):
 
     def make_response(self, rv):
         """
-        We override `make_response` so that we can additionally handle
+        We override this so that we can additionally handle
         list and dict types by default.
         """
         status_or_headers = headers = None
@@ -66,7 +71,7 @@ class FlaskAPI(Flask):
 
     def handle_user_exception(self, e):
         """
-        We override `handle_user_exception` to deal with APIException.
+        We override the default behavior in order to deal with APIException.
         """
         exc_type, exc_value, tb = sys.exc_info()
         assert exc_value is e
@@ -92,15 +97,11 @@ class FlaskAPI(Flask):
         return APIResponse({'message': exc.detail}, status=exc.status_code)
 
     def create_url_adapter(self, request):
-        """Creates a URL adapter for the given request.  The URL adapter
-        is created at a point where the request context is not yet set up
-        so the request is passed explicitly.
-
-        .. versionadded:: 0.6
-
-        .. versionchanged:: 0.9
-           This can now also be called without a request object when the
-           URL adapter is created for the application context.
+        """
+        We need to override the default behavior slightly here,
+        to ensure the any method-based routing takes account of
+        any method overloading, so that eg PUT requests from the
+        browsable API are routed to the correct view.
         """
         if request is not None:
             environ = request.environ.copy()

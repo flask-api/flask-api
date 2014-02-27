@@ -119,7 +119,7 @@
                 <pre class="prettyprint"><div class="meta nocode"><b>HTTP {{ status }}</b>{% autoescape off %}
 {% for key, val in headers.items() %}<b>{{ key }}:</b> <span class="lit">{{ val }}<!--{ val|break_long_headers|urlize_quoted_links }--></span>
 {% endfor %}
-</div>{% if content %}{{ content }}{% endif %}<!-- |urlize_quoted_links --></pre>{% endautoescape %}
+</div>{% if content %}{{ content|urlize_quoted_links }}{% endif %}<!-- |urlize_quoted_links --></pre>{% endautoescape %}
             </div>
         </div>
 
