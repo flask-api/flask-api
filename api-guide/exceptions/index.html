@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+
+        <title>Exceptions - Flask API</title>
+
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.0.3.css" rel="stylesheet">
+        <link href="../../css/prettify-1.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+        
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-27795084-4', 'flaskapi.org');
+            ga('send', 'pageview');
+        </script>
+        
+
+        
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <!-- Main title -->
+            <a class="navbar-brand" href="../..">Flask API</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+            <!-- Main navigation -->
+            <ul class="nav navbar-nav">
+            
+            
+                <li >
+                    <a href="../..">Home</a>
+                </li>
+            
+            
+            
+                <li class="dropdown active">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">API Guide <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        <li >
+                            <a href="../renderers/">Renderers</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../parsers/">Parsers</a>
+                        </li>
+                    
+                        <li class="active">
+                            <a href="./">Exceptions</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../status-codes/">Status codes</a>
+                        </li>
+                    
+                    </ul>
+                </li>
+            
+            
+            
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">About <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        <li >
+                            <a href="../../about/release-notes/">Release Notes</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../../about/license/">License</a>
+                        </li>
+                    
+                    </ul>
+                </li>
+            
+            
+            </ul>
+
+            <!-- Search, Navigation and Repo links -->
+            <ul class="nav navbar-nav navbar-right">
+                
+                <li >
+                    <a rel="next" href="../parsers/">
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </li>
+                <li >
+                    <a rel="prev" href="../status-codes/">
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="https://github.com/tomchristie/flask-api">
+                        
+                            <i class="fa fa-github"></i>
+                        
+                        GitHub
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+            <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+    
+        <li class="main active"><a href="#exceptions">Exceptions</a></li>
+        
+            <li><a href="#apiexception">APIException</a></li>
+        
+            <li><a href="#parseerror">ParseError</a></li>
+        
+            <li><a href="#authenticationfailed">AuthenticationFailed</a></li>
+        
+            <li><a href="#notauthenticated">NotAuthenticated</a></li>
+        
+            <li><a href="#permissiondenied">PermissionDenied</a></li>
+        
+            <li><a href="#notfound">NotFound</a></li>
+        
+            <li><a href="#notacceptable">NotAcceptable</a></li>
+        
+            <li><a href="#unsupportedmediatype">UnsupportedMediaType</a></li>
+        
+            <li><a href="#throttled">Throttled</a></li>
+        
+    
+    </ul>
+</div></div>
+            <div class="col-md-9" role="main">
+
+<h1 id="exceptions">Exceptions</h1>
+<p>When dealing with errors in Flask API you should typically raise one of the built-in exceptions, or a subclass of the base <code>APIException</code>.  Exceptions raised in this way will get the standard content negotiation applied to the response and will be rendered with an appropriate renderer.</p>
+<p>By default all error responses will include a key <code>detail</code> in the body of the response.</p>
+<p>For example, the following request:</p>
+<pre class="prettyprint well"><code>POST http://api.example.com/foo/bar HTTP/1.1
+Content-Type: application/json
+Content-Length: 63
+
+{'malformed json': 'keys and values should use double quotes'}
+</code></pre>
+<p>Might receive an error response indicating that the JSON content of the request is malformed:</p>
+<pre class="prettyprint well"><code>HTTP/1.1 400 Bad Request
+Content-Type: application/json
+Content-Length: 33
+
+{"detail": "Malformed request."}
+</code></pre>
+<hr />
+<h2 id="apiexception">APIException</h2>
+<p><strong>Signature:</strong> <code>APIException()</code></p>
+<p>The <strong>base class</strong> for all exceptions raised inside Flask API.</p>
+<p>To provide a custom exception, subclass <code>APIException</code> and set the <code>.status_code</code> and <code>.detail</code> properties on the class.</p>
+<p>For example, if your API relies on a third party service that may sometimes be unreachable, you might want to implement an exception for the "503 Service Unavailable" HTTP response code.  You could do this like so:</p>
+<pre class="prettyprint well"><code>from flask.ext.api.exceptions import APIException
+
+class ServiceUnavailable(APIException):
+    status_code = 503
+    detail = 'Service temporarily unavailable, try again later.'
+</code></pre>
+<h2 id="parseerror">ParseError</h2>
+<p><strong>Signature:</strong> <code>ParseError(detail=None)</code></p>
+<p>Raised if the request contains malformed data when accessing <code>request.data</code>, <code>request.form</code> or <code>request.files</code>.</p>
+<p>By default this exception results in a response with the HTTP status code "400 Bad Request".</p>
+<h2 id="authenticationfailed">AuthenticationFailed</h2>
+<p><strong>Signature:</strong> <code>AuthenticationFailed(detail=None)</code></p>
+<p>Should be raised when an incoming request includes incorrect authentication.</p>
+<p>By default this exception results in a response with the HTTP status code "401 Unauthenticated".</p>
+<h2 id="notauthenticated">NotAuthenticated</h2>
+<p><strong>Signature:</strong> <code>NotAuthenticated(detail=None)</code></p>
+<p>Should be raised when an unauthenticated request fails permission checks.</p>
+<p>By default this exception results in a response with the HTTP status code "401 Unauthenticated".</p>
+<h2 id="permissiondenied">PermissionDenied</h2>
+<p><strong>Signature:</strong> <code>PermissionDenied(detail=None)</code></p>
+<p>Should be raised when an authenticated request fails permission checks.</p>
+<p>By default this exception results in a response with the HTTP status code "403 Forbidden".</p>
+<h2 id="notfound">NotFound</h2>
+<p><strong>Signature:</strong> <code>NotFound(detail=None)</code></p>
+<p>Should be raised when arequest is made to a resource that does not exist.</p>
+<p>By default this exception results in a response with the HTTP status code "404 Not Found".</p>
+<!-- Currently 405's will result in Flask's default behavior.
+## MethodNotAllowed
+
+**Signature:** `MethodNotAllowed(method, detail=None)`
+
+Raised when an incoming request occurs that does not map to a handler method on the view.
+
+By default this exception results in a response with the HTTP status code "405 Method Not Allowed".
+-->
+
+<h2 id="notacceptable">NotAcceptable</h2>
+<p><strong>Signature:</strong> <code>NotAcceptable(detail=None)</code></p>
+<p>Raised if there are no renderers that can satisfy the client's requested <code>Accept</code> header.</p>
+<p>By default this exception results in a response with the HTTP status code "406 Not Acceptable".</p>
+<h2 id="unsupportedmediatype">UnsupportedMediaType</h2>
+<p><strong>Signature:</strong> <code>UnsupportedMediaType(detail=None)</code></p>
+<p>Raised if there are no parsers that can handle the content type of the request data when accessing <code>request.data</code>, <code>request.form</code> or <code>request.files</code>.</p>
+<p>By default this exception results in a response with the HTTP status code "415 Unsupported Media Type".</p>
+<h2 id="throttled">Throttled</h2>
+<p><strong>Signature:</strong> <code>Throttled(detail=None)</code></p>
+<p>Should be raised when an incoming request fails throttling checks.</p>
+<p>By default this exception results in a response with the HTTP status code "429 Too Many Requests".</p>
+</div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            
+            <p><a href="/about/license">BSD licensed</a> <b>&middot;</b> Copyright &copy; 2014, <a href="https://twitter.com/_tomchristie">Tom Christie</a>.</p>
+            
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        
+
+        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/prettify-1.0.min.js"></script>
+        <script src="../../js/base.js"></script>
+    </body>
+</html>
