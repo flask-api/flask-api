@@ -30,7 +30,7 @@ class FlaskAPI(Flask):
         super(FlaskAPI, self).__init__(*args, **kwargs)
         self.api_settings = APISettings(self.config)
         self.register_blueprint(api_resources)
-        self.jinja_env.filters['urlize_quoted_links'] = json_urlize
+        self.jinja_env.filters['urlize_quoted_links'] = urlize_quoted_links
 
     def preprocess_request(self):
         request.parser_classes = self.api_settings.DEFAULT_PARSERS
