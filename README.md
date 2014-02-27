@@ -94,6 +94,9 @@ The following example demonstates a simple API for creating, listing, updating a
 	
 	@app.route("/", methods=['GET', 'POST'])
 	def notes_list():
+	    """
+	    List or create notes.
+	    """
 	    if request.method == 'POST':
 	        note = str(request.data.get('text', ''))
 	        idx = max(notes.keys()) + 1
@@ -106,6 +109,9 @@ The following example demonstates a simple API for creating, listing, updating a
 	
 	@app.route("/<int:key>/", methods=['GET', 'PUT', 'DELETE'])
 	def notes_detail(key):
+	    """
+	    Retrieve, update or delete note instances.
+	    """
 	    if request.method == 'PUT':
 	        note = str(request.data.get('text', ''))
 	        notes[key] = note
@@ -124,7 +130,6 @@ The following example demonstates a simple API for creating, listing, updating a
 	if __name__ == "__main__":
 	    app.run(debug=True)
 
-
 Now run the webapp:
 
     $ python ./example.py
@@ -134,13 +139,13 @@ Now run the webapp:
 You can now open a new tab and interact with the API from the command line:
 
     $ curl -X GET http://127.0.0.1:5000/
-    {"0": {"text": "do the shopping"}, "1": {"text": "build the codez"}, "2": {"text": "paint the door"}}
+    [{"url": "http://127.0.0.1:5000/0/", "text": "do the shopping"}, {"url": "http://127.0.0.1:5000/1/", "text": "build the codez"}, {"url": "http://127.0.0.1:5000/2/", "text": "paint the door"}]
     $ curl -X GET http://127.0.0.1:5000/1/
-    {"1": {"text": "build the codez"}}
+    {"url": "http://127.0.0.1:5000/1/", "text": "build the codez"}
     $ curl -X PUT http://127.0.0.1:5000/1/ -d text="flask api is teh awesomez"
-    {"text": "flask api is teh awesomez"}
+    {"url": "http://127.0.0.1:5000/1/", "text": "flask api is teh awesomez"}
 
-You can also open the API directly in your browser and make `GET`, `PUT`, `POST` and `DELETE` requests.
+You can also work on the API directly in your browser, by opening <http://127.0.0.1:5000/>.  You can then navigate between notes, and make `GET`, `PUT`, `POST` and `DELETE` API requests.
 
 ## Credits
 

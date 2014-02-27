@@ -2,6 +2,8 @@
 
 This software is made available under the terms of a [BSD 2-Clause license][bsd-2-clause].
 
+---
+
 Copyright &copy; 2014, Tom Christie
 All rights reserved.
 

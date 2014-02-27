@@ -19,6 +19,9 @@ def note_repr(key):
 
 @app.route("/", methods=['GET', 'POST'])
 def notes_list():
+    """
+    List or create notes.
+    """
     if request.method == 'POST':
         note = str(request.data.get('text', ''))
         idx = max(notes.keys()) + 1
@@ -31,6 +34,9 @@ def notes_list():
 
 @app.route("/<int:key>/", methods=['GET', 'PUT', 'DELETE'])
 def notes_detail(key):
+    """
+    Retrieve, update or delete note instances.
+    """
     if request.method == 'PUT':
         note = str(request.data.get('text', ''))
         notes[key] = note
