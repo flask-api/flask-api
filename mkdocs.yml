@@ -3,6 +3,7 @@ pages:
   - ['index.md', 'Home']
   - ['api-guide/renderers.md', 'API Guide', 'Renderers']
   - ['api-guide/parsers.md', 'API Guide', 'Parsers']
+  - ['api-guide/exceptions.md', 'API Guide', 'Exceptions']
   - ['api-guide/status-codes.md', 'API Guide', 'Status codes']
   - ['about/release-notes.md', 'About', 'Release Notes']
   - ['about/license.md', 'About', 'License']
