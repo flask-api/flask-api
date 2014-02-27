@@ -136,6 +136,11 @@ class OverrideParserSettings(unittest.TestCase):
         def custom_parser_2():
             return {'data': request.data}
 
+        @app.route('/custom_parser_2_as_args/', methods=['POST'])
+        @set_parsers(CustomParser2, CustomParser1)
+        def custom_parser_2_as_args():
+            return {'data': request.data}
+
         self.app = app
 
     def test_overridden_parsers_with_settings(self):
@@ -154,6 +159,18 @@ class OverrideParserSettings(unittest.TestCase):
         with self.app.test_client() as client:
             data = {'example': 'example'}
             response = client.post('/custom_parser_2/', data=data)
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+            self.assertEqual(response.headers['Content-Type'], 'application/json')
+            data = json.loads(response.get_data().decode('utf8'))
+            expected = {
+                "data": "custom parser 2",
+            }
+            self.assertEqual(data, expected)
+
+    def test_overridden_parsers_with_decorator_as_args(self):
+        with self.app.test_client() as client:
+            data = {'example': 'example'}
+            response = client.post('/custom_parser_2_as_args/', data=data)
             self.assertEqual(response.status_code, status.HTTP_200_OK)
             self.assertEqual(response.headers['Content-Type'], 'application/json')
             data = json.loads(response.get_data().decode('utf8'))

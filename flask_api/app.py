@@ -18,6 +18,7 @@ api_resources = Blueprint(
     template_folder='templates', static_folder='static'
 )
 
+
 def urlize_quoted_links(content):
     return re.sub(r'"(https?://[^"]*)"', r'"<a href="\1">\1</a>"', content)
 

@@ -2,21 +2,27 @@ from functools import wraps
 from flask import request
 
 
-def set_parsers(parsers=None):
+def set_parsers(*parsers):
     def decorator(func):
         @wraps(func)
         def decorated_function(*args, **kwargs):
-            request.parser_classes = parsers
+            if len(parsers) == 1 and isinstance(parsers, (list, tuple)):
+                request.parser_classes = parsers[0]
+            else:
+                request.parser_classes = parsers
             return func(*args, **kwargs)
         return decorated_function
     return decorator
 
 
-def set_renderers(renderers=None):
+def set_renderers(*renderers):
     def decorator(func):
         @wraps(func)
         def decorated_function(*args, **kwargs):
-            request.renderer_classes = renderers
+            if len(renderers) == 1 and isinstance(renderers, (list, tuple)):
+                request.renderer_classes = renderers[0]
+            else:
+                request.renderer_classes = renderers
             return func(*args, **kwargs)
         return decorated_function
     return decorator
