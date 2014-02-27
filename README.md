@@ -149,7 +149,7 @@ You can also work on the API directly in your browser, by opening <http://127.0.
 
 ## Credits
 
-To stay up to date with progress on Flask API, follow Tom Christie on twitter, [here][tomchristie].
+To stay up to date with progress on Flask API, follow [Tom Christie on twitter][tomchristie].
 
 Many thanks to [Nicolas Clairon][nicolas-clarion] for making the `flask_api` PyPI package available.
 
