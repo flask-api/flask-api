@@ -56,7 +56,7 @@ class OverrideParserSettings(unittest.TestCase):
             return {'data': 'example'}
 
         @app.route('/custom_renderer_2_as_args/', methods=['GET'])
-        @set_renderers(CustomRenderer2, CustomRenderer1)
+        @set_renderers(CustomRenderer2)
         def custom_renderer_2_as_args():
             return {'data': 'example'}
 
