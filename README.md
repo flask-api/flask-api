@@ -1,6 +1,6 @@
-# Flask API
+# [Flask API](http://www.flaskapi.org)
 
-Browsable Web APIs for Flask
+Browsable Web APIs for Flask - <www.flaskapi.org>
 
 [![Build Status][travis-image]][travis-link]
 [![Coverage Status][coveralls-image]][coveralls-link]
