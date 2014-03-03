@@ -74,7 +74,7 @@ By default this exception results in a response with the HTTP status code "403 F
 
 **Signature:** `NotFound(detail=None)`
 
-Should be raised when arequest is made to a resource that does not exist.
+Should be raised when a request is made to a resource that does not exist.
 
 By default this exception results in a response with the HTTP status code "404 Not Found".
 
