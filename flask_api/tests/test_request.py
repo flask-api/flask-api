@@ -42,3 +42,10 @@ class MediaTypeParsingTests(unittest.TestCase):
 
         with app.test_request_context(method='PUT'):
             self.assertFalse(request.files)
+
+    def test_encode_request(self):
+        """
+        Ensure that `.full_path` is correctly decoded in python 3
+        """
+        with app.test_request_context(method='GET', path='/?a=b'):
+            self.assertEqual(request.full_path, '/?a=b')
