@@ -1,11 +1,13 @@
 # coding: utf8
 from __future__ import unicode_literals
 from flask import request, render_template, current_app
+from flask._compat import string_types
 from flask.json import JSONEncoder
 from flask.globals import _request_ctx_stack
 from flask_api.mediatypes import MediaType
 import json
 import re
+import sys
 
 
 def dedent(content):
@@ -30,6 +32,38 @@ def dedent(content):
 
 def convert_to_title(name):
     return name.replace('-', ' ').replace('_', ' ').capitalize()
+
+
+def detect_module_encoding(mod):
+    """Detect the character encoding of the given module
+
+    :param module mod: a module to detect its encoding.
+    :return: a name of detected encoding, or `None` if unknown
+    :rtype: str | None
+
+    .. seealso:: :pep:`0263`
+
+    .. warning::
+
+       This function might not work with the situation that there is no source
+       file of given module. For example, zipped egg distributions will cause
+       that problem.
+
+    """
+    if isinstance(mod, string_types):
+        mod = sys.modules[mod]
+    filepath = mod.__file__
+    if filepath.endswith('.pyc'):
+        filepath = filepath[:-1]
+    with open(filepath) as f:
+        for i, line in enumerate(f):
+            if i >= 2:
+                break
+            m = re.search(r'#.*coding[:=]\s*([-\w.]+)', line)
+            assert m
+            if m:
+                return m.group(1)
+    return None
 
 
 class BaseRenderer(object):
@@ -90,9 +124,15 @@ class BrowsableAPIRenderer(BaseRenderer):
 
         endpoint = request.url_rule.endpoint
         view_name = str(endpoint)
-        view_description = current_app.view_functions[endpoint].__doc__
+        view_function = current_app.view_functions[endpoint]
+        view_description = view_function.__doc__
         if view_description is not None:
-            view_description = dedent(view_description)
+            try:
+                view_description = dedent(view_description)
+            except UnicodeDecodeError:
+                encoding = detect_module_encoding(view_function.__module__)
+                view_description = view_description.decode(encoding)
+                view_description = dedent(view_description)
 
         status = options['status']
         headers = options['headers']
