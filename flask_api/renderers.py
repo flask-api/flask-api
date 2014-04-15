@@ -110,4 +110,4 @@ class BrowsableAPIRenderer(BaseRenderer):
             'view_description': view_description,
             'version': __version__
         }
-        return render_template( self.template, **context)
+        return render_template(self.template, **context)
