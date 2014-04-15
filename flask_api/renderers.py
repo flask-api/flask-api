@@ -68,6 +68,7 @@ class HTMLRenderer(object):
 class BrowsableAPIRenderer(BaseRenderer):
     media_type = 'text/html'
     handles_empty_responses = True
+    template = 'base.html'
 
     def render(self, data, media_type, **options):
         # Render the content as it would have been if the client
@@ -109,4 +110,4 @@ class BrowsableAPIRenderer(BaseRenderer):
             'view_description': view_description,
             'version': __version__
         }
-        return render_template('base.html', **context)
+        return render_template( self.template, **context)
