@@ -111,7 +111,7 @@
 
         <div class="content-main">
             <div class="page-header"><h1>{{ view_name }}</h1></div>
-            {% if view_description %}<div style="margin-top: -10px; margin-bottom: 10px">{{ view_description }}</div>{% endif %}
+            {% if view_description %}<div style="margin-top: -10px; margin-bottom: 10px">{{ view_description|safe }}</div>{% endif %}
             <div class="request-info" style="clear: both" >
                 <pre class="prettyprint"><b>{{ request.method }}</b> {{ request.full_path }}</pre>
             </div>
