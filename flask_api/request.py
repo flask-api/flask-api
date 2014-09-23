@@ -16,7 +16,7 @@ class APIRequest(Request):
     negotiator_class = DefaultNegotiation
     empty_data_class = MultiDict
 
-    # Request parsing...
+    # Request parsing...
 
     @property
     def data(self):
@@ -80,7 +80,7 @@ class APIRequest(Request):
         self._form = self.empty_data_class()
         self._files = self.empty_data_class()
 
-    # Content negotiation...
+    # Content negotiation...
 
     @property
     def accepted_renderer(self):
@@ -103,7 +103,7 @@ class APIRequest(Request):
         renderers = [renderer() for renderer in self.renderer_classes]
         self._accepted_renderer, self._accepted_media_type = negotiator.select_renderer(renderers)
 
-    # Method and content type overloading.
+    # Method and content type overloading.
 
     @property
     def method(self):
@@ -145,7 +145,7 @@ class APIRequest(Request):
         self._content_length = get_content_length(self.environ)
 
         if (self._method == 'POST' and self._content_type == 'application/x-www-form-urlencoded'):
-            # Read the request data, then push it back onto the stream again.
+            # Read the request data, then push it back onto the stream again.
             body = self.get_data()
             data = url_decode_stream(io.BytesIO(body))
             self._stream = io.BytesIO(body)
