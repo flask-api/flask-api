@@ -18,6 +18,9 @@ class APIResponse(Response):
                 if self.status_code == 204:
                     self.status_code = 200
 
+        # From `werkzeug.wrappers.BaseResponse`
+        if content is None:
+            content = []
         if isinstance(content, (text_type, bytes, bytearray)):
             self.set_data(content)
         else:

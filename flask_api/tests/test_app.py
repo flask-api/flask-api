@@ -48,6 +48,11 @@ def abort_view():
     abort(status.HTTP_403_FORBIDDEN)
 
 
+@app.route('/options/')
+def options_view():
+    return {}
+
+
 @app.route('/accepted_media_type/')
 @set_renderers([JSONVersion2, JSONVersion1])
 def accepted_media_type():
@@ -94,6 +99,12 @@ class AppTests(unittest.TestCase):
         with app.test_client() as client:
             response = client.get('/abort_view/')
             self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_options_view(self):
+        with app.test_client() as client:
+            response = client.options('/options/')
+        # Errors if `response.response` is `None`
+        response.get_data()
 
     def test_accepted_media_type_property(self):
         with app.test_client() as client:
