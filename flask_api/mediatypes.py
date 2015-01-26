@@ -61,7 +61,7 @@ class MediaType(object):
         """
         full_type, sep, param_string = media_type.partition(';')
         params = {}
-        for token in param_string.strip().split(','):
+        for token in param_string.split(';'):
             key, sep, value = [s.strip() for s in token.partition('=')]
             if value.startswith('"') and value.endswith('"'):
                 value = value[1:-1]
