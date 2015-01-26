@@ -46,6 +46,12 @@ class DefaultNegotiation(BaseNegotiation):
                         if server_media_type.precedence > client_media_type.precedence:
                             return (renderer, server_media_type)
                         else:
+                            try:
+                                # Don't send q parameter back to the client
+                                del client_media_type.params['q']
+                            except KeyError:
+                                pass
+
                             return (renderer, client_media_type)
 
         raise exceptions.NotAcceptable()
