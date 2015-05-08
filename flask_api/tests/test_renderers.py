@@ -19,6 +19,38 @@ class RendererTests(unittest.TestCase):
         expected = '{\n    "example": "example"\n}'
         self.assertEqual(content, expected)
 
+    def test_render_browsable_encoding(self):
+        app = FlaskAPI(__name__)
+
+        @app.route('/_love', methods=['GET'])
+        def love():
+            return {"test": "I <3 Python"}
+
+        with app.test_client() as client:
+            response = client.get('/_love',
+                                  headers={"Accept": "text/html"})
+            html = str(response.get_data())
+            self.assertTrue('I &lt;3 Python' in html)
+            self.assertTrue('<h1>Love</h1>' in html)
+            self.assertTrue('/_love' in html)
+
+    def test_render_browsable_linking(self):
+        app = FlaskAPI(__name__)
+
+        @app.route('/_happiness', methods=['GET'])
+        def happiness():
+            return {"url": "http://example.org",
+                    "a tag": "<br />"}
+
+        with app.test_client() as client:
+            response = client.get('/_happiness',
+                                  headers={"Accept": "text/html"})
+            html = str(response.get_data())
+            self.assertTrue('<a href="http://example.org">http://example.org</a>' in html)
+            self.assertTrue('&lt;br /&gt;'in html)
+            self.assertTrue('<h1>Happiness</h1>' in html)
+            self.assertTrue('/_happiness' in html)
+
     def test_renderer_negotiation_not_implemented(self):
         renderer = renderers.BaseRenderer()
         with self.assertRaises(NotImplementedError) as context:
