@@ -6,11 +6,18 @@ from flask.globals import _request_ctx_stack
 from flask_api.mediatypes import MediaType
 import json
 import re
-import sys
-if sys.version_info > (3, 0):
-    from html import escape
-else:
-    from cgi import escape
+
+
+def html_escape(text):
+    escape_table = [
+        ("&", "&amp;"),
+        ("<", "&lt;"),
+        (">", "&gt;")
+    ]
+
+    for char, replacement in escape_table:
+        text = text.replace(char, replacement)
+    return text
 
 
 def dedent(content):
@@ -98,7 +105,7 @@ class BrowsableAPIRenderer(BaseRenderer):
         view_description = current_app.view_functions[endpoint].__doc__
         if view_description is not None:
             view_description = dedent(view_description)
-        mock_content = escape(mock_content)
+        mock_content = html_escape(mock_content)
 
         status = options['status']
         headers = options['headers']
