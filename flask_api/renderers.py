@@ -6,6 +6,11 @@ from flask.globals import _request_ctx_stack
 from flask_api.mediatypes import MediaType
 import json
 import re
+import sys
+if sys.version_info > (3, 0):
+    from html import escape
+else:
+    from cgi import escape
 
 
 def dedent(content):
@@ -93,6 +98,7 @@ class BrowsableAPIRenderer(BaseRenderer):
         view_description = current_app.view_functions[endpoint].__doc__
         if view_description is not None:
             view_description = dedent(view_description)
+        mock_content = escape(mock_content)
 
         status = options['status']
         headers = options['headers']
