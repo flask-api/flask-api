@@ -7,3 +7,8 @@ Flask_API.egg-info/
 *.pyc
 __pycache__
 .coverage
+
+bin/
+lib/
+include/
+*.swp
