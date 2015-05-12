@@ -46,7 +46,7 @@ Import and initialize your application.
 
     from flask.ext.api import FlaskAPI
 
-    app = FlaskAPI(__main__)
+    app = FlaskAPI(__name__)
 
 ## Responses
 

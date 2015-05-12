@@ -8,6 +8,18 @@ import json
 import re
 
 
+def html_escape(text):
+    escape_table = [
+        ("&", "&amp;"),
+        ("<", "&lt;"),
+        (">", "&gt;")
+    ]
+
+    for char, replacement in escape_table:
+        text = text.replace(char, replacement)
+    return text
+
+
 def dedent(content):
     """
     Remove leading indent from a block of text.
@@ -68,6 +80,7 @@ class HTMLRenderer(object):
 class BrowsableAPIRenderer(BaseRenderer):
     media_type = 'text/html'
     handles_empty_responses = True
+    template = 'base.html'
 
     def render(self, data, media_type, **options):
         # Render the content as it would have been if the client
@@ -93,6 +106,7 @@ class BrowsableAPIRenderer(BaseRenderer):
         view_description = current_app.view_functions[endpoint].__doc__
         if view_description is not None:
             view_description = dedent(view_description)
+        mock_content = html_escape(mock_content)
 
         status = options['status']
         headers = options['headers']
@@ -109,4 +123,4 @@ class BrowsableAPIRenderer(BaseRenderer):
             'view_description': view_description,
             'version': __version__
         }
-        return render_template('base.html', **context)
+        return render_template(self.template, **context)
