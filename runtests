@@ -3,7 +3,7 @@
 export PYTHONPATH=.
 set -e
 
-coverage run --omit=flask_api/tests/runtests.py,flask_api/tests/__init__.py --source=flask_api flask_api/tests/runtests.py $@
+coverage run --omit=*.html,flask_api/tests/runtests.py,flask_api/tests/__init__.py --source=flask_api flask_api/tests/runtests.py $@
 flake8 flask_api --ignore=E128,E501 --exclude=__init__.py
 
 if [[ ! "$@" ]] ; then
