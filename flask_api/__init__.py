@@ -1,3 +1,3 @@
 from flask_api.app import FlaskAPI
 
-__version__ = '0.6.2'
+__version__ = '0.6.3'

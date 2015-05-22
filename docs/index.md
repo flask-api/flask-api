@@ -29,14 +29,14 @@ Future work on getting Flask API to a 1.0 release will include:
 * Documentation on how to deal with request validation.
 * Documentation on how to deal with hyperlinking.
 
-It is also possible that the core of Flask API could be refactored into an external dependancy, in order to make browsable APIs easily available to any Python web framework.
+It is also possible that the core of Flask API could be refactored into an external dependency, in order to make browsable APIs easily available to any Python web framework.
 
-## Installation
+## Installation
 
 Requirements:
 
-* Python 2.7 or 3.3.
-* Flask 0.10.
+* Python 2.7+ or 3.3+
+* Flask 0.10+
 
 Install using `pip`.
 
@@ -48,7 +48,7 @@ Import and initialize your application.
 
     app = FlaskAPI(__name__)
 
-## Responses
+## Responses
 
 Return any valid response object as normal, or return a `list` or `dict`.
 
@@ -56,7 +56,7 @@ Return any valid response object as normal, or return a `list` or `dict`.
     def example():
         return {'hello': 'world'}
 
-A renderer for the response data will be selected using content negotation based on the client 'Accept' header. If you're making the API request from a regular client, this will default to a JSON response. If you're viewing the API in a browser it'll default to the browsable API HTML. 
+A renderer for the response data will be selected using content negotiation based on the client 'Accept' header. If you're making the API request from a regular client, this will default to a JSON response. If you're viewing the API in a browser it'll default to the browsable API HTML. 
 
 ## Requests
 
@@ -68,7 +68,7 @@ Access the parsed request data using `request.data`.  This will handle JSON or f
 
 ## Example
 
-The following example demonstates a simple API for creating, listing, updating and deleting notes.
+The following example demonstrates a simple API for creating, listing, updating and deleting notes.
 
 	from flask import request, url_for
 	from flask.ext.api import FlaskAPI, status, exceptions
