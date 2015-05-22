@@ -15,4 +15,4 @@ before_script: coverage erase
 
 script: ./runtests
 
-after_success: coverage report; coveralls
+after_success: coverage report; coveralls --ignore-errors
