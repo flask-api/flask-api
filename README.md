@@ -6,6 +6,7 @@ Browsable Web APIs for Flask - <http://www.flaskapi.org>
 
 [![Build Status][travis-image]][travis-link]
 [![Coverage Status][coveralls-image]][coveralls-link]
+[![PyPI Version][pypi-image]][pypi-link]
 
 ---
 
@@ -159,6 +160,8 @@ Many thanks to [Nicolas Clairon][nicolas-clarion] for making the `flask_api` PyP
 [travis-link]: https://travis-ci.org/tomchristie/flask-api
 [coveralls-image]: http://img.shields.io/coveralls/tomchristie/flask-api/master.svg
 [coveralls-link]: https://coveralls.io/r/tomchristie/flask-api?branch=master
+[pypi-image]: http://img.shields.io/pypi/v/flask-api.svg
+[pypi-link]: https://pypi.python.org/pypi/flask-api
 [django-rest-framework]: http://www.django-rest-framework.org
 [tomchristie]: https://twitter.com/_tomchristie
 [nicolas-clarion]: https://github.com/namlook/
