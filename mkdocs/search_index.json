@@ -1,0 +1,289 @@
+{
+    "docs": [
+        {
+            "location": "/",
+            "text": "Flask API\n\n\nBrowsable Web APIs for Flask\n\n\n\n\nOverview\n\n\nFlask API is an implementation of the same web browsable APIs that \nDjango REST framework\n provides.\n\n\nIt gives you properly content negotiated responses and smart request parsing.\n\n\nIt is currently a work in progress, but the fundamentals are in place and you can already start building kick-ass browsable Web APIs with it.  If you want to start using Flask API right now go ahead and do so, but be sure to follow the release notes of new versions carefully.\n\n\n\n\nRoadmap\n\n\nFuture work on getting Flask API to a 1.0 release will include:\n\n\n\n\nAuthentication, including session, basic and token authentication.\n\n\nPermissions, including a simple user-is-authenticated permission.\n\n\nThrottling, including a base rate throttling implementation.\n\n\nSupport for using class based views, including the base view class.\n\n\nBrowsable API improvements, such as breadcrumb generation.\n\n\nCustomizable exception handling.\n\n\nCSRF protection for session authenticated requests.\n\n\nLogin and logout views for the browsable API.\n\n\nDocumentation on how to deal with request validation.\n\n\nDocumentation on how to deal with hyperlinking.\n\n\n\n\nIt is also possible that the core of Flask API could be refactored into an external dependency, in order to make browsable APIs easily available to any Python web framework.\n\n\nInstallation\n\n\nRequirements:\n\n\n\n\nPython 2.7+ or 3.3+\n\n\nFlask 0.10+\n\n\n\n\nInstall using \npip\n.\n\n\npip install Flask-API\n\n\n\nImport and initialize your application.\n\n\nfrom flask.ext.api import FlaskAPI\n\napp = FlaskAPI(__name__)\n\n\n\nResponses\n\n\nReturn any valid response object as normal, or return a \nlist\n or \ndict\n.\n\n\n@app.route('/example/')\ndef example():\n    return {'hello': 'world'}\n\n\n\nA renderer for the response data will be selected using content negotiation based on the client 'Accept' header. If you're making the API request from a regular client, this will default to a JSON response. If you're viewing the API in a browser it'll default to the browsable API HTML. \n\n\nRequests\n\n\nAccess the parsed request data using \nrequest.data\n.  This will handle JSON or form data by default.\n\n\n@app.route('/example/')\ndef example():\n    return {'request data': request.data}\n\n\n\nExample\n\n\nThe following example demonstrates a simple API for creating, listing, updating and deleting notes.\n\n\nfrom flask import request, url_for\nfrom flask.ext.api import FlaskAPI, status, exceptions\n\napp = FlaskAPI(__name__)\n\n\nnotes = {\n    0: 'do the shopping',\n    1: 'build the codez',\n    2: 'paint the door',\n}\n\ndef note_repr(key):\n    return {\n        'url': request.host_url.rstrip('/') + url_for('notes_detail', key=key),\n        'text': notes[key]\n    }\n\n\n@app.route(\"/\", methods=['GET', 'POST'])\ndef notes_list():\n    \"\"\"\n    List or create notes.\n    \"\"\"\n    if request.method == 'POST':\n        note = str(request.data.get('text', ''))\n        idx = max(notes.keys()) + 1\n        notes[idx] = note\n        return note_repr(idx), status.HTTP_201_CREATED\n\n    # request.method == 'GET'\n    return [note_repr(idx) for idx in sorted(notes.keys())]\n\n\n@app.route(\"/\nint:key\n/\", methods=['GET', 'PUT', 'DELETE'])\ndef notes_detail(key):\n    \"\"\"\n    Retrieve, update or delete note instances.\n    \"\"\"\n    if request.method == 'PUT':\n        note = str(request.data.get('text', ''))\n        notes[key] = note\n        return note_repr(key)\n\n    elif request.method == 'DELETE':\n        notes.pop(key, None)\n        return '', status.HTTP_204_NO_CONTENT\n\n    # request.method == 'GET'\n    if key not in notes:\n        raise exceptions.NotFound()\n    return note_repr(key)\n\n\nif __name__ == \"__main__\":\n    app.run(debug=True)\n\n\n\nNow run the webapp:\n\n\n$ python ./example.py\n * Running on http://127.0.0.1:5000/\n * Restarting with reloader\n\n\n\nYou can now open a new tab and interact with the API from the command line:\n\n\n$ curl -X GET http://127.0.0.1:5000/\n[{\"url\": \"http://127.0.0.1:5000/0/\", \"text\": \"do the shopping\"}, {\"url\": \"http://127.0.0.1:5000/1/\", \"text\": \"build the codez\"}, {\"url\": \"http://127.0.0.1:5000/2/\", \"text\": \"paint the door\"}]\n$ curl -X GET http://127.0.0.1:5000/1/\n{\"url\": \"http://127.0.0.1:5000/1/\", \"text\": \"build the codez\"}\n$ curl -X PUT http://127.0.0.1:5000/1/ -d text=\"flask api is teh awesomez\"\n{\"url\": \"http://127.0.0.1:5000/1/\", \"text\": \"flask api is teh awesomez\"}\n\n\n\nYou can also work on the API directly in your browser, by opening \nhttp://127.0.0.1:5000/\n.  You can then navigate between notes, and make \nGET\n, \nPUT\n, \nPOST\n and \nDELETE\n API requests.\n\n\nCredits\n\n\nTo stay up to date with progress on Flask API, follow Tom Christie on twitter, \nhere\n.\n\n\nMany thanks to \nNicolas Clairon\n for making the \nflask_api\n PyPI package available.",
+            "title": "Home"
+        },
+        {
+            "location": "/#flask-api",
+            "text": "Browsable Web APIs for Flask",
+            "title": "Flask API"
+        },
+        {
+            "location": "/#overview",
+            "text": "Flask API is an implementation of the same web browsable APIs that  Django REST framework  provides.  It gives you properly content negotiated responses and smart request parsing.  It is currently a work in progress, but the fundamentals are in place and you can already start building kick-ass browsable Web APIs with it.  If you want to start using Flask API right now go ahead and do so, but be sure to follow the release notes of new versions carefully.",
+            "title": "Overview"
+        },
+        {
+            "location": "/#roadmap",
+            "text": "Future work on getting Flask API to a 1.0 release will include:   Authentication, including session, basic and token authentication.  Permissions, including a simple user-is-authenticated permission.  Throttling, including a base rate throttling implementation.  Support for using class based views, including the base view class.  Browsable API improvements, such as breadcrumb generation.  Customizable exception handling.  CSRF protection for session authenticated requests.  Login and logout views for the browsable API.  Documentation on how to deal with request validation.  Documentation on how to deal with hyperlinking.   It is also possible that the core of Flask API could be refactored into an external dependency, in order to make browsable APIs easily available to any Python web framework.",
+            "title": "Roadmap"
+        },
+        {
+            "location": "/#installation",
+            "text": "Requirements:   Python 2.7+ or 3.3+  Flask 0.10+   Install using  pip .  pip install Flask-API  Import and initialize your application.  from flask.ext.api import FlaskAPI\n\napp = FlaskAPI(__name__)",
+            "title": "Installation"
+        },
+        {
+            "location": "/#responses",
+            "text": "Return any valid response object as normal, or return a  list  or  dict .  @app.route('/example/')\ndef example():\n    return {'hello': 'world'}  A renderer for the response data will be selected using content negotiation based on the client 'Accept' header. If you're making the API request from a regular client, this will default to a JSON response. If you're viewing the API in a browser it'll default to the browsable API HTML.",
+            "title": "Responses"
+        },
+        {
+            "location": "/#requests",
+            "text": "Access the parsed request data using  request.data .  This will handle JSON or form data by default.  @app.route('/example/')\ndef example():\n    return {'request data': request.data}",
+            "title": "Requests"
+        },
+        {
+            "location": "/#example",
+            "text": "The following example demonstrates a simple API for creating, listing, updating and deleting notes.  from flask import request, url_for\nfrom flask.ext.api import FlaskAPI, status, exceptions\n\napp = FlaskAPI(__name__)\n\n\nnotes = {\n    0: 'do the shopping',\n    1: 'build the codez',\n    2: 'paint the door',\n}\n\ndef note_repr(key):\n    return {\n        'url': request.host_url.rstrip('/') + url_for('notes_detail', key=key),\n        'text': notes[key]\n    }\n\n\n@app.route(\"/\", methods=['GET', 'POST'])\ndef notes_list():\n    \"\"\"\n    List or create notes.\n    \"\"\"\n    if request.method == 'POST':\n        note = str(request.data.get('text', ''))\n        idx = max(notes.keys()) + 1\n        notes[idx] = note\n        return note_repr(idx), status.HTTP_201_CREATED\n\n    # request.method == 'GET'\n    return [note_repr(idx) for idx in sorted(notes.keys())]\n\n\n@app.route(\"/ int:key /\", methods=['GET', 'PUT', 'DELETE'])\ndef notes_detail(key):\n    \"\"\"\n    Retrieve, update or delete note instances.\n    \"\"\"\n    if request.method == 'PUT':\n        note = str(request.data.get('text', ''))\n        notes[key] = note\n        return note_repr(key)\n\n    elif request.method == 'DELETE':\n        notes.pop(key, None)\n        return '', status.HTTP_204_NO_CONTENT\n\n    # request.method == 'GET'\n    if key not in notes:\n        raise exceptions.NotFound()\n    return note_repr(key)\n\n\nif __name__ == \"__main__\":\n    app.run(debug=True)  Now run the webapp:  $ python ./example.py\n * Running on http://127.0.0.1:5000/\n * Restarting with reloader  You can now open a new tab and interact with the API from the command line:  $ curl -X GET http://127.0.0.1:5000/\n[{\"url\": \"http://127.0.0.1:5000/0/\", \"text\": \"do the shopping\"}, {\"url\": \"http://127.0.0.1:5000/1/\", \"text\": \"build the codez\"}, {\"url\": \"http://127.0.0.1:5000/2/\", \"text\": \"paint the door\"}]\n$ curl -X GET http://127.0.0.1:5000/1/\n{\"url\": \"http://127.0.0.1:5000/1/\", \"text\": \"build the codez\"}\n$ curl -X PUT http://127.0.0.1:5000/1/ -d text=\"flask api is teh awesomez\"\n{\"url\": \"http://127.0.0.1:5000/1/\", \"text\": \"flask api is teh awesomez\"}  You can also work on the API directly in your browser, by opening  http://127.0.0.1:5000/ .  You can then navigate between notes, and make  GET ,  PUT ,  POST  and  DELETE  API requests.",
+            "title": "Example"
+        },
+        {
+            "location": "/#credits",
+            "text": "To stay up to date with progress on Flask API, follow Tom Christie on twitter,  here .  Many thanks to  Nicolas Clairon  for making the  flask_api  PyPI package available.",
+            "title": "Credits"
+        },
+        {
+            "location": "/api-guide/renderers/",
+            "text": "Renderers\n\n\nRenderers are responsible for taking the response value from your view and transforming it into a string or bytestring that will be used as the response body.\n\n\nFlask API includes a few built-in renderer classes and also provides support for defining your own custom renderers.\n\n\nDetermining the renderer\n\n\nThe set of valid renderers for a view is always defined as a list of classes.  When a view is entered Flask API will perform content negotiation on the incoming request, and determine the most appropriate renderer to satisfy the request.\n\n\nThe basic process of content negotiation involves examining the request's \nAccept\n header, to determine which media types it expects in the response.\n\n\nSetting the renderers\n\n\nThe default set of renderers may be set globally, using the \nDEFAULT_RENDERERS\n configuration key.  The default configuration will render to JSON as standard, or will render the browsable API if the client requests HTML.\n\n\napp.config['DEFAULT_RENDERERS'] = [\n    'flask.ext.api.renderers.JSONRenderer',\n    'flask.ext.api.renderers.BrowsableAPIRenderer',\n]\n\n\n\nYou can also set the renderers used for an individual view, using the \nset_renderers\n decorator.\n\n\nfrom flask.ext.api.decorators import set_renderers\nfrom flask.ext.api.renderers import JSONRenderer\n\n...\n\n@app.route('/example_view/')\n@set_renderers(JSONRenderer, MyCustomXMLRenderer)\ndef example():\n    return {'example': 'Setting renderers on a per-view basis'}\n\n\n\nOrdering of renderers\n\n\nIt's important when specifying the renderer classes for your API to think about what priority you want to assign to each media type.  If a client underspecifies the representations it can accept, such as sending an \nAccept: */*\n header, or not including an \nAccept\n header at all, then Flask API will select the first renderer in the list to use for the response.\n\n\n\n\nAPI Reference\n\n\nJSONRenderer\n\n\nRenders the request data into \nJSON\n.\n\n\nThe client may additionally include an \n'indent'\n media type parameter, in which case the returned \nJSON\n will be indented.  For example \nAccept: application/json; indent=4\n.\n\n\n{\n    \"example\": \"indented JSON\"\n}\n\n\n\nmedia_type\n: \napplication/json\n\n\ncharset\n: \nNone\n\n\nHTMLRenderer\n\n\nA simple renderer that simply returns pre-rendered HTML.  Unlike other renderers, the data passed to the response object should be a string representing the content to be returned.\n\n\nAn example of a view that uses \nHTMLRenderer\n:\n\n\n@app.route('/hello-world/')\n@set_renderers(HTMLRenderer)\ndef hello_world(): \n    return '\nhtml\nbody\nh1\nHello, world\n/h1\n/body\n/html\n'\n\n\n\nYou can use \nHTMLRenderer\n either to return regular HTML pages using Flask API, or to return both HTML and API responses from a single endpoint.\n\n\nmedia_type\n: \ntext/html\n\n\ncharset\n: \nutf-8\n\n\nBrowsableAPIRenderer\n\n\nRenders data into HTML for the Browsable API.  This renderer will determine which other renderer would have been given highest priority, and use that to display an API style response within the HTML page.\n\n\nmedia_type\n: \ntext/html\n\n\ncharset\n: \nutf-8\n\n\n\n\nCustom renderers\n\n\nTo implement a custom renderer, you should override \nBaseRenderer\n, set the \n.media_type\n  property, and implement the \n.render(self, data, media_type, **options)\n method.\n\n\nThe method should return a string or bytestring, which will be used as the body of the HTTP response.\n\n\nThe arguments passed to the \n.render()\n method are:\n\n\ndata\n\n\nThe request data, returned by the view.\n\n\nmedia_type\n\n\nOptional.  If provided, this is the accepted media type, as determined by the content negotiation stage.\n\n\nDepending on the client's \nAccept:\n header, this may be more specific than the renderer's \nmedia_type\n attribute, and may include media type parameters.  For example \n\"application/json; api-version=\"0.1\"\n.\n\n\n**options\n\n\nAny additional contextual arguments that may be required in order to render the response.\nBy default this includes:\n\n\n\n\nstatus\n - A string representing the response status.\n\n\nstatus_code\n - An integer representing the response status code.\n\n\nheaders\n - A dictionary containing the response headers.\n\n\n\n\nExample\n\n\nThe following is an custom renderer that returns YAML.\n\n\nfrom flask.ext.api import renderers\nimport yaml\n\n\nclass YAMLRenderer(renderers.BaseRenderer):\n    media_type = 'application/yaml'\n\n    def render(self, data, media_type, **options):\n        return yaml.dump(data, encoding=self.charset)",
+            "title": "Renderers"
+        },
+        {
+            "location": "/api-guide/renderers/#renderers",
+            "text": "Renderers are responsible for taking the response value from your view and transforming it into a string or bytestring that will be used as the response body.  Flask API includes a few built-in renderer classes and also provides support for defining your own custom renderers.",
+            "title": "Renderers"
+        },
+        {
+            "location": "/api-guide/renderers/#determining-the-renderer",
+            "text": "The set of valid renderers for a view is always defined as a list of classes.  When a view is entered Flask API will perform content negotiation on the incoming request, and determine the most appropriate renderer to satisfy the request.  The basic process of content negotiation involves examining the request's  Accept  header, to determine which media types it expects in the response.",
+            "title": "Determining the renderer"
+        },
+        {
+            "location": "/api-guide/renderers/#setting-the-renderers",
+            "text": "The default set of renderers may be set globally, using the  DEFAULT_RENDERERS  configuration key.  The default configuration will render to JSON as standard, or will render the browsable API if the client requests HTML.  app.config['DEFAULT_RENDERERS'] = [\n    'flask.ext.api.renderers.JSONRenderer',\n    'flask.ext.api.renderers.BrowsableAPIRenderer',\n]  You can also set the renderers used for an individual view, using the  set_renderers  decorator.  from flask.ext.api.decorators import set_renderers\nfrom flask.ext.api.renderers import JSONRenderer\n\n...\n\n@app.route('/example_view/')\n@set_renderers(JSONRenderer, MyCustomXMLRenderer)\ndef example():\n    return {'example': 'Setting renderers on a per-view basis'}",
+            "title": "Setting the renderers"
+        },
+        {
+            "location": "/api-guide/renderers/#ordering-of-renderers",
+            "text": "It's important when specifying the renderer classes for your API to think about what priority you want to assign to each media type.  If a client underspecifies the representations it can accept, such as sending an  Accept: */*  header, or not including an  Accept  header at all, then Flask API will select the first renderer in the list to use for the response.",
+            "title": "Ordering of renderers"
+        },
+        {
+            "location": "/api-guide/renderers/#api-reference",
+            "text": "",
+            "title": "API Reference"
+        },
+        {
+            "location": "/api-guide/renderers/#jsonrenderer",
+            "text": "Renders the request data into  JSON .  The client may additionally include an  'indent'  media type parameter, in which case the returned  JSON  will be indented.  For example  Accept: application/json; indent=4 .  {\n    \"example\": \"indented JSON\"\n}  media_type :  application/json  charset :  None",
+            "title": "JSONRenderer"
+        },
+        {
+            "location": "/api-guide/renderers/#htmlrenderer",
+            "text": "A simple renderer that simply returns pre-rendered HTML.  Unlike other renderers, the data passed to the response object should be a string representing the content to be returned.  An example of a view that uses  HTMLRenderer :  @app.route('/hello-world/')\n@set_renderers(HTMLRenderer)\ndef hello_world(): \n    return ' html body h1 Hello, world /h1 /body /html '  You can use  HTMLRenderer  either to return regular HTML pages using Flask API, or to return both HTML and API responses from a single endpoint.  media_type :  text/html  charset :  utf-8",
+            "title": "HTMLRenderer"
+        },
+        {
+            "location": "/api-guide/renderers/#browsableapirenderer",
+            "text": "Renders data into HTML for the Browsable API.  This renderer will determine which other renderer would have been given highest priority, and use that to display an API style response within the HTML page.  media_type :  text/html  charset :  utf-8",
+            "title": "BrowsableAPIRenderer"
+        },
+        {
+            "location": "/api-guide/renderers/#custom-renderers",
+            "text": "To implement a custom renderer, you should override  BaseRenderer , set the  .media_type   property, and implement the  .render(self, data, media_type, **options)  method.  The method should return a string or bytestring, which will be used as the body of the HTTP response.  The arguments passed to the  .render()  method are:  data  The request data, returned by the view.  media_type  Optional.  If provided, this is the accepted media type, as determined by the content negotiation stage.  Depending on the client's  Accept:  header, this may be more specific than the renderer's  media_type  attribute, and may include media type parameters.  For example  \"application/json; api-version=\"0.1\" .  **options  Any additional contextual arguments that may be required in order to render the response.\nBy default this includes:   status  - A string representing the response status.  status_code  - An integer representing the response status code.  headers  - A dictionary containing the response headers.",
+            "title": "Custom renderers"
+        },
+        {
+            "location": "/api-guide/renderers/#example",
+            "text": "The following is an custom renderer that returns YAML.  from flask.ext.api import renderers\nimport yaml\n\n\nclass YAMLRenderer(renderers.BaseRenderer):\n    media_type = 'application/yaml'\n\n    def render(self, data, media_type, **options):\n        return yaml.dump(data, encoding=self.charset)",
+            "title": "Example"
+        },
+        {
+            "location": "/api-guide/parsers/",
+            "text": "Parsers\n\n\nParsers are responsible for taking the content of the request body as a bytestream, and transforming it into a native Python data representation.\n\n\nFlask API includes a few built-in parser classes and also provides support for defining your own custom parsers.\n\n\nHow the parser is determined\n\n\nThe set of valid parsers for a view is always defined as a list of classes.  When any of the properties \nrequest.data\n, \nrequest.form\n or \nrequest.files\n are accessed, Flask API will examine the \nContent-Type\n header on the incoming request, and determine which parser to use to handle the request content.\n\n\n\n\nNote\n: When developing client applications always remember to make sure you're setting the \nContent-Type\n header when sending data in an HTTP request.\n\n\nIf you don't set the content type, most clients will default to using \n'application/x-www-form-urlencoded'\n, which may not be what you wanted.\n\n\nAs an example, if you are sending \njson\n encoded data using jQuery with the \n.ajax() method\n, you should make sure to include the \ncontentType: 'application/json'\n setting.\n\n\n\n\nSetting the parsers\n\n\nThe default set of parsers may be set globally, using the \nDEFAULT_PARSERS\n configuration key.  The default configuration will deal with parsing either JSON or form encoded requests.\n\n\napp.config['DEFAULT_PARSERS'] = [\n    'flask.ext.api.parsers.JSONParser',\n    'flask.ext.api.parsers.URLEncodedParser',\n    'flask.ext.api.parsers.MultiPartParser'\n]\n\n\n\nYou can also set the parsers used for an individual view, using the \nset_parsers\n decorator.\n\n\nfrom flask.ext.api.decorators import set_parsers\nfrom flask.ext.api.parsers import JSONParser\n\n...\n\n@app.route('/example_view/')\n@set_parsers(JSONParser, MyCustomXMLParser)\ndef example():\n    return {\n        'example': 'Setting renderers on a per-view basis',\n        'request data': request.data\n    }\n\n\n\n\n\nAPI Reference\n\n\nJSONParser\n\n\nParses \nJSON\n request content and populates \nrequest.data\n.\n\n\nmedia_type\n: \napplication/json\n\n\nFormParser\n\n\nParses HTML form content.  \nrequest.data\n will be populated with a \nMultiDict\n of data.\n\n\nYou will typically want to use both \nFormParser\n and \nMultiPartParser\n together in order to fully support HTML form data.\n\n\nmedia_type\n: \napplication/x-www-form-urlencoded\n\n\nMultiPartParser\n\n\nParses multipart HTML form content, which supports file uploads.  Both \nrequest.data\n and \nrequest.files\n will be populated with a \nMultiDict\n.\n\n\nYou will typically want to use both \nFormParser\n and \nMultiPartParser\n together in order to fully support HTML form data.\n\n\nmedia_type\n: \nmultipart/form-data\n\n\n\n\nCustom parsers\n\n\nTo implement a custom parser, you should override \nBaseParser\n, set the \n.media_type\n property, and implement the \n.parse(self, stream, media_type, **options)\n method.\n\n\nThe method should return the data that will be used to populate the \nrequest.data\n property.\n\n\nThe arguments passed to \n.parse()\n are:\n\n\nstream\n\n\nA bytestream representing the body of the request.\n\n\nmedia_type\n\n\nAn instance of MediaType indicating media type of the incoming request.\n\n\nDepending on the request's \nContent-Type:\n header, this may be more specific than the renderer's \nmedia_type\n attribute, and may include media type parameters.  For example \n\"text/plain; charset=utf-8\"\n.\n\n\n**options\n\n\nAny additional contextual arguments that may be required in order to parse the request.\nBy default this includes a single keyword argument:\n\n\n\n\ncontent_length\n - An integer representing the length of the request body in bytes.\n\n\n\n\nExample\n\n\nThe following is an example plaintext parser that will populate the \nrequest.data\n property with a string representing the body of the request. \n\n\nclass PlainTextParser(BaseParser):\n    \"\"\"\n    Plain text parser.\n    \"\"\"\n    media_type = 'text/plain'\n\n    def parse(self, stream, media_type, **options):\n        \"\"\"\n        Simply return a string representing the body of the request.\n        \"\"\"\n        return stream.read().decode('utf8')",
+            "title": "Parsers"
+        },
+        {
+            "location": "/api-guide/parsers/#parsers",
+            "text": "Parsers are responsible for taking the content of the request body as a bytestream, and transforming it into a native Python data representation.  Flask API includes a few built-in parser classes and also provides support for defining your own custom parsers.",
+            "title": "Parsers"
+        },
+        {
+            "location": "/api-guide/parsers/#how-the-parser-is-determined",
+            "text": "The set of valid parsers for a view is always defined as a list of classes.  When any of the properties  request.data ,  request.form  or  request.files  are accessed, Flask API will examine the  Content-Type  header on the incoming request, and determine which parser to use to handle the request content.   Note : When developing client applications always remember to make sure you're setting the  Content-Type  header when sending data in an HTTP request.  If you don't set the content type, most clients will default to using  'application/x-www-form-urlencoded' , which may not be what you wanted.  As an example, if you are sending  json  encoded data using jQuery with the  .ajax() method , you should make sure to include the  contentType: 'application/json'  setting.",
+            "title": "How the parser is determined"
+        },
+        {
+            "location": "/api-guide/parsers/#setting-the-parsers",
+            "text": "The default set of parsers may be set globally, using the  DEFAULT_PARSERS  configuration key.  The default configuration will deal with parsing either JSON or form encoded requests.  app.config['DEFAULT_PARSERS'] = [\n    'flask.ext.api.parsers.JSONParser',\n    'flask.ext.api.parsers.URLEncodedParser',\n    'flask.ext.api.parsers.MultiPartParser'\n]  You can also set the parsers used for an individual view, using the  set_parsers  decorator.  from flask.ext.api.decorators import set_parsers\nfrom flask.ext.api.parsers import JSONParser\n\n...\n\n@app.route('/example_view/')\n@set_parsers(JSONParser, MyCustomXMLParser)\ndef example():\n    return {\n        'example': 'Setting renderers on a per-view basis',\n        'request data': request.data\n    }",
+            "title": "Setting the parsers"
+        },
+        {
+            "location": "/api-guide/parsers/#api-reference",
+            "text": "",
+            "title": "API Reference"
+        },
+        {
+            "location": "/api-guide/parsers/#jsonparser",
+            "text": "Parses  JSON  request content and populates  request.data .  media_type :  application/json",
+            "title": "JSONParser"
+        },
+        {
+            "location": "/api-guide/parsers/#formparser",
+            "text": "Parses HTML form content.   request.data  will be populated with a  MultiDict  of data.  You will typically want to use both  FormParser  and  MultiPartParser  together in order to fully support HTML form data.  media_type :  application/x-www-form-urlencoded",
+            "title": "FormParser"
+        },
+        {
+            "location": "/api-guide/parsers/#multipartparser",
+            "text": "Parses multipart HTML form content, which supports file uploads.  Both  request.data  and  request.files  will be populated with a  MultiDict .  You will typically want to use both  FormParser  and  MultiPartParser  together in order to fully support HTML form data.  media_type :  multipart/form-data",
+            "title": "MultiPartParser"
+        },
+        {
+            "location": "/api-guide/parsers/#custom-parsers",
+            "text": "To implement a custom parser, you should override  BaseParser , set the  .media_type  property, and implement the  .parse(self, stream, media_type, **options)  method.  The method should return the data that will be used to populate the  request.data  property.  The arguments passed to  .parse()  are:  stream  A bytestream representing the body of the request.  media_type  An instance of MediaType indicating media type of the incoming request.  Depending on the request's  Content-Type:  header, this may be more specific than the renderer's  media_type  attribute, and may include media type parameters.  For example  \"text/plain; charset=utf-8\" .  **options  Any additional contextual arguments that may be required in order to parse the request.\nBy default this includes a single keyword argument:   content_length  - An integer representing the length of the request body in bytes.",
+            "title": "Custom parsers"
+        },
+        {
+            "location": "/api-guide/parsers/#example",
+            "text": "The following is an example plaintext parser that will populate the  request.data  property with a string representing the body of the request.   class PlainTextParser(BaseParser):\n    \"\"\"\n    Plain text parser.\n    \"\"\"\n    media_type = 'text/plain'\n\n    def parse(self, stream, media_type, **options):\n        \"\"\"\n        Simply return a string representing the body of the request.\n        \"\"\"\n        return stream.read().decode('utf8')",
+            "title": "Example"
+        },
+        {
+            "location": "/api-guide/exceptions/",
+            "text": "Exceptions\n\n\nWhen dealing with errors in Flask API you should typically raise one of the built-in exceptions, or a subclass of the base \nAPIException\n.  Exceptions raised in this way will get the standard content negotiation applied to the response and will be rendered with an appropriate renderer.\n\n\nBy default all error responses will include a key \ndetail\n in the body of the response.\n\n\nFor example, the following request:\n\n\nPOST http://api.example.com/foo/bar HTTP/1.1\nContent-Type: application/json\nContent-Length: 63\n\n{'malformed json': 'keys and values should use double quotes'}\n\n\n\nMight receive an error response indicating that the JSON content of the request is malformed:\n\n\nHTTP/1.1 400 Bad Request\nContent-Type: application/json\nContent-Length: 33\n\n{\"detail\": \"Malformed request.\"}\n\n\n\n\n\nAPIException\n\n\nSignature:\n \nAPIException()\n\n\nThe \nbase class\n for all exceptions raised inside Flask API.\n\n\nTo provide a custom exception, subclass \nAPIException\n and set the \n.status_code\n and \n.detail\n properties on the class.\n\n\nFor example, if your API relies on a third party service that may sometimes be unreachable, you might want to implement an exception for the \"503 Service Unavailable\" HTTP response code.  You could do this like so:\n\n\nfrom flask.ext.api.exceptions import APIException\n\nclass ServiceUnavailable(APIException):\n    status_code = 503\n    detail = 'Service temporarily unavailable, try again later.'\n\n\n\nParseError\n\n\nSignature:\n \nParseError(detail=None)\n\n\nRaised if the request contains malformed data when accessing \nrequest.data\n, \nrequest.form\n or \nrequest.files\n.\n\n\nBy default this exception results in a response with the HTTP status code \"400 Bad Request\".\n\n\nAuthenticationFailed\n\n\nSignature:\n \nAuthenticationFailed(detail=None)\n\n\nShould be raised when an incoming request includes incorrect authentication.\n\n\nBy default this exception results in a response with the HTTP status code \"401 Unauthenticated\".\n\n\nNotAuthenticated\n\n\nSignature:\n \nNotAuthenticated(detail=None)\n\n\nShould be raised when an unauthenticated request fails permission checks.\n\n\nBy default this exception results in a response with the HTTP status code \"401 Unauthenticated\".\n\n\nPermissionDenied\n\n\nSignature:\n \nPermissionDenied(detail=None)\n\n\nShould be raised when an authenticated request fails permission checks.\n\n\nBy default this exception results in a response with the HTTP status code \"403 Forbidden\".\n\n\nNotFound\n\n\nSignature:\n \nNotFound(detail=None)\n\n\nShould be raised when a request is made to a resource that does not exist.\n\n\nBy default this exception results in a response with the HTTP status code \"404 Not Found\".\n\n\n\n\n\nNotAcceptable\n\n\nSignature:\n \nNotAcceptable(detail=None)\n\n\nRaised if there are no renderers that can satisfy the client's requested \nAccept\n header.\n\n\nBy default this exception results in a response with the HTTP status code \"406 Not Acceptable\".\n\n\nUnsupportedMediaType\n\n\nSignature:\n \nUnsupportedMediaType(detail=None)\n\n\nRaised if there are no parsers that can handle the content type of the request data when accessing \nrequest.data\n, \nrequest.form\n or \nrequest.files\n.\n\n\nBy default this exception results in a response with the HTTP status code \"415 Unsupported Media Type\".\n\n\nThrottled\n\n\nSignature:\n \nThrottled(detail=None)\n\n\nShould be raised when an incoming request fails throttling checks.\n\n\nBy default this exception results in a response with the HTTP status code \"429 Too Many Requests\".",
+            "title": "Exceptions"
+        },
+        {
+            "location": "/api-guide/exceptions/#exceptions",
+            "text": "When dealing with errors in Flask API you should typically raise one of the built-in exceptions, or a subclass of the base  APIException .  Exceptions raised in this way will get the standard content negotiation applied to the response and will be rendered with an appropriate renderer.  By default all error responses will include a key  detail  in the body of the response.  For example, the following request:  POST http://api.example.com/foo/bar HTTP/1.1\nContent-Type: application/json\nContent-Length: 63\n\n{'malformed json': 'keys and values should use double quotes'}  Might receive an error response indicating that the JSON content of the request is malformed:  HTTP/1.1 400 Bad Request\nContent-Type: application/json\nContent-Length: 33\n\n{\"detail\": \"Malformed request.\"}",
+            "title": "Exceptions"
+        },
+        {
+            "location": "/api-guide/exceptions/#apiexception",
+            "text": "Signature:   APIException()  The  base class  for all exceptions raised inside Flask API.  To provide a custom exception, subclass  APIException  and set the  .status_code  and  .detail  properties on the class.  For example, if your API relies on a third party service that may sometimes be unreachable, you might want to implement an exception for the \"503 Service Unavailable\" HTTP response code.  You could do this like so:  from flask.ext.api.exceptions import APIException\n\nclass ServiceUnavailable(APIException):\n    status_code = 503\n    detail = 'Service temporarily unavailable, try again later.'",
+            "title": "APIException"
+        },
+        {
+            "location": "/api-guide/exceptions/#parseerror",
+            "text": "Signature:   ParseError(detail=None)  Raised if the request contains malformed data when accessing  request.data ,  request.form  or  request.files .  By default this exception results in a response with the HTTP status code \"400 Bad Request\".",
+            "title": "ParseError"
+        },
+        {
+            "location": "/api-guide/exceptions/#authenticationfailed",
+            "text": "Signature:   AuthenticationFailed(detail=None)  Should be raised when an incoming request includes incorrect authentication.  By default this exception results in a response with the HTTP status code \"401 Unauthenticated\".",
+            "title": "AuthenticationFailed"
+        },
+        {
+            "location": "/api-guide/exceptions/#notauthenticated",
+            "text": "Signature:   NotAuthenticated(detail=None)  Should be raised when an unauthenticated request fails permission checks.  By default this exception results in a response with the HTTP status code \"401 Unauthenticated\".",
+            "title": "NotAuthenticated"
+        },
+        {
+            "location": "/api-guide/exceptions/#permissiondenied",
+            "text": "Signature:   PermissionDenied(detail=None)  Should be raised when an authenticated request fails permission checks.  By default this exception results in a response with the HTTP status code \"403 Forbidden\".",
+            "title": "PermissionDenied"
+        },
+        {
+            "location": "/api-guide/exceptions/#notfound",
+            "text": "Signature:   NotFound(detail=None)  Should be raised when a request is made to a resource that does not exist.  By default this exception results in a response with the HTTP status code \"404 Not Found\".",
+            "title": "NotFound"
+        },
+        {
+            "location": "/api-guide/exceptions/#notacceptable",
+            "text": "Signature:   NotAcceptable(detail=None)  Raised if there are no renderers that can satisfy the client's requested  Accept  header.  By default this exception results in a response with the HTTP status code \"406 Not Acceptable\".",
+            "title": "NotAcceptable"
+        },
+        {
+            "location": "/api-guide/exceptions/#unsupportedmediatype",
+            "text": "Signature:   UnsupportedMediaType(detail=None)  Raised if there are no parsers that can handle the content type of the request data when accessing  request.data ,  request.form  or  request.files .  By default this exception results in a response with the HTTP status code \"415 Unsupported Media Type\".",
+            "title": "UnsupportedMediaType"
+        },
+        {
+            "location": "/api-guide/exceptions/#throttled",
+            "text": "Signature:   Throttled(detail=None)  Should be raised when an incoming request fails throttling checks.  By default this exception results in a response with the HTTP status code \"429 Too Many Requests\".",
+            "title": "Throttled"
+        },
+        {
+            "location": "/api-guide/status-codes/",
+            "text": "Status Codes\n\n\nFlask API includes a set of named constants that you can use to make more code more obvious and readable.\n\n\nfrom flask.ext.api import status\n\n...\n\n@app.route('/empty-view/')\ndef empty_view(self):\n    content = {'please move along': 'nothing to see here'}\n    return content, status.HTTP_404_NOT_FOUND\n\n\n\nThe full set of HTTP status codes included in the \nstatus\n module is listed below.\n\n\nThe module also includes a set of helper functions for testing if a status code is in a given range.\n\n\nfrom flask.ext.api import status\nimport unittest\n\n...\n\nclass ExampleTestCase(unittest.TestCase):\n    def test_success(self):\n        with app.test_client() as client:\n            response = client.get('/')\n            self.assertTrue(status.is_success(response.status_code))\n\n\n\nFor more information on proper usage of HTTP status codes see \nRFC 2616\n\nand \nRFC 6585\n.\n\n\nInformational - 1xx\n\n\nThis class of status code indicates a provisional response.  There are no 1xx status codes used in REST framework by default.\n\n\nHTTP_100_CONTINUE\nHTTP_101_SWITCHING_PROTOCOLS\n\n\n\nSuccessful - 2xx\n\n\nThis class of status code indicates that the client's request was successfully received, understood, and accepted.\n\n\nHTTP_200_OK\nHTTP_201_CREATED\nHTTP_202_ACCEPTED\nHTTP_203_NON_AUTHORITATIVE_INFORMATION\nHTTP_204_NO_CONTENT\nHTTP_205_RESET_CONTENT\nHTTP_206_PARTIAL_CONTENT\n\n\n\nRedirection - 3xx\n\n\nThis class of status code indicates that further action needs to be taken by the user agent in order to fulfill the request.\n\n\nHTTP_300_MULTIPLE_CHOICES\nHTTP_301_MOVED_PERMANENTLY\nHTTP_302_FOUND\nHTTP_303_SEE_OTHER\nHTTP_304_NOT_MODIFIED\nHTTP_305_USE_PROXY\nHTTP_306_RESERVED\nHTTP_307_TEMPORARY_REDIRECT\n\n\n\nClient Error - 4xx\n\n\nThe 4xx class of status code is intended for cases in which the client seems to have erred.  Except when responding to a HEAD request, the server SHOULD include an entity containing an explanation of the error situation, and whether it is a temporary or permanent condition.\n\n\nHTTP_400_BAD_REQUEST\nHTTP_401_UNAUTHORIZED\nHTTP_402_PAYMENT_REQUIRED\nHTTP_403_FORBIDDEN\nHTTP_404_NOT_FOUND\nHTTP_405_METHOD_NOT_ALLOWED\nHTTP_406_NOT_ACCEPTABLE\nHTTP_407_PROXY_AUTHENTICATION_REQUIRED\nHTTP_408_REQUEST_TIMEOUT\nHTTP_409_CONFLICT\nHTTP_410_GONE\nHTTP_411_LENGTH_REQUIRED\nHTTP_412_PRECONDITION_FAILED\nHTTP_413_REQUEST_ENTITY_TOO_LARGE\nHTTP_414_REQUEST_URI_TOO_LONG\nHTTP_415_UNSUPPORTED_MEDIA_TYPE\nHTTP_416_REQUESTED_RANGE_NOT_SATISFIABLE\nHTTP_417_EXPECTATION_FAILED\nHTTP_428_PRECONDITION_REQUIRED\nHTTP_429_TOO_MANY_REQUESTS\nHTTP_431_REQUEST_HEADER_FIELDS_TOO_LARGE\n\n\n\nServer Error - 5xx\n\n\nResponse status codes beginning with the digit \"5\" indicate cases in which the server is aware that it has erred or is incapable of performing the request.  Except when responding to a HEAD request, the server SHOULD include an entity containing an explanation of the error situation, and whether it is a temporary or permanent condition.\n\n\nHTTP_500_INTERNAL_SERVER_ERROR\nHTTP_501_NOT_IMPLEMENTED\nHTTP_502_BAD_GATEWAY\nHTTP_503_SERVICE_UNAVAILABLE\nHTTP_504_GATEWAY_TIMEOUT\nHTTP_505_HTTP_VERSION_NOT_SUPPORTED\nHTTP_511_NETWORK_AUTHENTICATION_REQUIRED\n\n\n\nHelper functions\n\n\nThe following helper functions are available for identifying the category of the response code.\n\n\nis_informational()  # 1xx\nis_success()        #\u00a02xx\nis_redirect()       # 3xx\nis_client_error()   # 4xx\nis_server_error()   # 5xx",
+            "title": "Status codes"
+        },
+        {
+            "location": "/api-guide/status-codes/#status-codes",
+            "text": "Flask API includes a set of named constants that you can use to make more code more obvious and readable.  from flask.ext.api import status\n\n...\n\n@app.route('/empty-view/')\ndef empty_view(self):\n    content = {'please move along': 'nothing to see here'}\n    return content, status.HTTP_404_NOT_FOUND  The full set of HTTP status codes included in the  status  module is listed below.  The module also includes a set of helper functions for testing if a status code is in a given range.  from flask.ext.api import status\nimport unittest\n\n...\n\nclass ExampleTestCase(unittest.TestCase):\n    def test_success(self):\n        with app.test_client() as client:\n            response = client.get('/')\n            self.assertTrue(status.is_success(response.status_code))  For more information on proper usage of HTTP status codes see  RFC 2616 \nand  RFC 6585 .",
+            "title": "Status Codes"
+        },
+        {
+            "location": "/api-guide/status-codes/#informational-1xx",
+            "text": "This class of status code indicates a provisional response.  There are no 1xx status codes used in REST framework by default.  HTTP_100_CONTINUE\nHTTP_101_SWITCHING_PROTOCOLS",
+            "title": "Informational - 1xx"
+        },
+        {
+            "location": "/api-guide/status-codes/#successful-2xx",
+            "text": "This class of status code indicates that the client's request was successfully received, understood, and accepted.  HTTP_200_OK\nHTTP_201_CREATED\nHTTP_202_ACCEPTED\nHTTP_203_NON_AUTHORITATIVE_INFORMATION\nHTTP_204_NO_CONTENT\nHTTP_205_RESET_CONTENT\nHTTP_206_PARTIAL_CONTENT",
+            "title": "Successful - 2xx"
+        },
+        {
+            "location": "/api-guide/status-codes/#redirection-3xx",
+            "text": "This class of status code indicates that further action needs to be taken by the user agent in order to fulfill the request.  HTTP_300_MULTIPLE_CHOICES\nHTTP_301_MOVED_PERMANENTLY\nHTTP_302_FOUND\nHTTP_303_SEE_OTHER\nHTTP_304_NOT_MODIFIED\nHTTP_305_USE_PROXY\nHTTP_306_RESERVED\nHTTP_307_TEMPORARY_REDIRECT",
+            "title": "Redirection - 3xx"
+        },
+        {
+            "location": "/api-guide/status-codes/#client-error-4xx",
+            "text": "The 4xx class of status code is intended for cases in which the client seems to have erred.  Except when responding to a HEAD request, the server SHOULD include an entity containing an explanation of the error situation, and whether it is a temporary or permanent condition.  HTTP_400_BAD_REQUEST\nHTTP_401_UNAUTHORIZED\nHTTP_402_PAYMENT_REQUIRED\nHTTP_403_FORBIDDEN\nHTTP_404_NOT_FOUND\nHTTP_405_METHOD_NOT_ALLOWED\nHTTP_406_NOT_ACCEPTABLE\nHTTP_407_PROXY_AUTHENTICATION_REQUIRED\nHTTP_408_REQUEST_TIMEOUT\nHTTP_409_CONFLICT\nHTTP_410_GONE\nHTTP_411_LENGTH_REQUIRED\nHTTP_412_PRECONDITION_FAILED\nHTTP_413_REQUEST_ENTITY_TOO_LARGE\nHTTP_414_REQUEST_URI_TOO_LONG\nHTTP_415_UNSUPPORTED_MEDIA_TYPE\nHTTP_416_REQUESTED_RANGE_NOT_SATISFIABLE\nHTTP_417_EXPECTATION_FAILED\nHTTP_428_PRECONDITION_REQUIRED\nHTTP_429_TOO_MANY_REQUESTS\nHTTP_431_REQUEST_HEADER_FIELDS_TOO_LARGE",
+            "title": "Client Error - 4xx"
+        },
+        {
+            "location": "/api-guide/status-codes/#server-error-5xx",
+            "text": "Response status codes beginning with the digit \"5\" indicate cases in which the server is aware that it has erred or is incapable of performing the request.  Except when responding to a HEAD request, the server SHOULD include an entity containing an explanation of the error situation, and whether it is a temporary or permanent condition.  HTTP_500_INTERNAL_SERVER_ERROR\nHTTP_501_NOT_IMPLEMENTED\nHTTP_502_BAD_GATEWAY\nHTTP_503_SERVICE_UNAVAILABLE\nHTTP_504_GATEWAY_TIMEOUT\nHTTP_505_HTTP_VERSION_NOT_SUPPORTED\nHTTP_511_NETWORK_AUTHENTICATION_REQUIRED",
+            "title": "Server Error - 5xx"
+        },
+        {
+            "location": "/api-guide/status-codes/#helper-functions",
+            "text": "The following helper functions are available for identifying the category of the response code.  is_informational()  # 1xx\nis_success()        #\u00a02xx\nis_redirect()       # 3xx\nis_client_error()   # 4xx\nis_server_error()   # 5xx",
+            "title": "Helper functions"
+        },
+        {
+            "location": "/about/release-notes/",
+            "text": "Release Notes\n\n\nThis project is currently in alpha.  It is functional and well tested but you are advised to pay close attention to the release notes when upgrading to future versions.\n\n\nVersion 0.6.3\n\n\n\n\nFixed handling of query strings (in Python 3)\n\n\nFixed handling of empty content in \nAPIResposne\n\n\nFixed escaping of angled brackets and ampersands\n\n\nAdded support for custom templates when extending \nBrowsableAPIRenderer\n\n\n\n\nVersion 0.6.2\n\n\n\n\nAdded \nHTMLRenderer\n.\n\n\n\n\nVersion 0.6.1\n\n\n\n\nset_parsers\n and \nset_decorators\n accept either positional args or a single arg list/tuple.\n\n\nHyperlink content in the browsable API.\n\n\n\n\nVersion 0.6\n\n\nInitial alpha release.",
+            "title": "Release Notes"
+        },
+        {
+            "location": "/about/release-notes/#release-notes",
+            "text": "This project is currently in alpha.  It is functional and well tested but you are advised to pay close attention to the release notes when upgrading to future versions.",
+            "title": "Release Notes"
+        },
+        {
+            "location": "/about/release-notes/#version-063",
+            "text": "Fixed handling of query strings (in Python 3)  Fixed handling of empty content in  APIResposne  Fixed escaping of angled brackets and ampersands  Added support for custom templates when extending  BrowsableAPIRenderer",
+            "title": "Version 0.6.3"
+        },
+        {
+            "location": "/about/release-notes/#version-062",
+            "text": "Added  HTMLRenderer .",
+            "title": "Version 0.6.2"
+        },
+        {
+            "location": "/about/release-notes/#version-061",
+            "text": "set_parsers  and  set_decorators  accept either positional args or a single arg list/tuple.  Hyperlink content in the browsable API.",
+            "title": "Version 0.6.1"
+        },
+        {
+            "location": "/about/release-notes/#version-06",
+            "text": "Initial alpha release.",
+            "title": "Version 0.6"
+        },
+        {
+            "location": "/about/license/",
+            "text": "License\n\n\nThis software is made available under the terms of a \nBSD 2-Clause license\n.\n\n\n\n\nCopyright \n 2015, Tom Christie\nAll rights reserved.\n\n\nRedistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:\n\n\n\n\n\n\nRedistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.\n\n\n\n\n\n\nRedistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.\n\n\n\n\n\n\nTHIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.",
+            "title": "License"
+        },
+        {
+            "location": "/about/license/#license",
+            "text": "This software is made available under the terms of a  BSD 2-Clause license .   Copyright   2015, Tom Christie\nAll rights reserved.  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:    Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.    Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.",
+            "title": "License"
+        }
+    ]
+}
