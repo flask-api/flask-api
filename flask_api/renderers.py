@@ -4,6 +4,7 @@ from flask import request, render_template, current_app
 from flask.json import JSONEncoder
 from flask.globals import _request_ctx_stack
 from flask_api.mediatypes import MediaType
+from flask_api.compat import apply_markdown
 import json
 import re
 
@@ -107,6 +108,9 @@ class BrowsableAPIRenderer(BaseRenderer):
         if view_description is not None:
             view_description = dedent(view_description)
         mock_content = html_escape(mock_content)
+
+        if view_description and apply_markdown:
+            view_description = apply_markdown(view_description)
 
         status = options['status']
         headers = options['headers']

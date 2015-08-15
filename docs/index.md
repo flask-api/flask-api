@@ -38,9 +38,14 @@ Requirements:
 * Python 2.7+ or 3.3+
 * Flask 0.10+
 
-Install using `pip`.
+The following packages are optional:
+
+* Markdown (2.1.0+) - Markdown support for the browsable API.
+
+Install using `pip`,  including any optional packages you want...
 
     pip install Flask-API
+    pip install markdown       # Markdown support for the browsable API.
 
 Import and initialize your application.
 
