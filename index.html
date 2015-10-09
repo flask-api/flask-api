@@ -213,8 +213,13 @@
 <li>Python 2.7+ or 3.3+</li>
 <li>Flask 0.10+</li>
 </ul>
-<p>Install using <code>pip</code>.</p>
+<p>The following packages are optional:</p>
+<ul>
+<li>Markdown (2.1.0+) - Markdown support for the browsable API.</li>
+</ul>
+<p>Install using <code>pip</code>,  including any optional packages you want...</p>
 <pre><code>pip install Flask-API
+pip install markdown       # Markdown support for the browsable API.
 </code></pre>
 <p>Import and initialize your application.</p>
 <pre><code>from flask.ext.api import FlaskAPI
@@ -357,6 +362,6 @@ $ curl -X PUT http://127.0.0.1:5000/1/ -d text="flask api is teh awesomez"
 </html>
 
 <!--
-MkDocs version : 0.13.0
-Build Date UTC : 2015-05-27 01:42:04.377892
+MkDocs version : 0.14.0
+Build Date UTC : 2015-10-09 03:05:00.544253
 -->
