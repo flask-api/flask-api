@@ -2,6 +2,11 @@
 
 This project is currently in alpha.  It is functional and well tested but you are advised to pay close attention to the release notes when upgrading to future versions.
 
+## Version 0.6.4
+
+* Fixed escaping in link headers
+* Added support for Markdown in the browsable API (requires `markdown >= 2.1`)
+
 ## Version 0.6.3
 
 * Fixed handling of query strings (in Python 3)
