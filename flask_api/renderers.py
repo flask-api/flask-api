@@ -42,7 +42,9 @@ def dedent(content):
 
 
 def convert_to_title(name):
-    return name.replace('-', ' ').replace('_', ' ').capitalize()
+    for char in ['-', '_', '.']:
+        name = name.replace(char, ' ')
+    return name.capitalize()
 
 
 class BaseRenderer(object):
