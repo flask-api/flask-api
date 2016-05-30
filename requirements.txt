@@ -1,5 +1,5 @@
 # Production
-Flask ~= 0.10.1
+Flask >= 0.10.1
 
 # Development
 coverage ~= 3.7.1

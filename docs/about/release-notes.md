@@ -2,6 +2,10 @@
 
 This project is currently in alpha.  It is functional and well tested but you are advised to pay close attention to the release notes when upgrading to future versions.
 
+## Version 0.6.6
+
+* Updated dependencies to allow newer versions Flask
+
 ## Version 0.6.5
 
 * Replaced periods in page titles with spaces
