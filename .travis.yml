@@ -10,7 +10,9 @@ python:
 env:
   matrix:
   - FLASK_VERSION=0.10.1
-  - FLASK_VERSION=0.10.2
+  # TODO: enable when future release is available:
+  # http://flask.pocoo.org/docs/0.11/changelog/#version-0-10-2
+  # - FLASK_VERSION=0.10.2
   - FLASK_VERSION=0.11.0
 
 install:
