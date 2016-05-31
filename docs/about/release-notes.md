@@ -4,7 +4,7 @@ This project is currently in alpha.  It is functional and well tested but you ar
 
 ## Version 0.6.6
 
-* Updated dependencies to allow newer versions Flask
+* Updated dependencies to allow newer versions of Flask
 
 ## Version 0.6.5
 
