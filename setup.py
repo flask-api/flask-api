@@ -56,6 +56,7 @@ def get_package_data(package):
 
 
 if sys.argv[-1] == 'publish':
+    os.system("git clean -xdf")
     os.system("python setup.py sdist upload")
     args = {'version': get_version(package)}
     print("You probably want to also tag the version now:")
