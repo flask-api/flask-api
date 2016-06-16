@@ -109,7 +109,7 @@ class BrowsableAPIRenderer(BaseRenderer):
         view_name = str(endpoint)
         view_description = current_app.view_functions[endpoint].__doc__
         if apply_markdown is None and view_description:
-            view_description = pydoc.html.markup(view_description)
+            view_description = dedent(view_description)
             view_description = pydoc.html.preformat(view_description)
         elif apply_markdown is not None and view_description:
             view_description = dedent(view_description)
