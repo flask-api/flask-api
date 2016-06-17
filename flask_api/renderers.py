@@ -6,6 +6,7 @@ from flask.globals import _request_ctx_stack
 from flask_api.mediatypes import MediaType
 from flask_api.compat import apply_markdown
 import json
+import pydoc
 import re
 
 
@@ -107,12 +108,13 @@ class BrowsableAPIRenderer(BaseRenderer):
         endpoint = request.url_rule.endpoint
         view_name = str(endpoint)
         view_description = current_app.view_functions[endpoint].__doc__
-        if view_description is not None:
+        if apply_markdown is None and view_description:
             view_description = dedent(view_description)
-        mock_content = html_escape(mock_content)
-
-        if view_description and apply_markdown:
+            view_description = pydoc.html.preformat(view_description)
+        elif apply_markdown is not None and view_description:
+            view_description = dedent(view_description)
             view_description = apply_markdown(view_description)
+        mock_content = html_escape(mock_content)
 
         status = options['status']
         headers = options['headers']
