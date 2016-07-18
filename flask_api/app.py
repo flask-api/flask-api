@@ -88,7 +88,7 @@ class FlaskAPI(Flask):
         if handlers is not None:
             blueprint_handlers = handlers.get(None, ())
         app_handlers = self.error_handler_spec[None].get(None, ())
-        for typecheck, handler in chain(blueprint_handlers, app_handlers):
+        for typecheck, handler in chain(blueprint_handlers.items(), app_handlers.items()):
             if isinstance(e, typecheck):
                 return handler(e)
 
