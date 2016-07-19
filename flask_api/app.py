@@ -10,6 +10,7 @@ from itertools import chain
 from werkzeug.exceptions import HTTPException
 import re
 import sys
+from flask import __version__ as flask_version
 
 
 api_resources = Blueprint(
@@ -88,9 +89,15 @@ class FlaskAPI(Flask):
         if handlers is not None:
             blueprint_handlers = handlers.get(None, ())
         app_handlers = self.error_handler_spec[None].get(None, ())
-        for typecheck, handler in chain(blueprint_handlers.items(), app_handlers.items()):
-            if isinstance(e, typecheck):
-                return handler(e)
+        flask_version.split()
+        if self.get_minor_version() <= 10:
+            for typecheck, handler in chain(blueprint_handlers, app_handlers):
+                if isinstance(e, typecheck):
+                    return handler(e)
+        else:
+            for typecheck, handler in chain(blueprint_handlers.items(), app_handlers.items()):
+                if isinstance(e, typecheck):
+                    return handler(e)
 
         reraise(exc_type, exc_value, tb)
 
@@ -116,3 +123,7 @@ class FlaskAPI(Flask):
                 self.config['SERVER_NAME'],
                 script_name=self.config['APPLICATION_ROOT'] or '/',
                 url_scheme=self.config['PREFERRED_URL_SCHEME'])
+
+    @staticmethod
+    def get_minor_version():
+        return int(flask_version.split(".")[1])
