@@ -10,7 +10,7 @@ from itertools import chain
 from werkzeug.exceptions import HTTPException
 import re
 import sys
-from flask import __version__ as flask_version
+from compat import is_flask_legacy
 
 
 api_resources = Blueprint(
@@ -89,8 +89,7 @@ class FlaskAPI(Flask):
         if handlers is not None:
             blueprint_handlers = handlers.get(None, ())
         app_handlers = self.error_handler_spec[None].get(None, ())
-        flask_version.split()
-        if self.get_minor_version() <= 10:
+        if is_flask_legacy():
             for typecheck, handler in chain(blueprint_handlers, app_handlers):
                 if isinstance(e, typecheck):
                     return handler(e)
@@ -123,7 +122,3 @@ class FlaskAPI(Flask):
                 self.config['SERVER_NAME'],
                 script_name=self.config['APPLICATION_ROOT'] or '/',
                 url_scheme=self.config['PREFERRED_URL_SCHEME'])
-
-    @staticmethod
-    def get_minor_version():
-        return int(flask_version.split(".")[1])
