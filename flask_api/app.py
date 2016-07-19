@@ -10,7 +10,7 @@ from itertools import chain
 from werkzeug.exceptions import HTTPException
 import re
 import sys
-from compat import is_flask_legacy
+from flask_api.compat import is_flask_legacy
 
 
 api_resources = Blueprint(
