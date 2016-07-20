@@ -10,6 +10,7 @@ from itertools import chain
 from werkzeug.exceptions import HTTPException
 import re
 import sys
+from flask_api.compat import is_flask_legacy
 
 
 api_resources = Blueprint(
@@ -88,9 +89,14 @@ class FlaskAPI(Flask):
         if handlers is not None:
             blueprint_handlers = handlers.get(None, ())
         app_handlers = self.error_handler_spec[None].get(None, ())
-        for typecheck, handler in chain(blueprint_handlers, app_handlers):
-            if isinstance(e, typecheck):
-                return handler(e)
+        if is_flask_legacy():
+            for typecheck, handler in chain(blueprint_handlers, app_handlers):
+                if isinstance(e, typecheck):
+                    return handler(e)
+        else:
+            for typecheck, handler in chain(blueprint_handlers.items(), app_handlers.items()):
+                if isinstance(e, typecheck):
+                    return handler(e)
 
         reraise(exc_type, exc_value, tb)
 
