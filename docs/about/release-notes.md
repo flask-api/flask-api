@@ -1,6 +1,10 @@
 # Release Notes
 
-This project is currently in alpha.  It is functional and well tested but you are advised to pay close attention to the release notes when upgrading to future versions.
+This project is currently in beta.  It is functional and well tested but you are advised to pay close attention to the release notes when upgrading to future versions.
+
+## Version 0.7 (unreleased)
+
+Disabled rendering of text responses as API views.
 
 ## Version 0.6.9
 
