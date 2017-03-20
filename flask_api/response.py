@@ -1,6 +1,7 @@
 # coding: utf8
 from __future__ import unicode_literals
 from flask import request, Response
+from flask._compat import text_type
 
 
 class APIResponse(Response):
@@ -20,7 +21,7 @@ class APIResponse(Response):
         # From `werkzeug.wrappers.BaseResponse`
         if content is None:
             content = []
-        if isinstance(content, (bytes, bytearray)):
+        if isinstance(content, (text_type, bytes, bytearray)):
             self.set_data(content)
         else:
             self.response = content
