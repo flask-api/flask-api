@@ -52,7 +52,7 @@ Import and initialize your application.
 
     from flask_api import FlaskAPI
 
-    app = FlaskAPI(__main__)
+    app = FlaskAPI(__name__)
 
 ## Responses
 
