@@ -2,9 +2,10 @@
 
 This project is currently in beta.  It is functional and well tested but you are advised to pay close attention to the release notes when upgrading to future versions.
 
-## Version 0.7 (unreleased)
+## Version 0.7
 
-Disabled rendering of text responses as API views.
+* Disabled rendering of text responses as API views.
+* Added additional HTTP status codes.
 
 ## Version 0.6.9
 
