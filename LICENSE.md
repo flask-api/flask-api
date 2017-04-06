@@ -2,7 +2,7 @@
 
 This software is made available under the terms of a [BSD 2-Clause license][bsd-2-clause].
 
-Copyright &copy; 2014, Tom Christie
+Copyright &copy; 2017, Tom Christie
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
