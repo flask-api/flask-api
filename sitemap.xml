@@ -3,8 +3,8 @@
 
     
     <url>
-     <loc>None/</loc>
-     <lastmod>2016-10-15</lastmod>
+     <loc>/</loc>
+     <lastmod>2017-04-05</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -12,26 +12,26 @@
     
         
     <url>
-     <loc>None/api-guide/renderers/</loc>
-     <lastmod>2016-10-15</lastmod>
+     <loc>/api-guide/renderers/</loc>
+     <lastmod>2017-04-05</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/api-guide/parsers/</loc>
-     <lastmod>2016-10-15</lastmod>
+     <loc>/api-guide/parsers/</loc>
+     <lastmod>2017-04-05</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/api-guide/exceptions/</loc>
-     <lastmod>2016-10-15</lastmod>
+     <loc>/api-guide/exceptions/</loc>
+     <lastmod>2017-04-05</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/api-guide/status-codes/</loc>
-     <lastmod>2016-10-15</lastmod>
+     <loc>/api-guide/status-codes/</loc>
+     <lastmod>2017-04-05</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
@@ -40,14 +40,14 @@
     
         
     <url>
-     <loc>None/about/release-notes/</loc>
-     <lastmod>2016-10-15</lastmod>
+     <loc>/about/release-notes/</loc>
+     <lastmod>2017-04-05</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/about/license/</loc>
-     <lastmod>2016-10-15</lastmod>
+     <loc>/about/license/</loc>
+     <lastmod>2017-04-05</lastmod>
      <changefreq>daily</changefreq>
     </url>
         

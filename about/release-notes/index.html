@@ -8,21 +8,20 @@
         
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-
-	<title>Release Notes - Flask API</title>
-
+        <title>Release Notes - Flask API</title>
         <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
         <link rel="stylesheet" href="../../css/highlight.css">
-
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
-
-        
+	
+	<script src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script>
         <script>
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -31,8 +30,7 @@
 
             ga('create', 'UA-27795084-4', 'flaskapi.org');
             ga('send', 'pageview');
-        </script>
-        
+        </script> 
     </head>
 
     <body>
@@ -42,7 +40,6 @@
 
         <!-- Collapsed navigation -->
         <div class="navbar-header">
-            
             <!-- Expander button -->
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
@@ -50,80 +47,51 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            
-
-            <!-- Main title -->
             <a class="navbar-brand" href="../..">Flask API</a>
         </div>
 
         <!-- Expanded navigation -->
         <div class="navbar-collapse collapse">
-            
                 <!-- Main navigation -->
                 <ul class="nav navbar-nav">
-                
-                
                     <li >
                         <a href="../..">Home</a>
                     </li>
-                
-                
-                
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">API Guide <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                        
                             
 <li >
     <a href="../../api-guide/renderers/">Renderers</a>
 </li>
-
-                        
                             
 <li >
     <a href="../../api-guide/parsers/">Parsers</a>
 </li>
-
-                        
                             
 <li >
     <a href="../../api-guide/exceptions/">Exceptions</a>
 </li>
-
-                        
                             
 <li >
     <a href="../../api-guide/status-codes/">Status codes</a>
 </li>
-
-                        
                         </ul>
                     </li>
-                
-                
-                
                     <li class="dropdown active">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">About <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                        
                             
 <li class="active">
     <a href="./">Release Notes</a>
 </li>
-
-                        
                             
 <li >
     <a href="../license/">License</a>
 </li>
-
-                        
                         </ul>
                     </li>
-                
-                
                 </ul>
-            
 
             <ul class="nav navbar-nav navbar-right">
                 <li>
@@ -131,7 +99,6 @@
                         <i class="fa fa-search"></i> Search
                     </a>
                 </li>
-                
                     <li >
                         <a rel="next" href="../../api-guide/status-codes/">
                             <i class="fa fa-arrow-left"></i> Previous
@@ -142,56 +109,42 @@
                             Next <i class="fa fa-arrow-right"></i>
                         </a>
                     </li>
-                
-                
                     <li>
                         <a href="https://github.com/tomchristie/flask-api">
-                            
-                                <i class="fa fa-github"></i>
-                            
-                            GitHub
+                                <i class="fa fa-github"></i>GitHub
                         </a>
                     </li>
-                
             </ul>
         </div>
     </div>
 </div>
 
         <div class="container">
-            
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-    
         <li class="main active"><a href="#release-notes">Release Notes</a></li>
-        
+            <li><a href="#version-07">Version 0.7</a></li>
             <li><a href="#version-069">Version 0.6.9</a></li>
-        
             <li><a href="#version-068">Version 0.6.8</a></li>
-        
             <li><a href="#version-067">Version 0.6.7</a></li>
-        
             <li><a href="#version-066">Version 0.6.6</a></li>
-        
             <li><a href="#version-065">Version 0.6.5</a></li>
-        
             <li><a href="#version-064">Version 0.6.4</a></li>
-        
             <li><a href="#version-063">Version 0.6.3</a></li>
-        
             <li><a href="#version-062">Version 0.6.2</a></li>
-        
             <li><a href="#version-061">Version 0.6.1</a></li>
-        
             <li><a href="#version-06">Version 0.6</a></li>
-        
-    
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
 <h1 id="release-notes">Release Notes</h1>
-<p>This project is currently in alpha.  It is functional and well tested but you are advised to pay close attention to the release notes when upgrading to future versions.</p>
+<p>This project is currently in beta.  It is functional and well tested but you are advised to pay close attention to the release notes when upgrading to future versions.</p>
+<h2 id="version-07">Version 0.7</h2>
+<ul>
+<li>Disabled rendering of text responses as API views.</li>
+<li>Added additional HTTP status codes.</li>
+</ul>
 <h2 id="version-069">Version 0.6.9</h2>
 <ul>
 <li>Fixed <code>AttributeError</code> when rendering empty content using <code>BrowsableAPIRenderer</code></li>
@@ -235,48 +188,39 @@
 </ul>
 <h2 id="version-06">Version 0.6</h2>
 <p>Initial alpha release.</p></div>
-            
         </div>
 
         <footer class="col-md-12">
             <hr>
-            
                 <p><a href="/about/license">BSD licensed</a> <b>&middot;</b> Copyright &copy; 2014, <a href="https://twitter.com/_tomchristie">Tom Christie</a>.</p>
-            
             <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
-
-        <script src="../../js/jquery-1.10.2.min.js"></script>
-        <script src="../../js/bootstrap-3.0.3.min.js"></script>
-        <script src="../../js/highlight.pack.js"></script>
         <script>var base_url = '../..';</script>
         <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
-        <script src="../../js/base.js"></script>
-
-        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+        <script src="../../js/base.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
                     </div>
-                    <div class="modal-body">
-                        <p>
-                            From here you can search these documents. Enter
-                            your search terms below.
-                        </p>
-                        <form role="form">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
-                            </div>
-                        </form>
-                        <div id="mkdocs-search-results"></div>
-                    </div>
-                    <div class="modal-footer">
-                    </div>
-                </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
             </div>
         </div>
+    </div>
+</div>
 
     </body>
 </html>
