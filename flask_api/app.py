@@ -56,7 +56,8 @@ class FlaskAPI(Flask):
 
         if not isinstance(rv, self.response_class):
             if isinstance(rv, (text_type, bytes, bytearray, list, dict)):
-                rv = self.response_class(rv, headers=headers, status=status_or_headers)
+                status = status_or_headers
+                rv = self.response_class(rv, headers=headers, status=status)
                 headers = status_or_headers = None
             else:
                 rv = self.response_class.force_type(rv, request.environ)
