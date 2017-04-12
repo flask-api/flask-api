@@ -1,0 +1,13 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+
+[packages]
+Flask = "~=0.10.1"
+
+[dev-packages]
+nose = "*"
+coverage = "~=3.7.1"
+flake8 = "~=2.1"
+mkdocs = "~=0.12"
+tox = "~=2.0"

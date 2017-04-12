@@ -15,8 +15,11 @@ env:
   # - FLASK_VERSION=0.10.2
   - FLASK_VERSION=0.11.0
 
+before_install:
+- pip install pipenv
+
 install:
-- pip install -r requirements.txt
+- pipenv install --dev --system
 - pip install flask==${FLASK_VERSION}  # override version for the build matrix
 - pip install coverage==3.6
 - pip install python-coveralls==2.4.0
