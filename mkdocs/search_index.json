@@ -247,13 +247,18 @@
         },
         {
             "location": "/about/release-notes/",
-            "text": "Release Notes\n\n\nThis project is currently in beta.  It is functional and well tested but you are advised to pay close attention to the release notes when upgrading to future versions.\n\n\nVersion 0.7\n\n\n\n\nDisabled rendering of text responses as API views.\n\n\nAdded additional HTTP status codes.\n\n\n\n\nVersion 0.6.9\n\n\n\n\nFixed \nAttributeError\n when rendering empty content using \nBrowsableAPIRenderer\n\n\n\n\nVersion 0.6.8\n\n\n\n\nFixed \nAttributeError\n with Blueprint handlers in Flask 0.11+\n\n\n\n\nVersion 0.6.7\n\n\n\n\nFixed compatibility issue between Flask 0.10 and 0.11\n\n\n\n\nVersion 0.6.6\n\n\n\n\nUpdated dependencies to allow newer versions of Flask\n\n\n\n\nVersion 0.6.5\n\n\n\n\nReplaced periods in page titles with spaces\n\n\n\n\nVersion 0.6.4\n\n\n\n\nFixed escaping in link headers\n\n\nAdded support for Markdown in the browsable API (requires \nmarkdown >= 2.1\n)\n\n\n\n\nVersion 0.6.3\n\n\n\n\nFixed handling of query strings (in Python 3)\n\n\nFixed handling of empty content in \nAPIResposne\n\n\nFixed escaping of angled brackets and ampersands\n\n\nAdded support for custom templates when extending \nBrowsableAPIRenderer\n\n\n\n\nVersion 0.6.2\n\n\n\n\nAdded \nHTMLRenderer\n.\n\n\n\n\nVersion 0.6.1\n\n\n\n\nset_parsers\n and \nset_decorators\n accept either positional args or a single arg list/tuple.\n\n\nHyperlink content in the browsable API.\n\n\n\n\nVersion 0.6\n\n\nInitial alpha release.",
+            "text": "Release Notes\n\n\nThis project is currently in beta.  It is functional and well tested but you are advised to pay close attention to the release notes when upgrading to future versions.\n\n\nVersion 0.7.1\n\n\n\n\nAdded customization of automatic API return types (\napp.response_class.api_return_types\n).\n\n\n\n\nVersion 0.7\n\n\n\n\nDisabled rendering of text responses as API views.\n\n\nAdded additional HTTP status codes.\n\n\n\n\nVersion 0.6.9\n\n\n\n\nFixed \nAttributeError\n when rendering empty content using \nBrowsableAPIRenderer\n\n\n\n\nVersion 0.6.8\n\n\n\n\nFixed \nAttributeError\n with Blueprint handlers in Flask 0.11+\n\n\n\n\nVersion 0.6.7\n\n\n\n\nFixed compatibility issue between Flask 0.10 and 0.11\n\n\n\n\nVersion 0.6.6\n\n\n\n\nUpdated dependencies to allow newer versions of Flask\n\n\n\n\nVersion 0.6.5\n\n\n\n\nReplaced periods in page titles with spaces\n\n\n\n\nVersion 0.6.4\n\n\n\n\nFixed escaping in link headers\n\n\nAdded support for Markdown in the browsable API (requires \nmarkdown >= 2.1\n)\n\n\n\n\nVersion 0.6.3\n\n\n\n\nFixed handling of query strings (in Python 3)\n\n\nFixed handling of empty content in \nAPIResposne\n\n\nFixed escaping of angled brackets and ampersands\n\n\nAdded support for custom templates when extending \nBrowsableAPIRenderer\n\n\n\n\nVersion 0.6.2\n\n\n\n\nAdded \nHTMLRenderer\n.\n\n\n\n\nVersion 0.6.1\n\n\n\n\nset_parsers\n and \nset_decorators\n accept either positional args or a single arg list/tuple.\n\n\nHyperlink content in the browsable API.\n\n\n\n\nVersion 0.6\n\n\nInitial alpha release.",
             "title": "Release Notes"
         },
         {
             "location": "/about/release-notes/#release-notes",
             "text": "This project is currently in beta.  It is functional and well tested but you are advised to pay close attention to the release notes when upgrading to future versions.",
             "title": "Release Notes"
+        },
+        {
+            "location": "/about/release-notes/#version-071",
+            "text": "Added customization of automatic API return types ( app.response_class.api_return_types ).",
+            "title": "Version 0.7.1"
         },
         {
             "location": "/about/release-notes/#version-07",
