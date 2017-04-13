@@ -5,11 +5,14 @@ from flask._compat import text_type
 
 
 class APIResponse(Response):
+
+    api_return_types = (list, dict)
+
     def __init__(self, content=None, *args, **kwargs):
         super(APIResponse, self).__init__(None, *args, **kwargs)
 
         media_type = None
-        if isinstance(content, (list, dict)) or content == '':
+        if isinstance(content, self.api_return_types) or content == '':
             renderer = request.accepted_renderer
             if content != '' or renderer.handles_empty_responses:
                 media_type = request.accepted_media_type
