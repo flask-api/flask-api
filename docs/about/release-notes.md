@@ -2,7 +2,7 @@
 
 This project is currently in beta.  It is functional and well tested but you are advised to pay close attention to the release notes when upgrading to future versions.
 
-## Version 0.7.1 (unreleased)
+## Version 0.7.1
 
 * Added customization of automatic API return types (`app.response_class.api_return_types`).
 
