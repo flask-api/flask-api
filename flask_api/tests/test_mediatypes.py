@@ -6,7 +6,7 @@ import unittest
 
 class MediaTypeParsingTests(unittest.TestCase):
     def test_media_type_with_params(self):
-        media = MediaType('application/xml; schema=foobar, q=0.5')
+        media = MediaType('application/xml; schema=foobar; q=0.5')
         self.assertEqual(str(media), 'application/xml; q="0.5", schema="foobar"')
         self.assertEqual(media.main_type, 'application')
         self.assertEqual(media.sub_type, 'xml')
@@ -98,22 +98,20 @@ class AcceptHeaderTests(unittest.TestCase):
     def test_parse_simple_accept_header(self):
         parsed = parse_accept_header('*/*, application/json')
         self.assertEqual(parsed, [
-            set([MediaType('application/json')]),
-            set([MediaType('*/*')])
+            [MediaType('application/json')],
+            [MediaType('*/*')]
         ])
 
     def test_parse_complex_accept_header(self):
         """
         The accept header should be parsed into a list of sets of MediaType.
-        The list is an ordering of precedence.
-
-        Note that we disregard 'q' values when determining precedence, and
-        instead differentiate equal values by using the server preference.
+        The list is an ordering of precedence and sublists are in the order
+        of quality.
         """
         header = 'application/xml; schema=foo, application/json; q=0.9, application/xml, */*'
         parsed = parse_accept_header(header)
         self.assertEqual(parsed, [
-            set([MediaType('application/xml; schema=foo')]),
-            set([MediaType('application/json; q=0.9'), MediaType('application/xml')]),
-            set([MediaType('*/*')]),
+            [MediaType('application/xml; schema=foo')],
+            [MediaType('application/xml'), MediaType('application/json; q=0.9')],
+            [MediaType('*/*')],
         ])

@@ -28,6 +28,10 @@ class MediaType(object):
             return 2
         return 3
 
+    @property
+    def quality(self):
+        return float(self.params.get('q', 1.0))
+
     def satisfies(self, other):
         """
         Returns `True` if this media type is a superset of `other`.
@@ -57,7 +61,7 @@ class MediaType(object):
         """
         full_type, sep, param_string = media_type.partition(';')
         params = {}
-        for token in param_string.strip().split(','):
+        for token in param_string.split(';'):
             key, sep, value = [s.strip() for s in token.partition('=')]
             if value.startswith('"') and value.endswith('"'):
                 value = value[1:-1]
@@ -105,8 +109,10 @@ def parse_accept_header(accept):
         set([<MediaType "*/*">])
     ]
     """
-    ret = [set(), set(), set(), set()]
+    ret = [[], [], [], []]
     for token in accept.split(','):
         media_type = MediaType(token.strip())
-        ret[3 - media_type.precedence].add(media_type)
-    return [media_types for media_types in ret if media_types]
+        ret[3 - media_type.precedence].append(media_type)
+
+    return [sorted(media_types, key=lambda t: -t.quality)
+            for media_types in ret if media_types]
