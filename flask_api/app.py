@@ -63,8 +63,6 @@ class FlaskAPI(Flask):
                 rv = self.response_class.force_type(rv, request.environ)
 
         if status_or_headers is not None:
-            if isinstance(
-        if status_or_headers is not None:
             if isinstance(status_or_headers, string_types):
                 rv.status = status_or_headers
             else:
