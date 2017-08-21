@@ -156,10 +156,10 @@ To stay up to date with progress on Flask API, follow [Tom Christie on twitter][
 
 Many thanks to [Nicolas Clairon][nicolas-clarion] for making the `flask_api` PyPI package available.
 
-[travis-image]: http://img.shields.io/travis/tomchristie/flask-api/master.svg
-[travis-link]: https://travis-ci.org/tomchristie/flask-api
-[coveralls-image]: http://img.shields.io/coveralls/tomchristie/flask-api/master.svg
-[coveralls-link]: https://coveralls.io/r/tomchristie/flask-api?branch=master
+[travis-image]: http://img.shields.io/travis/flask-api/flask-api/master.svg
+[travis-link]: https://travis-ci.org/flask-api/flask-api
+[coveralls-image]: http://img.shields.io/coveralls/flask-api/flask-api/master.svg
+[coveralls-link]: https://coveralls.io/r/flask-api/flask-api?branch=master
 [pypi-image]: http://img.shields.io/pypi/v/flask-api.svg
 [pypi-link]: https://pypi.python.org/pypi/flask-api
 [django-rest-framework]: http://www.django-rest-framework.org
