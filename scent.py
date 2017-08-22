@@ -23,7 +23,7 @@ class Options(object):
     rerun_args = None
 
     targets = [
-        (('make', 'test', 'DISABLE_COVERAGE=true'), "Run Tests", True),
+        (('make', 'test'), "Run Tests", True),
         (('make', 'check'), "Static Analysis", True),
         (('make', 'doc'), None, True),
     ]

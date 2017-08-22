@@ -7,11 +7,11 @@ Browsable web APIs for Flask.
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/flask-api/flask-api.svg)](https://scrutinizer-ci.com/g/flask-api/flask-api/)
 [![PyPI Version](https://img.shields.io/pypi/v/Flask-API.svg)](https://pypi.org/project/Flask-API/)
 
-**Status**: This project is in maintenance mode. The original author ([Tom Christie](https://twitter.com/_tomchristie)) has shifted their focus to a more general-purpose API project: http://www.coreapi.org. Passing PRs will still be considered for releases by the maintainers ([Jace Browning](https://twitter.com/jacebrowning)).
+**Status**: This project is in maintenance mode. The original author ([Tom Christie](https://twitter.com/_tomchristie)) has shifted their focus to other API projects (http://www.coreapi.org and http://www.api-star.org). Passing PRs will still be considered for releases by the maintainers ([Jace Browning](https://twitter.com/jacebrowning)).
 
 ## Overview
 
-Flask API is a drop-in replacement for Flask that provides implementation of browsable APIs similar to what [Django REST framework](http://www.django-rest-framework.org) provides. It gives you properly content negotiated responses and smart request parsing:
+Flask API is a drop-in replacement for Flask that provides an implementation of browsable APIs similar to what [Django REST framework](http://www.django-rest-framework.org) provides. It gives you properly content negotiated-responses and smart request parsing:
 
 ![Screenshot](docs/screenshot.png)
 
