@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "954e1eeca60d19999a62f8c33aa380983b8deb58b5b635987651ecee76e4418e"
+            "sha256": "25b210bb732e44c53e175b05c7d370a30212d23011ef51d78a212a33eb340e54"
         },
         "requires": {},
         "sources": [
@@ -50,6 +50,9 @@
         "docopt": {
             "version": "==0.6.2"
         },
+        "docutils": {
+            "version": "==0.14"
+        },
         "flake8": {
             "version": "==2.6.2"
         },
@@ -78,6 +81,9 @@
         "nose": {
             "version": "==1.3.7"
         },
+        "pkginfo": {
+            "version": "==1.4.1"
+        },
         "pycodestyle": {
             "version": "==2.0.0"
         },
@@ -93,6 +99,9 @@
         "requests": {
             "version": "==2.18.4"
         },
+        "requests-toolbelt": {
+            "version": "==0.8.0"
+        },
         "setuptools": {
             "version": "==36.2.7"
         },
@@ -104,6 +113,12 @@
         },
         "tornado": {
             "version": "==4.5.1"
+        },
+        "tqdm": {
+            "version": "==4.15.0"
+        },
+        "twine": {
+            "version": "==1.9.1"
         },
         "urllib3": {
             "version": "==1.22"
