@@ -1,6 +1,8 @@
 # Release Notes
 
-This project is currently in beta.  It is functional and well tested but you are advised to pay close attention to the release notes when upgrading to future versions.
+## Version 1.0
+
+* Stable release to enter maintenance mode.
 
 ## Version 0.7.1
 
