@@ -7,7 +7,7 @@ Browsable web APIs for Flask.
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/flask-api/flask-api.svg)](https://scrutinizer-ci.com/g/flask-api/flask-api/)
 [![PyPI Version](https://img.shields.io/pypi/v/Flask-API.svg)](https://pypi.org/project/Flask-API/)
 
-**Status**: This project is in maintenance mode. The original author ([Tom Christie](https://twitter.com/_tomchristie)) has shifted their focus to other API projects (http://www.coreapi.org and http://www.api-star.org). Passing PRs will still be considered for releases by the maintainers ([Jace Browning](https://twitter.com/jacebrowning)).
+**Status**: This project is in maintenance mode. The original author ([Tom Christie](https://twitter.com/_tomchristie)) has shifted his focus to the ["API Star" project](https://github.com/encode/apistar). Passing PRs will still be considered for releases by the maintainers ([Jace Browning](https://twitter.com/jacebrowning)).
 
 ## Overview
 
