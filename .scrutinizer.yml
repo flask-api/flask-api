@@ -5,4 +5,4 @@ checks:
 filter:
   excluded_paths:
     - "*/tests/*"
-    - "*.min.js"
+    - "*/static/js/*min.js"
