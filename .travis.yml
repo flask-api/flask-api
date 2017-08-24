@@ -1,11 +1,15 @@
 language: python
-
 python:
   - 2.7
   - 3.3
   - 3.4
   - 3.5
   - 3.6
+
+cache:
+  pip: true
+  directories:
+    - .venv
 
 env:
   global:
@@ -21,6 +25,10 @@ before_install:
 
 install:
   - make install
+
+before_script:
+  # Override the version of Flask based on the build matrix
+  - pipenv run pip install flask==${FLASK_VERSION}
 
 script:
   - make check
