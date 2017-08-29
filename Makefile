@@ -153,6 +153,18 @@ mkdocs-live: mkdocs
 	eval "sleep 3; open http://127.0.0.1:8000" &
 	$(MKDOCS) serve
 
+# BUILD ########################################################################
+
+DIST_FILES := dist/*.tar.gz dist/*.whl
+
+.PHONY: dist
+dist: install $(DIST_FILES)
+$(DIST_FILES): $(MODULES)
+	rm -f $(DIST_FILES)
+	$(PYTHON) setup.py check --restructuredtext --strict --metadata
+	$(PYTHON) setup.py sdist
+	$(PYTHON) setup.py bdist_wheel
+
 # RELEASE ######################################################################
 
 TWINE := pipenv run twine

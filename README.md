@@ -22,11 +22,11 @@ Requirements:
 * Python 2.7+ or 3.3+
 * Flask 0.10+
 
-Install using `pip`.
+Install using `pip`:
 
     pip install Flask-API
 
-Import and initialize your application.
+Import and initialize your application:
 
     from flask_api import FlaskAPI
 
