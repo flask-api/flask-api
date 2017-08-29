@@ -1,41 +1,19 @@
-**Status**: Flask API is not currently under active development. This will be reassessed once the [Django REST framework](https://github.com/tomchristie/django-rest-framework) Kickstarter project reaches completion.
+# Flask API
 
-# [Flask API](http://www.flaskapi.org)
+Browsable web APIs for Flask.
 
-Browsable Web APIs for Flask - <http://www.flaskapi.org>
+[![Unix Build Status](https://img.shields.io/travis/flask-api/flask-api.svg)](https://travis-ci.org/flask-api/flask-api) 
+[![Coverage Status](https://img.shields.io/coveralls/flask-api/flask-api.svg)](https://coveralls.io/r/flask-api/flask-api)
+[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/flask-api/flask-api.svg)](https://scrutinizer-ci.com/g/flask-api/flask-api/)
+[![PyPI Version](https://img.shields.io/pypi/v/Flask-API.svg)](https://pypi.org/project/Flask-API/)
 
-[![Build Status][travis-image]][travis-link]
-[![Coverage Status][coveralls-image]][coveralls-link]
-[![PyPI Version][pypi-image]][pypi-link]
-
----
+**Status**: This project is in maintenance mode. The original author ([Tom Christie](https://twitter.com/_tomchristie)) has shifted their focus to other API projects (http://www.coreapi.org and http://www.api-star.org). Passing PRs will still be considered for releases by the maintainers ([Jace Browning](https://twitter.com/jacebrowning)).
 
 ## Overview
 
-Flask API is an implementation of the same web browsable APIs that [Django REST framework][django-rest-framework] provides.
-
-It gives you properly content negotiated responses and smart request parsing.
-
-It is currently a work in progress, but the fundamentals are in place and you can already start building kick-ass browsable Web APIs with it.  If you want to start using Flask API right now go ahead and do so, but be sure to follow the release notes of new versions carefully.
+Flask API is a drop-in replacement for Flask that provides an implementation of browsable APIs similar to what [Django REST framework](http://www.django-rest-framework.org) provides. It gives you properly content negotiated-responses and smart request parsing:
 
 ![Screenshot](docs/screenshot.png)
-
-## Roadmap
-
-Future work on getting Flask API to a 1.0 release will include:
-
-* Authentication, including session, basic and token authentication.
-* Permissions, including a simple user-is-authenticated permission.
-* Throttling, including a base rate throttling implementation.
-* Support for using class based views, including the base view class.
-* Browsable API improvements, such as breadcrumb generation.
-* Customizable exception handling.
-* CSRF protection for session authenticated requests.
-* Login and logout views for the browsable API.
-* Documentation on how to deal with request validation.
-* Documentation on how to deal with hyperlinking.
-
-It is also possible that the core of Flask API could be refactored into an external dependency, in order to make browsable APIs easily available to any Python web framework.
 
 ## Installation
 
@@ -44,11 +22,11 @@ Requirements:
 * Python 2.7+ or 3.3+
 * Flask 0.10+
 
-Install using `pip`.
+Install using `pip`:
 
     pip install Flask-API
 
-Import and initialize your application.
+Import and initialize your application:
 
     from flask_api import FlaskAPI
 
@@ -149,19 +127,3 @@ You can now open a new tab and interact with the API from the command line:
     {"url": "http://127.0.0.1:5000/1/", "text": "flask api is teh awesomez"}
 
 You can also work on the API directly in your browser, by opening <http://127.0.0.1:5000/>.  You can then navigate between notes, and make `GET`, `PUT`, `POST` and `DELETE` API requests.
-
-## Credits
-
-To stay up to date with progress on Flask API, follow [Tom Christie on twitter][tomchristie].
-
-Many thanks to [Nicolas Clairon][nicolas-clarion] for making the `flask_api` PyPI package available.
-
-[travis-image]: http://img.shields.io/travis/tomchristie/flask-api/master.svg
-[travis-link]: https://travis-ci.org/tomchristie/flask-api
-[coveralls-image]: http://img.shields.io/coveralls/tomchristie/flask-api/master.svg
-[coveralls-link]: https://coveralls.io/r/tomchristie/flask-api?branch=master
-[pypi-image]: http://img.shields.io/pypi/v/flask-api.svg
-[pypi-link]: https://pypi.python.org/pypi/flask-api
-[django-rest-framework]: http://www.django-rest-framework.org
-[tomchristie]: https://twitter.com/_tomchristie
-[nicolas-clarion]: https://github.com/namlook/

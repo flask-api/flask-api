@@ -1,10 +1,51 @@
-.env/
-env/
-dist/
-htmlcov/
-site/
-.tox/
-Flask_API.egg-info/
+# Temporary Python files
 *.pyc
+*.egg-info
 __pycache__
-.coverage
+.ipynb_checkpoints
+
+# Temporary OS files
+Icon*
+
+# Temporary virtual environment files
+/.cache/
+/.venv/
+
+# Temporary server files
+.env
+*.pid
+
+# Generated documentation
+/docs/gen/
+/docs/apidocs/
+/site/
+/*.html
+/*.rst
+/docs/*.png
+
+# Google Drive
+*.gdoc
+*.gsheet
+*.gslides
+*.gdraw
+
+# Testing and coverage results
+/.pytest/
+/.coverage
+/.coverage.*
+/htmlcov/
+/xmlreport/
+/pyunit.xml
+/tmp/
+*.tmp
+
+# Build and release directories
+/build/
+/dist/
+*.spec
+
+# Sublime Text
+*.sublime-workspace
+
+# Eclipse
+.settings

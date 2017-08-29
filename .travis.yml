@@ -1,29 +1,37 @@
 language: python
-sudo: false
 
 python:
-- 2.7
-- 3.3
-- 3.4
-- 3.5
+  - 2.7
+  - 3.3
+  - 3.4
+  - 3.5
+  - 3.6
 
 env:
+  global:
+  - RANDOM_SEED=0
+  - PIPENV_NOSPIN=true
   matrix:
-  - FLASK_VERSION=0.10.1
-  # TODO: enable when future release is available:
-  # http://flask.pocoo.org/docs/0.11/changelog/#version-0-10-2
-  # - FLASK_VERSION=0.10.2
-  - FLASK_VERSION=0.11.0
+  - FLASK_VERSION=0.10.2
+  - FLASK_VERSION=0.11.2
+  - FLASK_VERSION=0.12.2
+
+before_install:
+  - pip install pipenv~=5.0
 
 install:
-- pip install -r requirements.txt
-- pip install flask==${FLASK_VERSION}  # override version for the build matrix
-- pip install coverage==3.6
-- pip install python-coveralls==2.4.0
-- export PYTHONPATH=.
+  - make install
 
-before_script: coverage erase
+script:
+  - make check
+  - make test
 
-script: ./runtests
+after_success:
+  - pip install coveralls scrutinizer-ocular
+  - coveralls
+  - ocular
 
-after_success: coverage report; coveralls
+notifications:
+  email:
+    on_success: never
+    on_failure: never

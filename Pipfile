@@ -1,0 +1,17 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+
+[packages]
+Flask = "~=0.10.1"
+Markdown = "*"
+
+[dev-packages]
+nose = "*"
+coverage = "~=3.7.1"
+"coverage.space" = "*"
+flake8 = "~=2.1"
+mkdocs = "==0.12"
+docutils = "*"
+sniffer = "*"
+twine = "*"

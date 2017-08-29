@@ -1,0 +1,136 @@
+{
+    "_meta": {
+        "hash": {
+            "sha256": "77d9453222dda519832b3e9753aa60167a725fad64a3e69f11373e375ef71c23"
+        },
+        "requires": {},
+        "sources": [
+            {
+                "url": "https://pypi.python.org/simple",
+                "verify_ssl": true
+            }
+        ]
+    },
+    "default": {
+        "flask": {
+            "version": "==0.10.1"
+        },
+        "itsdangerous": {
+            "version": "==0.24"
+        },
+        "jinja2": {
+            "version": "==2.9.6"
+        },
+        "markdown": {
+            "version": "==2.6.9"
+        },
+        "markupsafe": {
+            "version": "==1.0"
+        },
+        "werkzeug": {
+            "version": "==0.12.2"
+        }
+    },
+    "develop": {
+        "backports-abc": {
+            "version": "==0.5"
+        },
+        "backports.shutil-get-terminal-size": {
+            "version": "==1.0.0"
+        },
+        "certifi": {
+            "version": "==2017.7.27.1"
+        },
+        "chardet": {
+            "version": "==3.0.4"
+        },
+        "colorama": {
+            "version": "==0.3.9"
+        },
+        "coverage": {
+            "version": "==4.4.1"
+        },
+        "coverage.space": {
+            "version": "==0.8"
+        },
+        "docopt": {
+            "version": "==0.6.2"
+        },
+        "docutils": {
+            "version": "==0.14"
+        },
+        "flake8": {
+            "version": "==2.6.2"
+        },
+        "ghp-import": {
+            "version": "==0.5.5"
+        },
+        "idna": {
+            "version": "==2.6"
+        },
+        "jinja2": {
+            "version": "==2.9.6"
+        },
+        "livereload": {
+            "version": "==2.5.1"
+        },
+        "markdown": {
+            "version": "==2.6.9"
+        },
+        "markupsafe": {
+            "version": "==1.0"
+        },
+        "mccabe": {
+            "version": "==0.5.3"
+        },
+        "mkdocs": "==0.12",
+        "nose": {
+            "version": "==1.3.7"
+        },
+        "pkginfo": {
+            "version": "==1.4.1"
+        },
+        "pycodestyle": {
+            "version": "==2.0.0"
+        },
+        "pyflakes": {
+            "version": "==1.2.3"
+        },
+        "python-termstyle": {
+            "version": "==0.1.10"
+        },
+        "pyyaml": {
+            "version": "==3.12"
+        },
+        "requests": {
+            "version": "==2.18.4"
+        },
+        "requests-toolbelt": {
+            "version": "==0.8.0"
+        },
+        "setuptools": {
+            "version": "==36.3.0"
+        },
+        "singledispatch": {
+            "version": "==3.4.0.3"
+        },
+        "six": {
+            "version": "==1.10.0"
+        },
+        "sniffer": {
+            "version": "==0.4.0"
+        },
+        "tornado": {
+            "version": "==4.5.2"
+        },
+        "tqdm": {
+            "version": "==4.15.0"
+        },
+        "twine": {
+            "version": "==1.9.1"
+        },
+        "urllib3": {
+            "version": "==1.22"
+        }
+    }
+}

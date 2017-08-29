@@ -97,12 +97,13 @@ class BrowsableAPIRenderer(BaseRenderer):
         endpoint = request.url_rule.endpoint
         view_name = str(endpoint)
         view_description = current_app.view_functions[endpoint].__doc__
-        if apply_markdown is None and view_description:
-            view_description = dedent(view_description)
-            view_description = pydoc.html.preformat(view_description)
-        elif apply_markdown is not None and view_description:
-            view_description = dedent(view_description)
-            view_description = apply_markdown(view_description)
+        if view_description:
+            if apply_markdown:
+                view_description = dedent(view_description)
+                view_description = apply_markdown(view_description)
+            else:  # pragma: no cover - markdown installed for tests
+                view_description = dedent(view_description)
+                view_description = pydoc.html.preformat(view_description)
 
         status = options['status']
         headers = options['headers']

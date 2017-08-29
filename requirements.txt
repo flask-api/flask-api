@@ -1,8 +1,0 @@
-# Production
-Flask >= 0.10.1
-
-# Development
-coverage ~= 3.7.1
-flake8 ~= 2.1
-mkdocs ~= 0.12
-tox ~= 2.0
