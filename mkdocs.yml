@@ -7,7 +7,7 @@ pages:
   - ['api-guide/status-codes.md', 'API Guide', 'Status codes']
   - ['about/release-notes.md', 'About', 'Release Notes']
   - ['about/license.md', 'About', 'License']
-repo_url: https://github.com/tomchristie/flask-api
+repo_url: https://github.com/flask-api/flask-api
 theme_center_homepage_lead: true
 copyright: '<a href="/about/license">BSD licensed</a> <b>&middot;</b> Copyright &copy; 2014, <a href="https://twitter.com/_tomchristie">Tom Christie</a>.'
 google_analytics: ['UA-27795084-4', 'flaskapi.org']
