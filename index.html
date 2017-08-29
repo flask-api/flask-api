@@ -110,7 +110,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="https://github.com/tomchristie/flask-api">
+                        <a href="https://github.com/flask-api/flask-api">
                                 <i class="fa fa-github"></i>GitHub
                         </a>
                     </li>
@@ -124,12 +124,10 @@
     <ul class="nav bs-sidenav">
         <li class="main active"><a href="#flask-api">Flask API</a></li>
             <li><a href="#overview">Overview</a></li>
-            <li><a href="#roadmap">Roadmap</a></li>
             <li><a href="#installation">Installation</a></li>
             <li><a href="#responses">Responses</a></li>
             <li><a href="#requests">Requests</a></li>
             <li><a href="#example">Example</a></li>
-            <li><a href="#credits">Credits</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
@@ -138,25 +136,8 @@
 <p>Browsable Web APIs for Flask</p>
 <hr />
 <h2 id="overview">Overview</h2>
-<p>Flask API is an implementation of the same web browsable APIs that <a href="http://www.django-rest-framework.org">Django REST framework</a> provides.</p>
-<p>It gives you properly content negotiated responses and smart request parsing.</p>
-<p>It is currently a work in progress, but the fundamentals are in place and you can already start building kick-ass browsable Web APIs with it.  If you want to start using Flask API right now go ahead and do so, but be sure to follow the release notes of new versions carefully.</p>
+<p>Flask API is a drop-in replacement for Flask that provides an implementation of browsable APIs similar to what <a href="http://www.django-rest-framework.org">Django REST framework</a> provides. It gives you properly content negotiated-responses and smart request parsing:</p>
 <p><img alt="Screenshot" src="./screenshot.png" /></p>
-<h2 id="roadmap">Roadmap</h2>
-<p>Future work on getting Flask API to a 1.0 release will include:</p>
-<ul>
-<li>Authentication, including session, basic and token authentication.</li>
-<li>Permissions, including a simple user-is-authenticated permission.</li>
-<li>Throttling, including a base rate throttling implementation.</li>
-<li>Support for using class based views, including the base view class.</li>
-<li>Browsable API improvements, such as breadcrumb generation.</li>
-<li>Customizable exception handling.</li>
-<li>CSRF protection for session authenticated requests.</li>
-<li>Login and logout views for the browsable API.</li>
-<li>Documentation on how to deal with request validation.</li>
-<li>Documentation on how to deal with hyperlinking.</li>
-</ul>
-<p>It is also possible that the core of Flask API could be refactored into an external dependency, in order to make browsable APIs easily available to any Python web framework.</p>
 <h2 id="installation">Installation</h2>
 <p>Requirements:</p>
 <ul>
@@ -167,12 +148,11 @@
 <ul>
 <li>Markdown (2.1.0+) - Markdown support for the browsable API.</li>
 </ul>
-<p>Install using <code>pip</code>,  including any optional packages you want...</p>
+<p>Install using <code>pip</code>:</p>
 <pre><code>pip install Flask-API
-pip install markdown       # Markdown support for the browsable API.
 </code></pre>
-<p>Import and initialize your application.</p>
-<pre><code>from flask.ext.api import FlaskAPI
+<p>Import and initialize your application:</p>
+<pre><code>from flask_api import FlaskAPI
 
 app = FlaskAPI(__name__)
 </code></pre>
@@ -192,7 +172,7 @@ def example():
 <h2 id="example">Example</h2>
 <p>The following example demonstrates a simple API for creating, listing, updating and deleting notes.</p>
 <pre><code>from flask import request, url_for
-from flask.ext.api import FlaskAPI, status, exceptions
+from flask_api import FlaskAPI, status, exceptions
 
 app = FlaskAPI(__name__)
 
@@ -261,10 +241,7 @@ $ curl -X GET http://127.0.0.1:5000/1/
 $ curl -X PUT http://127.0.0.1:5000/1/ -d text="flask api is teh awesomez"
 {"url": "http://127.0.0.1:5000/1/", "text": "flask api is teh awesomez"}
 </code></pre>
-<p>You can also work on the API directly in your browser, by opening <a href="http://127.0.0.1:5000/">http://127.0.0.1:5000/</a>.  You can then navigate between notes, and make <code>GET</code>, <code>PUT</code>, <code>POST</code> and <code>DELETE</code> API requests.</p>
-<h2 id="credits">Credits</h2>
-<p>To stay up to date with progress on Flask API, follow Tom Christie on twitter, <a href="https://twitter.com/_tomchristie">here</a>.</p>
-<p>Many thanks to <a href="https://github.com/namlook/">Nicolas Clairon</a> for making the <code>flask_api</code> PyPI package available.</p></div>
+<p>You can also work on the API directly in your browser, by opening <a href="http://127.0.0.1:5000/">http://127.0.0.1:5000/</a>.  You can then navigate between notes, and make <code>GET</code>, <code>PUT</code>, <code>POST</code> and <code>DELETE</code> API requests.</p></div>
         </div>
 
         <footer class="col-md-12">
@@ -303,6 +280,6 @@ $ curl -X PUT http://127.0.0.1:5000/1/ -d text="flask api is teh awesomez"
 </html>
 
 <!--
-MkDocs version : 0.16.0
-Build Date UTC : 2017-04-13 01:12:44
+MkDocs version : 0.16.3
+Build Date UTC : 2017-08-29 05:02:41
 -->
