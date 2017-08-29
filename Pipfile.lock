@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "25b210bb732e44c53e175b05c7d370a30212d23011ef51d78a212a33eb340e54"
+            "sha256": "77d9453222dda519832b3e9753aa60167a725fad64a3e69f11373e375ef71c23"
         },
         "requires": {},
         "sources": [
@@ -21,6 +21,9 @@
         "jinja2": {
             "version": "==2.9.6"
         },
+        "markdown": {
+            "version": "==2.6.9"
+        },
         "markupsafe": {
             "version": "==1.0"
         },
@@ -29,6 +32,9 @@
         }
     },
     "develop": {
+        "backports-abc": {
+            "version": "==0.5"
+        },
         "backports.shutil-get-terminal-size": {
             "version": "==1.0.0"
         },
@@ -103,7 +109,10 @@
             "version": "==0.8.0"
         },
         "setuptools": {
-            "version": "==36.2.7"
+            "version": "==36.3.0"
+        },
+        "singledispatch": {
+            "version": "==3.4.0.3"
         },
         "six": {
             "version": "==1.10.0"
@@ -112,7 +121,7 @@
             "version": "==0.4.0"
         },
         "tornado": {
-            "version": "==4.5.1"
+            "version": "==4.5.2"
         },
         "tqdm": {
             "version": "==4.15.0"

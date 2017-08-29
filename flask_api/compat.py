@@ -17,7 +17,7 @@ try:
         return md.convert(text)
 
 
-except ImportError:
+except ImportError:  # pragma: no cover - markdown installed for tests
     apply_markdown = None
 
 

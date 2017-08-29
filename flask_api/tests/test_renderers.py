@@ -27,12 +27,29 @@ class RendererTests(unittest.TestCase):
             return {"test": "I <3 Python"}
 
         with app.test_client() as client:
-            response = client.get('/_love',
-                                  headers={"Accept": "text/html"})
+            response = client.get('/_love', headers={"Accept": "text/html"})
             html = str(response.get_data())
             self.assertTrue('I &lt;3 Python' in html)
             self.assertTrue('<h1>Love</h1>' in html)
             self.assertTrue('/_love' in html)
+
+    def test_render_browsable_encoding_with_markdown(self):
+        app = FlaskAPI(__name__)
+
+        @app.route('/_foo', methods=['GET'])
+        def foo():
+            """Bar:
+              - `qux`
+            """
+            return {"test": "I <3 Python"}
+
+        with app.test_client() as client:
+            response = client.get('/_foo', headers={"Accept": "text/html"})
+            html = str(response.get_data())
+            print(html)
+            self.assertTrue('<h1>Foo</h1>' in html)
+            self.assertTrue('<p>Bar:' in html)
+            self.assertTrue('<code>qux</code>' in html)
 
     def test_render_browsable_linking(self):
         app = FlaskAPI(__name__)
