@@ -1,5 +1,9 @@
 # Release Notes
 
+## Version 1.1 (unreleased)
+
+* Added support for custom JSON encoders
+
 ## Version 1.0
 
 * Stable release to enter maintenance mode.
