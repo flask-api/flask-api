@@ -1,8 +1,8 @@
 # Templates
 
-Flask API utilizes [blueprints](http://flask.pocoo.org/docs/0.12/blueprints/) for managing browsable pages' template path.
+Flask API utilizes [blueprints](http://flask.pocoo.org/docs/latest/blueprints/) for managing browsable pages' template path.
 
-Off the box, it includes a default template. But you would want to customised this for your needs.
+Off the box, it includes a default template. But you would want to customise this for your needs.
 
 To do that, simply copy `static` and `templates` to your project.
 
