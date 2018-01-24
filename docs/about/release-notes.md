@@ -2,7 +2,8 @@
 
 ## Version 1.1 (unreleased)
 
-* Added support for custom JSON encoders
+* Added support for custom JSON encoders.
+* Added `None` as a valid return value for empty responses (204).
 
 ## Version 1.0
 
