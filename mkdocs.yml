@@ -6,6 +6,7 @@ pages:
   - API Guide:
     - Renderers: api-guide/renderers.md
     - Parsers: api-guide/parsers.md
+    - Templates: api-guide/templates.md
     - Exceptions: api-guide/exceptions.md
     - Status Codes: api-guide/status-codes.md
   - About:
