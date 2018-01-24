@@ -62,6 +62,16 @@ def make_response_view():
     return response
 
 
+@app.route('/none_204_response/')
+def none_204_response():
+    return None, status.HTTP_204_NO_CONTENT
+
+
+@app.route('/none_200_response/')
+def none_200_response():
+    return None, status.HTTP_200_OK
+
+
 @app.route('/api_exception/')
 def api_exception():
     raise exceptions.PermissionDenied()
@@ -120,6 +130,18 @@ class AppTests(unittest.TestCase):
             self.assertEqual(response.content_type, 'application/json')
             expected = '{"example": "content"}'
             self.assertEqual(response.get_data().decode('utf8'), expected)
+
+    def test_none_204_response(self):
+        with app.test_client() as client:
+            response = client.get('/none_204_response/')
+            self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+            expected = ''
+            self.assertEqual(response.get_data().decode('utf8'), expected)
+
+    def test_none_200_response(self):
+        with app.test_client() as client:
+            with self.assertRaises(ValueError):
+                client.get('/none_200_response/')
 
     def test_api_exception(self):
         with app.test_client() as client:
