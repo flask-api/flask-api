@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Renderers - Flask API</title>
+        <title>Templates - Flask API</title>
         <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -61,16 +61,16 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">API Guide <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
-<li class="active">
-    <a href="./">Renderers</a>
+<li >
+    <a href="../renderers/">Renderers</a>
 </li>
                             
 <li >
     <a href="../parsers/">Parsers</a>
 </li>
                             
-<li >
-    <a href="../templates/">Templates</a>
+<li class="active">
+    <a href="./">Templates</a>
 </li>
                             
 <li >
@@ -104,17 +104,17 @@
                     </a>
                 </li>
                     <li >
-                        <a rel="next" href="../..">
+                        <a rel="next" href="../parsers/">
                             <i class="fa fa-arrow-left"></i> Previous
                         </a>
                     </li>
                     <li >
-                        <a rel="prev" href="../parsers/">
+                        <a rel="prev" href="../exceptions/">
                             Next <i class="fa fa-arrow-right"></i>
                         </a>
                     </li>
                     <li>
-                        <a href="https://github.com/flask-api/flask-api/edit/master/docs/api-guide/renderers.md"><i class="fa fa-github"></i> Edit on GitHub</a>
+                        <a href="https://github.com/flask-api/flask-api/edit/master/docs/api-guide/templates.md"><i class="fa fa-github"></i> Edit on GitHub</a>
                     </li>
             </ul>
         </div>
@@ -124,120 +124,29 @@
         <div class="container">
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#renderers">Renderers</a></li>
-            <li><a href="#determining-the-renderer">Determining the renderer</a></li>
-            <li><a href="#setting-the-renderers">Setting the renderers</a></li>
-            <li><a href="#ordering-of-renderers">Ordering of renderers</a></li>
-        <li class="main "><a href="#api-reference">API Reference</a></li>
-            <li><a href="#jsonrenderer">JSONRenderer</a></li>
-            <li><a href="#htmlrenderer">HTMLRenderer</a></li>
-            <li><a href="#browsableapirenderer">BrowsableAPIRenderer</a></li>
-        <li class="main "><a href="#custom-renderers">Custom renderers</a></li>
-            <li><a href="#example">Example</a></li>
+        <li class="main active"><a href="#templates">Templates</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h1 id="renderers">Renderers</h1>
-<p>Renderers are responsible for taking the response value from your view and transforming it into a string or bytestring that will be used as the response body.</p>
-<p>Flask API includes a few built-in renderer classes and also provides support for defining your own custom renderers.</p>
-<h2 id="determining-the-renderer">Determining the renderer</h2>
-<p>The set of valid renderers for a view is always defined as a list of classes.  When a view is entered Flask API will perform content negotiation on the incoming request, and determine the most appropriate renderer to satisfy the request.</p>
-<p>The basic process of content negotiation involves examining the request's <code>Accept</code> header, to determine which media types it expects in the response.</p>
-<h2 id="setting-the-renderers">Setting the renderers</h2>
-<p>The default set of renderers may be set globally, using the <code>DEFAULT_RENDERERS</code> configuration key.  The default configuration will render to JSON as standard, or will render the browsable API if the client requests HTML.</p>
-<pre><code>app.config['DEFAULT_RENDERERS'] = [
-    'flask.ext.api.renderers.JSONRenderer',
-    'flask.ext.api.renderers.BrowsableAPIRenderer',
-]
+<h1 id="templates">Templates</h1>
+<p>Flask API utilizes <a href="http://flask.pocoo.org/docs/latest/blueprints/">blueprints</a> for managing browsable pages' template path.</p>
+<p>Off the box, it includes a default template. But you would want to customise this for your needs.</p>
+<p>To do that, simply copy <code>static</code> and <code>templates</code> to your project.</p>
+<p>Then override the previous blueprint with following:</p>
+<pre><code>from flask import Blueprint
+from flask_api import FlaskAPI
+
+theme = Blueprint(
+    'flask-api', __name__,
+    url_prefix='/flask-api',
+    template_folder='templates', static_folder='static'
+)
+
+app = FlaskAPI(__name__)
+app.blueprints['flask-api'] = theme
 </code></pre>
-<p>You can also set the renderers used for an individual view, using the <code>set_renderers</code> decorator.</p>
-<pre><code>from flask.ext.api.decorators import set_renderers
-from flask.ext.api.renderers import JSONRenderer
-
-...
-
-@app.route('/example_view/')
-@set_renderers(JSONRenderer, MyCustomXMLRenderer)
-def example():
-    return {'example': 'Setting renderers on a per-view basis'}
-</code></pre>
-<h2 id="ordering-of-renderers">Ordering of renderers</h2>
-<p>It's important when specifying the renderer classes for your API to think about what priority you want to assign to each media type.  If a client underspecifies the representations it can accept, such as sending an <code>Accept: */*</code> header, or not including an <code>Accept</code> header at all, then Flask API will select the first renderer in the list to use for the response.</p>
-<hr />
-<h1 id="api-reference">API Reference</h1>
-<h2 id="jsonrenderer">JSONRenderer</h2>
-<p>Renders the request data into <code>JSON</code>.</p>
-<p>The client may additionally include an <code>'indent'</code> media type parameter, in which case the returned <code>JSON</code> will be indented.  For example <code>Accept: application/json; indent=4</code>.</p>
-<pre><code>{
-    "example": "indented JSON"
-}
-</code></pre>
-<p><strong><code>media_type</code></strong>: <code>application/json</code></p>
-<p><strong><code>charset</code></strong>: <code>None</code></p>
-<h2 id="htmlrenderer">HTMLRenderer</h2>
-<p>A simple renderer that simply returns pre-rendered HTML.  Unlike other renderers, the data passed to the response object should be a string representing the content to be returned.</p>
-<p>An example of a view that uses <code>HTMLRenderer</code>:</p>
-<pre><code>@app.route('/hello-world/')
-@set_renderers(HTMLRenderer)
-def hello_world(): 
-    return '&lt;html&gt;&lt;body&gt;&lt;h1&gt;Hello, world&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;'
-</code></pre>
-<p>You can use <code>HTMLRenderer</code> either to return regular HTML pages using Flask API, or to return both HTML and API responses from a single endpoint.</p>
-<p><strong><code>media_type</code></strong>: <code>text/html</code></p>
-<p><strong><code>charset</code></strong>: <code>utf-8</code></p>
-<h2 id="browsableapirenderer">BrowsableAPIRenderer</h2>
-<p>Renders data into HTML for the Browsable API.  This renderer will determine which other renderer would have been given highest priority, and use that to display an API style response within the HTML page.</p>
-<p><strong><code>media_type</code></strong>: <code>text/html</code></p>
-<p><strong><code>charset</code></strong>: <code>utf-8</code></p>
-<hr />
-<h1 id="custom-renderers">Custom renderers</h1>
-<p>To implement a custom renderer, you should override <code>BaseRenderer</code>, set the <code>.media_type</code>  property, and implement the <code>.render(self, data, media_type, **options)</code> method.</p>
-<p>The method should return a string or bytestring, which will be used as the body of the HTTP response.</p>
-<p>The arguments passed to the <code>.render()</code> method are:</p>
-<p><strong><code>data</code></strong></p>
-<p>The request data, returned by the view.</p>
-<p><strong><code>media_type</code></strong></p>
-<p>Optional.  If provided, this is the accepted media type, as determined by the content negotiation stage.</p>
-<p>Depending on the client's <code>Accept:</code> header, this may be more specific than the renderer's <code>media_type</code> attribute, and may include media type parameters.  For example <code>"application/json; api-version="0.1"</code>.</p>
-<p><strong><code>**options</code></strong></p>
-<p>Any additional contextual arguments that may be required in order to render the response.
-By default this includes:</p>
-<ul>
-<li><code>status</code> - A string representing the response status.</li>
-<li><code>status_code</code> - An integer representing the response status code.</li>
-<li><code>headers</code> - A dictionary containing the response headers.</li>
-</ul>
-<h2 id="example">Example</h2>
-<p>The following is an custom renderer that returns YAML.</p>
-<pre><code>from flask.ext.api import renderers
-import yaml
-
-
-class YAMLRenderer(renderers.BaseRenderer):
-    media_type = 'application/yaml'
-
-    def render(self, data, media_type, **options):
-        return yaml.dump(data, encoding=self.charset)
-</code></pre>
-<!--
-TODO: This needs testing, and probably some more work.
-
-## Setting the character set
-
-By default renderer classes are assumed to be using the `UTF-8` encoding.  To use a different encoding, set the `charset` attribute on the renderer.
-
-    class PlainTextRenderer(renderers.BaseRenderer):
-        media_type = 'text/plain'
-        charset = 'iso-8859-1'
-
-        def render(self, data, media_type, **options):
-            return data.encode(self.charset)
-
-Note that if a renderer class returns a unicode string, then the response content will be coerced into a bytestring, with the `charset` attribute set on the renderer used to determine the encoding.
-
-If the renderer returns a bytestring representing raw binary content, you should set a charset value of `None`, which will ensure the `Content-Type` header of the response will not have a `charset` value set.
---></div>
+<p>Use <code>templates/base.html</code> as your base custom template. Note that this cannot be renamed.</p></div>
         </div>
 
         <footer class="col-md-12">
