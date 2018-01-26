@@ -1,5 +1,4 @@
 site_name: Flask API
-site_favicon: img/favicon-194x194.png
 
 pages:
   - Home: index.md
