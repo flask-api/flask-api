@@ -84,13 +84,6 @@ install: $(DEPENDENCIES) $(METADATA)
 
 $(DEPENDENCIES): $(PIP) Pipfile*
 	pipenv install --dev
-ifdef WINDOWS
-	@ echo "Manually install pywin32: https://sourceforge.net/projects/pywin32/files/pywin32"
-else ifdef MAC
-	$(PIP) install pync MacFSEvents
-else ifdef LINUX
-	$(PIP) install pyinotify
-endif
 	@ touch $@
 
 $(METADATA): $(PYTHON) setup.py

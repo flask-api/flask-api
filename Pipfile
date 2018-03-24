@@ -11,15 +11,23 @@ Markdown = "*"
 
 [dev-packages]
 
+# Linters
 flake8 = "~=2.1"
 
+# Testing
 nose = "*"
 
-"coverage.space" = "*"
+# Reports
+coverage-space = "*"
 
+# Documentation
 mkdocs = "~=0.17.2"
 docutils = "*"
 
+# Release
 twine = "*"
 
+# Tooling
 sniffer = "*"
+pync = { version = "<2.0", sys_platform = "== 'darwin'" }
+MacFSEvents = { version = "*", sys_platform = "== 'darwin'" }
