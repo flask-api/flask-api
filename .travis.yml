@@ -16,7 +16,7 @@ env:
   matrix:
     - FLASK_VERSION=0.10.1
     - FLASK_VERSION=0.11.1
-    - FLASK_VERSION=0.12.2
+    - FLASK_VERSION=0.12.3
     - FLASK_VERSION=1.0.0
 
 before_install:
