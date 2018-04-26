@@ -7,11 +7,11 @@ Browsable web APIs for Flask.
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/flask-api/flask-api.svg)](https://scrutinizer-ci.com/g/flask-api/flask-api/)
 [![PyPI Version](https://img.shields.io/pypi/v/Flask-API.svg)](https://pypi.org/project/Flask-API/)
 
-**Status**: This project is in maintenance mode. The original author ([Tom Christie](https://twitter.com/_tomchristie)) has shifted his focus to the ["API Star" project](https://github.com/encode/apistar). Passing PRs will still be considered for releases by the maintainers ([Jace Browning](https://twitter.com/jacebrowning)).
+**Status**: This project is in maintenance mode. The original author ([Tom Christie](https://twitter.com/_tomchristie)) has shifted his focus to the ["API Star" project](https://github.com/encode/apistar). Passing PRs will still be considered for releases by the maintainer ([Jace Browning](https://twitter.com/jacebrowning)).
 
 ## Overview
 
-Flask API is a drop-in replacement for Flask that provides an implementation of browsable APIs similar to what [Django REST framework](http://www.django-rest-framework.org) provides. It gives you properly content negotiated-responses and smart request parsing:
+Flask API is a drop-in replacement for Flask that provides an implementation of browsable APIs similar to what [Django REST framework](http://www.django-rest-framework.org) offers. It gives you properly content negotiated-responses and smart request parsing:
 
 ![Screenshot](docs/screenshot.png)
 
@@ -40,7 +40,7 @@ Return any valid response object as normal, or return a `list` or `dict`.
     def example():
         return {'hello': 'world'}
 
-A renderer for the response data will be selected using content negotiation based on the client 'Accept' header. If you're making the API request from a regular client, this will default to a JSON response. If you're viewing the API in a browser it'll default to the browsable API HTML. 
+A renderer for the response data will be selected using content negotiation based on the client 'Accept' header. If you're making the API request from a regular client, this will default to a JSON response. If you're viewing the API in a browser, it'll default to the browsable API HTML. 
 
 ## Requests
 
