@@ -1,3 +1,7 @@
+build:
+  tests:
+    override:
+      - pylint-run --rcfile=.pylint.ini
 checks:
   python:
     code_rating: true

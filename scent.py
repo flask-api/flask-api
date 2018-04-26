@@ -25,7 +25,7 @@ class Options(object):
     targets = [
         (('make', 'test'), "Run Tests", True),
         (('make', 'check'), "Static Analysis", True),
-        (('make', 'doc'), None, True),
+        (('make', 'docs'), None, True),
     ]
 
 
