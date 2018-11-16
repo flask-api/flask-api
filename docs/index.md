@@ -19,7 +19,7 @@ Requirements:
 
 The following packages are optional:
 
-* Markdown (2.1.0+) - Markdown support for the browsable API.
+* Markdown (`2.1.0+, <3.0`): Markdown support for the browsable API
 
 Install using `pip`:
 
