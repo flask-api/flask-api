@@ -58,7 +58,7 @@ flake8: install
 
 NOSE := pipenv run nosetests
 COVERAGE := pipenv run coverage
-COVERAGE_SPACE := pipenv run coverage.space
+COVERAGESPACE := pipenv run coveragespace
 
 RANDOM_SEED ?= $(shell date +%s)
 
@@ -70,7 +70,7 @@ endif
 .PHONY: test
 test: install ## Run unit and integration tests
 	$(NOSE) $(PACKAGE) $(NOSE_OPTIONS)
-	$(COVERAGE_SPACE) $(REPOSITORY) overall
+	$(COVERAGESPACE) $(REPOSITORY) overall
 
 .PHONY: read-coverage
 read-coverage:

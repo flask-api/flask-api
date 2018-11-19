@@ -14,10 +14,8 @@ env:
   global:
     - RANDOM_SEED=0
   matrix:
-    - FLASK_VERSION=0.10.1
-    - FLASK_VERSION=0.11.1
-    - FLASK_VERSION=0.12.3
-    - FLASK_VERSION=1.0.0
+    - FLASK_VERSION=0.12.4
+    - FLASK_VERSION=1.0.2
 
 before_install:
   - pip install pipenv
