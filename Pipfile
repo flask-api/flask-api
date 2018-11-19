@@ -6,8 +6,8 @@ name = "pypi"
 
 [packages]
 
-Flask = "~=0.10.1"
-Markdown = "*"
+Flask = "*"
+Markdown = "<3"
 
 [dev-packages]
 
@@ -18,7 +18,7 @@ flake8 = "~=2.1"
 nose = "*"
 
 # Reports
-coverage-space = "*"
+coveragespace = "*"
 
 # Documentation
 mkdocs = "~=0.17.2"
