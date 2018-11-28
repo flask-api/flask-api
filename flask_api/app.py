@@ -107,7 +107,9 @@ class FlaskAPI(Flask):
         reraise(exc_type, exc_value, tb)
 
     def handle_api_exception(self, exc):
-        return APIResponse({'message': exc.detail}, status=exc.status_code)
+        content = {'message': exc.detail}
+        status = exc.status_code
+        return self.response_class(content, status=status)
 
     def create_url_adapter(self, request):
         """
