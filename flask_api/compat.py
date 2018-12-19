@@ -5,6 +5,7 @@ from flask import __version__ as flask_version
 # Markdown is optional
 try:
     import markdown
+    from markdown.extensions.toc import TocExtension
 
     def apply_markdown(text):
         """
@@ -12,7 +13,7 @@ try:
         of '#' style headers to <h2>.
         """
 
-        extensions = ['headerid(level=2)']
+        extensions = [TocExtension(baselevel=2)]
         md = markdown.Markdown(extensions=extensions)
         return md.convert(text)
 
