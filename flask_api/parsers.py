@@ -36,8 +36,6 @@ class MultiPartParser(BaseParser):
     handles_form_data = True
 
     def parse(self, stream, media_type, **options):
-        multipart_parser = WerkzeugMultiPartParser(default_stream_factory)
-
         boundary = media_type.params.get('boundary')
         if boundary is None:
             msg = 'Multipart message missing boundary in Content-Type header'
@@ -46,6 +44,11 @@ class MultiPartParser(BaseParser):
 
         content_length = options.get('content_length')
         assert content_length is not None, 'MultiPartParser.parse() requires `content_length` argument'
+
+        buffer_size = content_length
+        while buffer_size % 4 or buffer_size < 1024:
+            buffer_size += 1
+        multipart_parser = WerkzeugMultiPartParser(default_stream_factory, buffer_size=buffer_size)
 
         try:
             return multipart_parser.parse(stream, boundary, content_length)

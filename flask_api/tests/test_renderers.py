@@ -1,5 +1,7 @@
 # coding: utf8
 from __future__ import unicode_literals
+from datetime import datetime
+from flask.json import JSONEncoder
 from flask_api import renderers, status, FlaskAPI
 from flask_api.decorators import set_renderers
 from flask_api.mediatypes import MediaType
@@ -7,17 +9,45 @@ import unittest
 
 
 class RendererTests(unittest.TestCase):
+    def _make_app(self):
+        app = FlaskAPI(__name__)
+
+        @app.route('/_love', methods=['GET'])
+        def love():
+            return {"test": "I <3 Python"}
+
+        return app
+
     def test_render_json(self):
+        app = self._make_app()
         renderer = renderers.JSONRenderer()
-        content = renderer.render({'example': 'example'}, MediaType('application/json'))
+        with app.app_context():
+            content = renderer.render({'example': 'example'}, MediaType('application/json'))
         expected = '{"example": "example"}'
         self.assertEqual(content, expected)
 
     def test_render_json_with_indent(self):
+        app = self._make_app()
         renderer = renderers.JSONRenderer()
-        content = renderer.render({'example': 'example'}, MediaType('application/json; indent=4'))
+        with app.app_context():
+            content = renderer.render({'example': 'example'}, MediaType('application/json; indent=4'))
         expected = '{\n    "example": "example"\n}'
         self.assertEqual(content, expected)
+
+    def test_render_json_with_custom_encoder(self):
+        class CustomJsonEncoder(JSONEncoder):
+            def default(self, o):
+                if isinstance(o, datetime):
+                    return o.isoformat()
+                return super(CustomJsonEncoder, self).default(o)
+
+        app = self._make_app()
+        app.json_encoder = CustomJsonEncoder
+        renderer = renderers.JSONRenderer()
+        date = datetime(2017, 10, 5, 15, 22)
+        with app.app_context():
+            content = renderer.render(date, MediaType('application/json'))
+        self.assertEqual(content, '"{}"'.format(date.isoformat()))
 
     def test_render_browsable_encoding(self):
         app = FlaskAPI(__name__)

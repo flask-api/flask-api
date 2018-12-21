@@ -6,6 +6,7 @@ from flask_api.exceptions import APIException
 from flask_api.request import APIRequest
 from flask_api.response import APIResponse
 from flask_api.settings import APISettings
+from flask_api.status import HTTP_204_NO_CONTENT
 from itertools import chain
 from werkzeug.exceptions import HTTPException
 import re
@@ -47,6 +48,9 @@ class FlaskAPI(Flask):
         status_or_headers = headers = None
         if isinstance(rv, tuple):
             rv, status_or_headers, headers = rv + (None,) * (3 - len(rv))
+
+        if rv is None and status_or_headers == HTTP_204_NO_CONTENT:
+            rv = ''
 
         if rv is None and status_or_headers:
             raise ValueError('View function did not return a response')
@@ -103,7 +107,9 @@ class FlaskAPI(Flask):
         reraise(exc_type, exc_value, tb)
 
     def handle_api_exception(self, exc):
-        return APIResponse({'message': exc.detail}, status=exc.status_code)
+        content = {'message': exc.detail}
+        status = exc.status_code
+        return self.response_class(content, status=status)
 
     def create_url_adapter(self, request):
         """

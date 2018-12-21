@@ -75,7 +75,7 @@
             <form id="get-form" class="pull-right">
                 <fieldset>
                     <div class="btn-group format-selection">
-                        <a class="btn btn-primary js-tooltip" href='{{ request.get_full_path }}' rel="nofollow" title="Make a GET request on the {{ name }} resource">GET</a>
+                        <a class="btn btn-primary js-tooltip" href='{{ request.url }}' rel="nofollow" title="Make a GET request on the {{ name }} resource">GET</a>
 
                         <button class="btn btn-primary dropdown-toggle js-tooltip" data-toggle="dropdown" title="Specify a format for the GET request">
                             <span class="caret"></span>
@@ -94,7 +94,7 @@
         {% endif %}
 
         <!--{% if 'OPTIONS' in allowed_methods %}
-            <form class="button-form" action="{{ request.full_path }}" method="POST" class="pull-right">
+            <form class="button-form" action="{{ request.url }}" method="POST" class="pull-right">
                 <- csrf_token ->
                 <input type="hidden" name="_method" value="OPTIONS" />
                 <button class="btn btn-primary js-tooltip" title="Make an OPTIONS request on the resource">OPTIONS</button>
@@ -102,7 +102,7 @@
         {% endif %}-->
 
         {% if 'DELETE' in allowed_methods %}
-            <form class="button-form" action="{{ request.full_path }}" method="POST" class="pull-right">
+            <form class="button-form" action="{{ request.url }}" method="POST" class="pull-right">
                 <!-- csrf_token -->
                 <input type="hidden" name="_method" value="DELETE" />
                 <button class="btn btn-danger js-tooltip" title="Make a DELETE request on the resource">DELETE</button>
@@ -113,7 +113,7 @@
             <div class="page-header"><h1>{{ view_name }}</h1></div>
             {% if view_description %}<div style="margin-top: -10px; margin-bottom: 10px">{{ view_description|safe }}</div>{% endif %}
             <div class="request-info" style="clear: both" >
-                <pre class="prettyprint"><b>{{ request.method }}</b> {{ request.full_path }}</pre>
+                <pre class="prettyprint"><b>{{ request.method }}</b> {{ request.url }}</pre>
             </div>
             <div class="response-info">
                 <pre class="prettyprint"><div class="meta nocode"><b>HTTP {{ status }}</b>{% autoescape off %}
@@ -128,7 +128,7 @@
                 <div>
                     <div class="well">
                         <div id="generic-content-form">
-                            <form action="{{ request.full_path }}" method="POST" class="form-horizontal">
+                            <form action="{{ request.url }}" method="POST" class="form-horizontal">
                                 <fieldset>
 <div class="control-group">
         <label for="id__content_type" class="control-label">Media type:</label>

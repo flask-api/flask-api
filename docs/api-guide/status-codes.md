@@ -2,7 +2,7 @@
 
 Flask API includes a set of named constants that you can use to make more code more obvious and readable.
 
-    from flask.ext.api import status
+    from flask_api import status
 
     ...
 
@@ -15,7 +15,7 @@ The full set of HTTP status codes included in the `status` module is listed belo
 
 The module also includes a set of helper functions for testing if a status code is in a given range.
 
-    from flask.ext.api import status
+    from flask_api import status
 	import unittest
 	
 	...

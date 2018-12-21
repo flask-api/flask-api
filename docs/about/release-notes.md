@@ -1,5 +1,12 @@
 # Release Notes
 
+## Version 1.1
+
+* Added support for custom JSON encoders.
+* Added `None` as a valid return value for empty responses (204).
+* Dropped support for Flask `<0.12.3` due to [CVE-2018-1000656](https://nvd.nist.gov/vuln/detail/CVE-2018-1000656).
+* Added support for `python-markdown` 3+.
+
 ## Version 1.0
 
 * Stable release to enter maintenance mode.

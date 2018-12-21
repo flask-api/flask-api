@@ -1,7 +1,6 @@
 # coding: utf8
 from __future__ import unicode_literals
 from flask import request, render_template, current_app
-from flask.json import JSONEncoder
 from flask.globals import _request_ctx_stack
 from flask_api.mediatypes import MediaType
 from flask_api.compat import apply_markdown
@@ -58,7 +57,7 @@ class JSONRenderer(BaseRenderer):
             indent = None
         # Indent may be set explicitly, eg when rendered by the browsable API.
         indent = options.get('indent', indent)
-        return json.dumps(data, cls=JSONEncoder, ensure_ascii=False, indent=indent)
+        return json.dumps(data, cls=current_app.json_encoder, ensure_ascii=False, indent=indent)
 
 
 class HTMLRenderer(object):
