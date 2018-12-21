@@ -125,7 +125,7 @@
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
         <li class="main active"><a href="#release-notes">Release Notes</a></li>
-            <li><a href="#version-11-unreleased">Version 1.1 (unreleased)</a></li>
+            <li><a href="#version-11">Version 1.1</a></li>
             <li><a href="#version-10">Version 1.0</a></li>
             <li><a href="#version-071">Version 0.7.1</a></li>
             <li><a href="#version-07">Version 0.7</a></li>
@@ -144,10 +144,12 @@
                 <div class="col-md-9" role="main">
 
 <h1 id="release-notes">Release Notes</h1>
-<h2 id="version-11-unreleased">Version 1.1 (unreleased)</h2>
+<h2 id="version-11">Version 1.1</h2>
 <ul>
 <li>Added support for custom JSON encoders.</li>
 <li>Added <code>None</code> as a valid return value for empty responses (204).</li>
+<li>Dropped support for Flask <code>&lt;0.12.3</code> due to <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-1000656">CVE-2018-1000656</a>.</li>
+<li>Added support for <code>python-markdown</code> 3+.</li>
 </ul>
 <h2 id="version-10">Version 1.0</h2>
 <ul>
