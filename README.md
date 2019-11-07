@@ -2,7 +2,7 @@
 
 Browsable web APIs for Flask.
 
-[![Unix Build Status](https://img.shields.io/travis/flask-api/flask-api.svg)](https://travis-ci.org/flask-api/flask-api) 
+[![Unix Build Status](https://img.shields.io/travis/flask-api/flask-api.svg)](https://travis-ci.org/flask-api/flask-api)
 [![Coverage Status](https://img.shields.io/coveralls/flask-api/flask-api.svg)](https://coveralls.io/r/flask-api/flask-api)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/flask-api/flask-api.svg)](https://scrutinizer-ci.com/g/flask-api/flask-api/)
 [![PyPI Version](https://img.shields.io/pypi/v/Flask-API.svg)](https://pypi.org/project/Flask-API/)
@@ -20,7 +20,7 @@ Flask API is a drop-in replacement for Flask that provides an implementation of 
 Requirements:
 
 * Python 2.7+ or 3.4+
-* Flask 0.12.3+
+* Flask 0.12.4+
 
 Install using `pip`:
 
@@ -46,7 +46,7 @@ def example():
     return {'hello': 'world'}
 ```
 
-A renderer for the response data will be selected using content negotiation based on the client 'Accept' header. If you're making the API request from a regular client, this will default to a JSON response. If you're viewing the API in a browser, it'll default to the browsable API HTML. 
+A renderer for the response data will be selected using content negotiation based on the client 'Accept' header. If you're making the API request from a regular client, this will default to a JSON response. If you're viewing the API in a browser, it'll default to the browsable API HTML.
 
 ## Requests
 
@@ -133,8 +133,8 @@ You can now open a new tab and interact with the API from the command line:
 
 ```shell
 $ curl -X GET http://127.0.0.1:5000/
-[{"url": "http://127.0.0.1:5000/0/", "text": "do the shopping"}, 
- {"url": "http://127.0.0.1:5000/1/", "text": "build the codez"}, 
+[{"url": "http://127.0.0.1:5000/0/", "text": "do the shopping"},
+ {"url": "http://127.0.0.1:5000/1/", "text": "build the codez"},
  {"url": "http://127.0.0.1:5000/2/", "text": "paint the door"}]
 
 $ curl -X GET http://127.0.0.1:5000/1/
