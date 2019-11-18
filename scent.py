@@ -4,10 +4,13 @@
 
 import time
 import subprocess
+import os
 
 from sniffer.api import select_runnable, file_validator, runnable
 try:
     from pync import Notifier
+    if True:
+        print 1
 except ImportError:
     notify = None
 else:
