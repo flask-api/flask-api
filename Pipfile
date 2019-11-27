@@ -12,7 +12,7 @@ Markdown = "<3"
 [dev-packages]
 
 # Linters
-flake8 = "~=2.1"
+flake8 = "~=3.7.9"
 
 # Testing
 nose = "*"

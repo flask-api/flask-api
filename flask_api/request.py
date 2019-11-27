@@ -51,11 +51,11 @@ class APIRequest(Request):
         try:
             parser, media_type = negotiator.select_parser(parsers)
             ret = parser.parse(self.stream, media_type, **options)
-        except:
+        except Exception as e:
             # Ensure that accessing `request.data` again does not reraise
             # the exception, so that eg exceptions can handle properly.
             self._set_empty_data()
-            raise
+            raise e from None
 
         if parser.handles_file_uploads:
             assert isinstance(ret, tuple) and len(ret) == 2, 'Expected a two-tuple of (data, files)'
