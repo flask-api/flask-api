@@ -1,5 +1,10 @@
 # Release Notes
 
+## Version 2.0
+
+* Dropped support for Python `<3.6`.
+* Dropped support for Flask `<1.1`.
+
 ## Version 1.1
 
 * Added support for custom JSON encoders.

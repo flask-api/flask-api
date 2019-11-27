@@ -88,8 +88,7 @@ class MediaType(object):
     def __eq__(self, other):
         # Compare two MediaType instances, ignoring parameter ordering.
         return (
-            self.full_type == other.full_type and
-            self.params == other.params
+            self.full_type == other.full_type and self.params == other.params
         )
 
 

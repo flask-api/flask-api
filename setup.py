@@ -15,9 +15,7 @@ url = 'http://www.flaskapi.org'
 author = 'Tom Christie'
 author_email = 'tom@tomchristie.com'
 license = 'BSD'
-install_requires = [
-    'Flask >= 0.12.3',
-]
+install_requires = ['Flask >= 1.1']
 
 long_description = """Browsable web APIs for Flask."""
 
@@ -75,12 +73,10 @@ setup(
         'Natural Language :: English',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
         'Topic :: Internet :: WWW/HTTP',
     ]
 )
