@@ -19,8 +19,8 @@ Flask API is a drop-in replacement for Flask that provides an implementation of 
 
 Requirements:
 
-* Python 2.7+ or 3.4+
-* Flask 0.12.4+
+* Python 3.5+
+* Flask 1.1.+
 
 Install using `pip`:
 
