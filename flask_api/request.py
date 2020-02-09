@@ -38,7 +38,7 @@ class APIRequest(Request):
 
     def _parse(self):
         """
-        Parse the body of the request, using whichever parser satifies the
+        Parse the body of the request, using whichever parser satisfies the
         client 'Content-Type' header.
         """
         if not self.content_type or not self.content_length:
