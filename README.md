@@ -2,7 +2,7 @@
 
 Browsable web APIs for Flask.
 
-[![Unix Build Status](https://img.shields.io/travis/flask-api/flask-api.svg)](https://travis-ci.org/flask-api/flask-api)
+[![Unix Build Status](https://img.shields.io/travis/com/flask-api/flask-api.svg)](https://travis-ci.com/flask-api/flask-api)
 [![Coverage Status](https://img.shields.io/coveralls/flask-api/flask-api.svg)](https://coveralls.io/r/flask-api/flask-api)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/flask-api/flask-api.svg)](https://scrutinizer-ci.com/g/flask-api/flask-api/)
 [![PyPI Version](https://img.shields.io/pypi/v/Flask-API.svg)](https://pypi.org/project/Flask-API/)
