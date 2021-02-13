@@ -11,7 +11,7 @@ import sys
 name = 'Flask-API'
 package = 'flask_api'
 description = 'Browsable web APIs for Flask.'
-url = 'http://www.flaskapi.org'
+url = 'https://flask-api.github.io/flask-api/'
 author = 'Tom Christie'
 author_email = 'tom@tomchristie.com'
 license = 'BSD'
