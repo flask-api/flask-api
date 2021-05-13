@@ -1,6 +1,5 @@
 # coding: utf8
 from __future__ import unicode_literals
-from flask._compat import text_type
 from flask_api import exceptions
 from werkzeug.formparser import MultiPartParser as WerkzeugMultiPartParser
 from werkzeug.formparser import default_stream_factory
@@ -26,7 +25,7 @@ class JSONParser(BaseParser):
         try:
             return json.loads(data)
         except ValueError as exc:
-            msg = 'JSON parse error - %s' % text_type(exc)
+            msg = 'JSON parse error - %s' % str(exc)
             raise exceptions.ParseError(msg)
 
 
@@ -53,7 +52,7 @@ class MultiPartParser(BaseParser):
         try:
             return multipart_parser.parse(stream, boundary, content_length)
         except ValueError as exc:
-            msg = 'Multipart parse error - %s' % text_type(exc)
+            msg = 'Multipart parse error - %s' % str(exc)
             raise exceptions.ParseError(msg)
 
 

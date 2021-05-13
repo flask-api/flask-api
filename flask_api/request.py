@@ -6,7 +6,6 @@ from flask_api.settings import default_settings
 from werkzeug.datastructures import MultiDict
 from werkzeug.urls import url_decode_stream
 from werkzeug.wsgi import get_content_length
-from werkzeug._compat import to_unicode
 import io
 
 
@@ -169,7 +168,7 @@ class APIRequest(Request):
         """
         if not self.query_string:
             return self.path
-        return self.path + u'?' + to_unicode(self.query_string, self.url_charset)
+        return self.path + '?' + self.query_string.decode()
 
     # @property
     # def auth(self):

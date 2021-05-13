@@ -1,4 +1,3 @@
-from flask._compat import string_types
 import importlib
 
 
@@ -7,7 +6,7 @@ def perform_imports(val, setting_name):
     If the given setting is a string import notation,
     then perform the necessary import or imports.
     """
-    if isinstance(val, string_types):
+    if isinstance(val, str):
         return import_from_string(val, setting_name)
     elif isinstance(val, (list, tuple)):
         return [perform_imports(item, setting_name) for item in val]
