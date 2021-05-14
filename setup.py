@@ -15,7 +15,7 @@ url = 'https://flask-api.github.io/flask-api/'
 author = 'Tom Christie'
 author_email = 'tom@tomchristie.com'
 license = 'BSD'
-install_requires = ['Flask >= 1.1']
+install_requires = ['Flask >= 2.0']
 
 long_description = """Browsable web APIs for Flask."""
 
@@ -77,6 +77,7 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
         'Topic :: Internet :: WWW/HTTP',
     ]
 )
