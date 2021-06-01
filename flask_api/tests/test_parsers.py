@@ -36,9 +36,9 @@ class ParserTests(unittest.TestCase):
         with self.assertRaises(exceptions.ParseError) as context:
             parser.parse(stream, mediatypes.MediaType('application/json'))
         detail = str(context.exception)
-        expected_py2 = 'JSON parse error - Expecting property name: line 1 column 1 (char 1)'
+        expected_pypy = 'JSON parse error - Key name must be string at char: line 1 column 2 (char 1)'
         expected_py3 = 'JSON parse error - Expecting property name enclosed in double quotes: line 1 column 2 (char 1)'
-        self.assertIn(detail, (expected_py2, expected_py3))
+        self.assertIn(detail, (expected_pypy, expected_py3))
 
     def test_invalid_multipart(self):
         parser = parsers.MultiPartParser()

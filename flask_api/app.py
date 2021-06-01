@@ -1,7 +1,6 @@
 # coding: utf8
 from __future__ import unicode_literals
 from flask import request, Flask, Blueprint
-from flask._compat import reraise, string_types, text_type
 from flask_api.exceptions import APIException
 from flask_api.request import APIRequest
 from flask_api.response import APIResponse
@@ -59,7 +58,7 @@ class FlaskAPI(Flask):
             headers, status_or_headers = status_or_headers, None
 
         if not isinstance(rv, self.response_class):
-            if isinstance(rv, (text_type, bytes, bytearray, list, dict)):
+            if isinstance(rv, (str, bytes, bytearray, list, dict)):
                 status = status_or_headers
                 rv = self.response_class(rv, headers=headers, status=status)
                 headers = status_or_headers = None
@@ -67,7 +66,7 @@ class FlaskAPI(Flask):
                 rv = self.response_class.force_type(rv, request.environ)
 
         if status_or_headers is not None:
-            if isinstance(status_or_headers, string_types):
+            if isinstance(status_or_headers, str):
                 rv.status = status_or_headers
             else:
                 rv.status_code = status_or_headers
@@ -104,7 +103,7 @@ class FlaskAPI(Flask):
                 if isinstance(e, typecheck):
                     return handler(e)
 
-        reraise(exc_type, exc_value, tb)
+        raise e
 
     def handle_api_exception(self, exc):
         content = {'message': exc.detail}

@@ -1,5 +1,9 @@
 # Release Notes
 
+## Version 3.0
+
+* Dropped support for Flask `<2.0`.
+
 ## Version 2.0
 
 * Dropped support for Python `<3.6`.
