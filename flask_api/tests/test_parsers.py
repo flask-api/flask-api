@@ -47,7 +47,7 @@ class ParserTests(unittest.TestCase):
         with self.assertRaises(exceptions.ParseError) as context:
             parser.parse(stream, media_type, content_length=len('invalid'))
         detail = str(context.exception)
-        expected = 'Multipart parse error - Expected boundary at start of multipart data'
+        expected = 'Multipart parse error - Invalid form-data cannot parse beyond State.PREAMBLE'
         self.assertEqual(detail, expected)
 
     def test_invalid_multipart_no_boundary(self):

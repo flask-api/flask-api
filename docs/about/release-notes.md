@@ -1,6 +1,6 @@
 # Release Notes
 
-## Version 3.0
+## Version 3.0 (beta)
 
 * Dropped support for Flask `<2.0`.
 
