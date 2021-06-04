@@ -143,10 +143,10 @@ class APIRequest(Request):
         by specifing '_content' and '_content_type' form fields.
         """
         try:
-            self._method = super(APIRequest, self).method
+            self._method = super().method
         except AttributeError:
-            self._method = ''
-        self._stream = super(APIRequest, self).stream
+            self._method = 'GET'
+        self._stream = super().stream
         self._content_type = self.headers.get('Content-Type')
         self._content_length = get_content_length(self.environ)
 

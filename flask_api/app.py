@@ -29,7 +29,7 @@ class FlaskAPI(Flask):
     response_class = APIResponse
 
     def __init__(self, *args, **kwargs):
-        super(FlaskAPI, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.api_settings = APISettings(self.config)
         self.register_blueprint(api_resources)
         self.jinja_env.filters['urlize_quoted_links'] = urlize_quoted_links
@@ -37,7 +37,7 @@ class FlaskAPI(Flask):
     def preprocess_request(self):
         request.parser_classes = self.api_settings.DEFAULT_PARSERS
         request.renderer_classes = self.api_settings.DEFAULT_RENDERERS
-        return super(FlaskAPI, self).preprocess_request()
+        return super().preprocess_request()
 
     def make_response(self, rv):
         """

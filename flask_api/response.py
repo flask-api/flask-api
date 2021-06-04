@@ -8,7 +8,7 @@ class APIResponse(Response):
     api_return_types = (list, dict)
 
     def __init__(self, content=None, *args, **kwargs):
-        super(APIResponse, self).__init__(None, *args, **kwargs)
+        super().__init__(None, *args, **kwargs)
 
         media_type = None
         if isinstance(content, self.api_return_types) or content == '':
