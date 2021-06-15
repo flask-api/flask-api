@@ -39,7 +39,7 @@ class RendererTests(unittest.TestCase):
             def default(self, o):
                 if isinstance(o, datetime):
                     return o.isoformat()
-                return super(CustomJsonEncoder, self).default(o)
+                return super().default(o)
 
         app = self._make_app()
         app.json_encoder = CustomJsonEncoder

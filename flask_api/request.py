@@ -110,6 +110,10 @@ class APIRequest(Request):
             self._perform_method_overloading()
         return self._method
 
+    @method.setter
+    def method(self, value):
+        self._method = value
+
     @property
     def content_type(self):
         if not hasattr(self, '_content_type'):
@@ -138,8 +142,9 @@ class APIRequest(Request):
         Also provides support for browser non-form requests (eg JSON),
         by specifing '_content' and '_content_type' form fields.
         """
-        self._method = super(APIRequest, self).method
-        self._stream = super(APIRequest, self).stream
+        if not hasattr(self, '_method'):
+            self.method = super().method
+        self._stream = super().stream
         self._content_type = self.headers.get('Content-Type')
         self._content_length = get_content_length(self.environ)
 

@@ -70,7 +70,7 @@ endif
 .PHONY: test
 test: install ## Run unit and integration tests
 	$(NOSE) $(PACKAGE) $(NOSE_OPTIONS)
-	$(COVERAGESPACE) $(REPOSITORY) overall
+	$(COVERAGESPACE) update overall
 
 .PHONY: read-coverage
 read-coverage:

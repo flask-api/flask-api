@@ -18,7 +18,7 @@ flake8 = "~=3.7.9"
 nose = "*"
 
 # Reports
-coveragespace = "*"
+coveragespace = "~=4.1"
 
 # Documentation
 mkdocs = "~=0.17.2"
