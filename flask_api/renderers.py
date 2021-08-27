@@ -57,7 +57,7 @@ class JSONRenderer(BaseRenderer):
             indent = None
         # Indent may be set explicitly, eg when rendered by the browsable API.
         indent = options.get('indent', indent)
-        return json.dumps(data, cls=current_app.json_encoder, ensure_ascii=False, indent=indent)
+        return json.dumps(data, cls=current_app.json_encoder, ensure_ascii=True, indent=indent, default=str)
 
 
 class HTMLRenderer(object):

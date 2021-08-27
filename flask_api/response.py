@@ -30,6 +30,7 @@ class APIResponse(Response):
 
         if media_type is not None:
             self.headers['Content-Type'] = str(media_type)
+        self.headers['Access-Control-Allow-Origin'] = '*'
 
     def get_renderer_options(self):
         return {
