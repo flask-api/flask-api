@@ -1,5 +1,3 @@
-# coding: utf8
-from __future__ import unicode_literals
 from flask import request, render_template, current_app
 from flask.globals import _request_ctx_stack
 from flask_api.mediatypes import MediaType
@@ -35,7 +33,7 @@ def convert_to_title(name):
     return name.capitalize()
 
 
-class BaseRenderer(object):
+class BaseRenderer:
     media_type = None
     charset = 'utf-8'
     handles_empty_responses = False
@@ -60,7 +58,7 @@ class JSONRenderer(BaseRenderer):
         return json.dumps(data, cls=current_app.json_encoder, ensure_ascii=False, indent=indent)
 
 
-class HTMLRenderer(object):
+class HTMLRenderer:
     media_type = 'text/html'
     charset = 'utf-8'
 
