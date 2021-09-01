@@ -1,5 +1,3 @@
-# coding: utf8
-from __future__ import unicode_literals
 from flask import request, Flask, Blueprint
 from flask_api.exceptions import APIException
 from flask_api.request import APIRequest
