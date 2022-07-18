@@ -1,7 +1,7 @@
 # This is a fudge that allows us to easily specify test modules.
 # For example:
 # ./runtests test_parsers
-# ./runtests test_rendereres.RendererTests.test_render_json
+# ./runtests test_renderers.RendererTests.test_render_json
 import os
 
 modules = [filename.rsplit('.', 1)[0]

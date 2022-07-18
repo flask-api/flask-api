@@ -137,10 +137,10 @@ class APIRequest(Request):
         Perform method and content type overloading.
 
         Provides support for browser PUT, PATCH, DELETE & other requests,
-        by specifing a '_method' form field.
+        by specifying a '_method' form field.
 
         Also provides support for browser non-form requests (eg JSON),
-        by specifing '_content' and '_content_type' form fields.
+        by specifying '_content' and '_content_type' form fields.
         """
         if not hasattr(self, '_method'):
             self.method = super().method
