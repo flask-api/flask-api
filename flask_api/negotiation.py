@@ -1,11 +1,13 @@
 # coding: utf8
 from __future__ import unicode_literals
+
 from flask import request
+
 from flask_api import exceptions
 from flask_api.mediatypes import MediaType, parse_accept_header
 
 
-class BaseNegotiation(object):
+class BaseNegotiation:
     def select_parser(self, parsers):
         msg = '`select_parser()` method must be implemented for class "%s"'
         raise NotImplementedError(msg % self.__class__.__name__)
@@ -36,7 +38,7 @@ class DefaultNegotiation(BaseNegotiation):
         Determine which renderer to use for rendering the response body.
         Returns a two-tuple of (renderer, content type).
         """
-        accept_header = request.headers.get('Accept', '*/*')
+        accept_header = request.headers.get("Accept", "*/*")
 
         for client_media_types in parse_accept_header(accept_header):
             for renderer in renderers:

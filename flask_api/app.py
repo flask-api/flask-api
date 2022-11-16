@@ -1,20 +1,23 @@
-from flask import request, Flask, Blueprint
+import re
+import sys
+from itertools import chain
+
+from flask import Blueprint, Flask, request
+from werkzeug.exceptions import HTTPException
+
+from flask_api.compat import is_flask_legacy
 from flask_api.exceptions import APIException
 from flask_api.request import APIRequest
 from flask_api.response import APIResponse
 from flask_api.settings import APISettings
 from flask_api.status import HTTP_204_NO_CONTENT
-from itertools import chain
-from werkzeug.exceptions import HTTPException
-import re
-import sys
-from flask_api.compat import is_flask_legacy
-
 
 api_resources = Blueprint(
-    'flask-api', __name__,
-    url_prefix='/flask-api',
-    template_folder='templates', static_folder='static'
+    "flask-api",
+    __name__,
+    url_prefix="/flask-api",
+    template_folder="templates",
+    static_folder="static",
 )
 
 
@@ -30,7 +33,7 @@ class FlaskAPI(Flask):
         super().__init__(*args, **kwargs)
         self.api_settings = APISettings(self.config)
         self.register_blueprint(api_resources)
-        self.jinja_env.filters['urlize_quoted_links'] = urlize_quoted_links
+        self.jinja_env.filters["urlize_quoted_links"] = urlize_quoted_links
 
     def preprocess_request(self):
         request.parser_classes = self.api_settings.DEFAULT_PARSERS
@@ -47,10 +50,10 @@ class FlaskAPI(Flask):
             rv, status_or_headers, headers = rv + (None,) * (3 - len(rv))
 
         if rv is None and status_or_headers == HTTP_204_NO_CONTENT:
-            rv = ''
+            rv = ""
 
         if rv is None and status_or_headers:
-            raise ValueError('View function did not return a response')
+            raise ValueError("View function did not return a response")
 
         if isinstance(status_or_headers, (dict, list)):
             headers, status_or_headers = status_or_headers, None
@@ -96,15 +99,16 @@ class FlaskAPI(Flask):
                 if isinstance(e, typecheck):
                     return handler(e)
         else:
-            for typecheck, handler in chain(dict(blueprint_handlers).items(),
-                    dict(app_handlers).items()):
+            for typecheck, handler in chain(
+                dict(blueprint_handlers).items(), dict(app_handlers).items()
+            ):
                 if isinstance(e, typecheck):
                     return handler(e)
 
         raise e
 
     def handle_api_exception(self, exc):
-        content = {'message': exc.detail}
+        content = {"message": exc.detail}
         status = exc.status_code
         return self.response_class(content, status=status)
 
@@ -117,13 +121,15 @@ class FlaskAPI(Flask):
         """
         if request is not None:
             environ = request.environ.copy()
-            environ['REQUEST_METHOD'] = request.method
-            return self.url_map.bind_to_environ(environ,
-                server_name=self.config['SERVER_NAME'])
+            environ["REQUEST_METHOD"] = request.method
+            return self.url_map.bind_to_environ(
+                environ, server_name=self.config["SERVER_NAME"]
+            )
         # We need at the very least the server name to be set for this
         # to work.
-        if self.config['SERVER_NAME'] is not None:
+        if self.config["SERVER_NAME"] is not None:
             return self.url_map.bind(
-                self.config['SERVER_NAME'],
-                script_name=self.config['APPLICATION_ROOT'] or '/',
-                url_scheme=self.config['PREFERRED_URL_SCHEME'])
+                self.config["SERVER_NAME"],
+                script_name=self.config["APPLICATION_ROOT"] or "/",
+                url_scheme=self.config["PREFERRED_URL_SCHEME"],
+            )
