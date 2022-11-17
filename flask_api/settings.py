@@ -19,8 +19,8 @@ def import_from_string(val, setting_name):
     """
     try:
         # Nod to tastypie's use of importlib.
-        parts = val.split('.')
-        module_path, class_name = '.'.join(parts[:-1]), parts[-1]
+        parts = val.split(".")
+        module_path, class_name = ".".join(parts[:-1]), parts[-1]
         module = importlib.import_module(module_path)
         return getattr(module, class_name)
     except ImportError as exc:
@@ -29,28 +29,28 @@ def import_from_string(val, setting_name):
         raise ImportError(msg)
 
 
-class APISettings(object):
+class APISettings:
     def __init__(self, user_config=None):
         self.user_config = user_config or {}
 
     @property
     def DEFAULT_PARSERS(self):
         default = [
-            'flask_api.parsers.JSONParser',
-            'flask_api.parsers.URLEncodedParser',
-            'flask_api.parsers.MultiPartParser'
+            "flask_api.parsers.JSONParser",
+            "flask_api.parsers.URLEncodedParser",
+            "flask_api.parsers.MultiPartParser",
         ]
-        val = self.user_config.get('DEFAULT_PARSERS', default)
-        return perform_imports(val, 'DEFAULT_PARSERS')
+        val = self.user_config.get("DEFAULT_PARSERS", default)
+        return perform_imports(val, "DEFAULT_PARSERS")
 
     @property
     def DEFAULT_RENDERERS(self):
         default = [
-            'flask_api.renderers.JSONRenderer',
-            'flask_api.renderers.BrowsableAPIRenderer'
+            "flask_api.renderers.JSONRenderer",
+            "flask_api.renderers.BrowsableAPIRenderer",
         ]
-        val = self.user_config.get('DEFAULT_RENDERERS', default)
-        return perform_imports(val, 'DEFAULT_RENDERERS')
+        val = self.user_config.get("DEFAULT_RENDERERS", default)
+        return perform_imports(val, "DEFAULT_RENDERERS")
 
 
 default_settings = APISettings()

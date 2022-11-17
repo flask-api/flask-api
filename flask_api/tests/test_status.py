@@ -1,7 +1,9 @@
 # coding: utf8
 from __future__ import unicode_literals
-from flask_api import status
+
 import unittest
+
+from flask_api import status
 
 
 class TestStatus(unittest.TestCase):
