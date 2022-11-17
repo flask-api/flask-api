@@ -21,7 +21,7 @@ nose = "*"
 coveragespace = "~=4.1"
 
 # Documentation
-mkdocs = "~=0.17.2"
+mkdocs = "~=1.2.3"
 docutils = "*"
 
 # Release
