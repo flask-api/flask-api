@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 
-from __future__ import print_function
-
 import os
 import re
 import sys
@@ -15,7 +13,7 @@ url = "https://flask-api.github.io/flask-api/"
 author = "Tom Christie"
 author_email = "tom@tomchristie.com"
 license = "BSD"
-install_requires = ["Flask >= 2.0"]
+install_requires = ["Flask >= 2.0.0"]
 
 long_description = """Browsable web APIs for Flask."""
 
