@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import absolute_import, unicode_literals
-
 from flask import __version__ as flask_version
 
 # Markdown is optional

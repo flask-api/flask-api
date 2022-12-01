@@ -1,7 +1,3 @@
-# coding: utf8
-from __future__ import unicode_literals
-
-
 class MediaType:
     def __init__(self, media_type):
         self.main_type, self.sub_type, self.params = self._parse(media_type)
