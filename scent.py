@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Configuration file for sniffer."""
 # pylint: disable=superfluous-parens,bad-continuation
 
