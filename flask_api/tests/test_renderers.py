@@ -1,7 +1,7 @@
 import unittest
 from datetime import datetime
 
-from flask.json import JSONEncoder
+from flask.json.provider import DefaultJSONProvider
 
 from flask_api import FlaskAPI, renderers, status
 from flask_api.decorators import set_renderers
@@ -39,14 +39,14 @@ class RendererTests(unittest.TestCase):
         self.assertEqual(content, expected)
 
     def test_render_json_with_custom_encoder(self):
-        class CustomJsonEncoder(JSONEncoder):
+        class CustomJsonProvider(DefaultJSONProvider):
             def default(self, o):
                 if isinstance(o, datetime):
                     return o.isoformat()
                 return super().default(o)
 
         app = self._make_app()
-        app.json_encoder = CustomJsonEncoder
+        app.json = CustomJsonProvider(app)
         renderer = renderers.JSONRenderer()
         date = datetime(2017, 10, 5, 15, 22)
         with app.app_context():
