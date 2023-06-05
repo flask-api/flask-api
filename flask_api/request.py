@@ -1,12 +1,12 @@
-# coding: utf8
-from __future__ import unicode_literals
+import io
+
 from flask import Request
-from flask_api.negotiation import DefaultNegotiation
-from flask_api.settings import default_settings
 from werkzeug.datastructures import MultiDict
 from werkzeug.urls import url_decode_stream
 from werkzeug.wsgi import get_content_length
-import io
+
+from flask_api.negotiation import DefaultNegotiation
+from flask_api.settings import default_settings
 
 
 class APIRequest(Request):
@@ -19,19 +19,19 @@ class APIRequest(Request):
 
     @property
     def data(self):
-        if not hasattr(self, '_data'):
+        if not hasattr(self, "_data"):
             self._parse()
         return self._data
 
     @property
     def form(self):
-        if not hasattr(self, '_form'):
+        if not hasattr(self, "_form"):
             self._parse()
         return self._form
 
     @property
     def files(self):
-        if not hasattr(self, '_files'):
+        if not hasattr(self, "_files"):
             self._parse()
         return self._files
 
@@ -57,7 +57,9 @@ class APIRequest(Request):
             raise e from None
 
         if parser.handles_file_uploads:
-            assert isinstance(ret, tuple) and len(ret) == 2, 'Expected a two-tuple of (data, files)'
+            assert (
+                isinstance(ret, tuple) and len(ret) == 2
+            ), "Expected a two-tuple of (data, files)"
             self._data, self._files = ret
         else:
             self._data = ret
@@ -69,7 +71,7 @@ class APIRequest(Request):
         """
         Any additional information to pass to the parser.
         """
-        return {'content_length': self.content_length}
+        return {"content_length": self.content_length}
 
     def _set_empty_data(self):
         """
@@ -83,13 +85,13 @@ class APIRequest(Request):
 
     @property
     def accepted_renderer(self):
-        if not hasattr(self, '_accepted_renderer'):
+        if not hasattr(self, "_accepted_renderer"):
             self._perform_content_negotiation()
         return self._accepted_renderer
 
     @property
     def accepted_media_type(self):
-        if not hasattr(self, '_accepted_media_type'):
+        if not hasattr(self, "_accepted_media_type"):
             self._perform_content_negotiation()
         return self._accepted_media_type
 
@@ -100,13 +102,15 @@ class APIRequest(Request):
         """
         negotiator = self.negotiator_class()
         renderers = [renderer() for renderer in self.renderer_classes]
-        self._accepted_renderer, self._accepted_media_type = negotiator.select_renderer(renderers)
+        self._accepted_renderer, self._accepted_media_type = negotiator.select_renderer(
+            renderers
+        )
 
     # Method and content type overloading.
 
     @property
     def method(self):
-        if not hasattr(self, '_method'):
+        if not hasattr(self, "_method"):
             self._perform_method_overloading()
         return self._method
 
@@ -116,19 +120,19 @@ class APIRequest(Request):
 
     @property
     def content_type(self):
-        if not hasattr(self, '_content_type'):
+        if not hasattr(self, "_content_type"):
             self._perform_method_overloading()
         return self._content_type
 
     @property
     def content_length(self):
-        if not hasattr(self, '_content_length'):
+        if not hasattr(self, "_content_length"):
             self._perform_method_overloading()
         return self._content_length
 
     @property
     def stream(self):
-        if not hasattr(self, '_stream'):
+        if not hasattr(self, "_stream"):
             self._perform_method_overloading()
         return self._stream
 
@@ -137,30 +141,33 @@ class APIRequest(Request):
         Perform method and content type overloading.
 
         Provides support for browser PUT, PATCH, DELETE & other requests,
-        by specifing a '_method' form field.
+        by specifying a '_method' form field.
 
         Also provides support for browser non-form requests (eg JSON),
-        by specifing '_content' and '_content_type' form fields.
+        by specifying '_content' and '_content_type' form fields.
         """
-        if not hasattr(self, '_method'):
+        if not hasattr(self, "_method"):
             self.method = super().method
         self._stream = super().stream
-        self._content_type = self.headers.get('Content-Type')
+        self._content_type = self.headers.get("Content-Type")
         self._content_length = get_content_length(self.environ)
 
-        if (self._method == 'POST' and self._content_type == 'application/x-www-form-urlencoded'):
+        if (
+            self._method == "POST"
+            and self._content_type == "application/x-www-form-urlencoded"
+        ):
             # Read the request data, then push it back onto the stream again.
             body = self.get_data()
             data = url_decode_stream(io.BytesIO(body))
             self._stream = io.BytesIO(body)
-            if '_method' in data:
+            if "_method" in data:
                 # Support browser forms with PUT, PATCH, DELETE & other methods.
-                self._method = data['_method']
-            if '_content' in data and '_content_type' in data:
+                self._method = data["_method"]
+            if "_content" in data and "_content_type" in data:
                 # Support browser forms with non-form data, such as JSON.
-                body = data['_content'].encode('utf8')
+                body = data["_content"].encode("utf8")
                 self._stream = io.BytesIO(body)
-                self._content_type = data['_content_type']
+                self._content_type = data["_content_type"]
                 self._content_length = len(body)
 
     # Misc...
@@ -173,7 +180,7 @@ class APIRequest(Request):
         """
         if not self.query_string:
             return self.path
-        return self.path + '?' + self.query_string.decode()
+        return self.path + "?" + self.query_string.decode()
 
     # @property
     # def auth(self):

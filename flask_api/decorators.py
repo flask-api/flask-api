@@ -1,4 +1,5 @@
 from functools import wraps
+
 from flask import request
 
 
@@ -11,7 +12,9 @@ def set_parsers(*parsers):
             else:
                 request.parser_classes = parsers
             return func(*args, **kwargs)
+
         return decorated_function
+
     return decorator
 
 
@@ -24,5 +27,7 @@ def set_renderers(*renderers):
             else:
                 request.renderer_classes = renderers
             return func(*args, **kwargs)
+
         return decorated_function
+
     return decorator

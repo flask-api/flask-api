@@ -1,12 +1,11 @@
-# coding: utf8
-from __future__ import unicode_literals
-from flask_api.settings import APISettings
 import unittest
+
+from flask_api.settings import APISettings
 
 
 class SettingsTests(unittest.TestCase):
     def test_bad_import(self):
-        settings = APISettings({'DEFAULT_PARSERS': 'foobarz.FailedImport'})
+        settings = APISettings({"DEFAULT_PARSERS": "foobarz.FailedImport"})
         with self.assertRaises(ImportError) as context:
             settings.DEFAULT_PARSERS
         msg = str(context.exception)

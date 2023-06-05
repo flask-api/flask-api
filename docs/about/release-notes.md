@@ -1,5 +1,9 @@
 # Release Notes
 
+## Version 3.1
+
+- Fixed support for Flask `2.3`.
+
 ## Version 3.0
 
 * Dropped support for Flask `<2.0`.
