@@ -2,8 +2,8 @@ import json
 
 from werkzeug.formparser import MultiPartParser as WerkzeugMultiPartParser
 from werkzeug.formparser import default_stream_factory
-from werkzeug.urls import url_decode_stream
 
+from flask_api.helpers import url_decode_stream
 from flask_api import exceptions
 
 
