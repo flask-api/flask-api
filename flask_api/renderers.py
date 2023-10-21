@@ -1,8 +1,8 @@
 import pydoc
 import re
 
+import flask
 from flask import current_app, render_template, request
-from flask.globals import _request_ctx_stack
 
 from flask_api.compat import apply_markdown
 from flask_api.mediatypes import MediaType
@@ -95,7 +95,14 @@ class BrowsableAPIRenderer(BaseRenderer):
             mock_content = self._html_escape(text)
 
         # Determine the allowed methods on this view.
-        adapter = _request_ctx_stack.top.url_adapter
+        if hasattr(flask, 'globals') and \
+            hasattr(flask.globals, 'request_ctx'):
+            # update session for Flask >= 2.2
+            ctx = flask.globals.request_ctx._get_current_object()
+        else:  # pragma: no cover
+            # update session for Flask < 2.2
+            ctx = flask._request_ctx_stack.top
+        adapter = ctx.url_adapter
         allowed_methods = adapter.allowed_methods()
 
         endpoint = request.url_rule.endpoint

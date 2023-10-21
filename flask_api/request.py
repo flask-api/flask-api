@@ -2,9 +2,9 @@ import io
 
 from flask import Request
 from werkzeug.datastructures import MultiDict
-from werkzeug.urls import url_decode_stream
 from werkzeug.wsgi import get_content_length
 
+from flask_api.helpers import url_decode_stream
 from flask_api.negotiation import DefaultNegotiation
 from flask_api.settings import default_settings
 
