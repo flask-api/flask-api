@@ -19,6 +19,15 @@ class MediaTypeParsingTests(unittest.TestCase):
         with app.test_request_context(**kwargs):
             self.assertEqual(request.data, {"key": 1, "other": "two"})
 
+    def test_urlencoded_post_request(self):
+        kwargs = {
+            "method": "POST",
+            "input_stream": io.BytesIO(b'next=http://www.example.com&test1=val1&test%5c=val%2f'),
+            "content_type": "application/x-www-form-urlencoded",
+        }
+        with app.test_request_context(**kwargs):
+            self.assertEqual(request.data, {"next": "http://www.example.com", "test1": "val1", "test\\": "val/"})
+
     def test_invalid_content_type_request(self):
         kwargs = {
             "method": "PUT",
