@@ -31,6 +31,12 @@ class ParserTests(unittest.TestCase):
         data = parser.parse(stream, "application/json")
         self.assertEqual(data, {"key": 1, "other": "two"})
 
+    def test_parse_urlencoded(self):
+        parser = parsers.URLEncodedParser()
+        stream = io.BytesIO(b'next=http://www.example.com&test1=val1&test%5c=val%2f')
+        data = parser.parse(stream, "application/x-www-form-urlencoded")
+        self.assertEqual(data, {"next": "http://www.example.com", "test1": "val1", "test\\": "val/"})
+
     def test_invalid_json(self):
         parser = parsers.JSONParser()
         stream = io.BytesIO(b'{key: 1, "other": "two"}')
