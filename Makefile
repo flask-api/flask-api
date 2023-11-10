@@ -52,7 +52,7 @@ check: flake8 ## Run linters and static analysis
 
 .PHONY: flake8
 flake8: install
-	$(FLAKE8) flask_api --ignore=E128,E501 --exclude=__init__.py
+	$(FLAKE8) flask_api --ignore=E128,E501,W503 --exclude=__init__.py
 
 # TESTS #######################################################################
 

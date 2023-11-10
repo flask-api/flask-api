@@ -3,21 +3,17 @@ name: Tests
 #############################
 # Start the job on all push #
 #############################
-on:
-  push:
-    branches:
-      - 'main'
-  pull_request:
+on: [push, pull_request]
 
 jobs:
   tests:
     name: Python ${{ matrix.python-version }}
-    runs-on: ubuntu-xenial
+    runs-on: ubuntu-20.04
     environment: test
 
     strategy:
       matrix:
-        python-version: ["3.7", "3.8"]
+        python-version: ["3.8", "3.9"]
 
     steps:
       - uses: actions/checkout@v3
@@ -25,15 +21,12 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
-      - uses: browser-actions/setup-chrome@latest
-        with:
-          chrome-version: stable
       - name: Install dependencies
         run: |
           pip install --upgrade pip
           pip install pipenv
           python --version; pip --version; pipenv --version
-          pipenv run pip install flask=2.3.2
+          pipenv run pip install flask==2.3.2
       - name: Run tests
         run: |
           make check

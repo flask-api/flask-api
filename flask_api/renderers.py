@@ -96,7 +96,7 @@ class BrowsableAPIRenderer(BaseRenderer):
 
         # Determine the allowed methods on this view.
         if hasattr(flask, 'globals') and \
-            hasattr(flask.globals, 'request_ctx'):
+                hasattr(flask.globals, 'request_ctx'):
             # update session for Flask >= 2.2
             ctx = flask.globals.request_ctx._get_current_object()
         else:  # pragma: no cover
