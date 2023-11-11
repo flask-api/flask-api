@@ -7,13 +7,14 @@ on: [push, pull_request]
 
 jobs:
   tests:
-    name: Python ${{ matrix.python-version }}
+    name: Python ${{ matrix.python-version }} Flask ${{ matrix.flask-version }}
     runs-on: ubuntu-20.04
     environment: test
 
     strategy:
       matrix:
         python-version: ["3.8", "3.9"]
+        flask-version: ["2.3.2", "3.0.0"]
 
     steps:
       - uses: actions/checkout@v3
@@ -26,7 +27,7 @@ jobs:
           pip install --upgrade pip
           pip install pipenv
           python --version; pip --version; pipenv --version
-          pipenv run pip install flask==2.3.2
+          pipenv run pip install flask==${{ matrix.flask-version }}
       - name: Run tests
         run: |
           make check
