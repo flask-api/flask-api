@@ -34,7 +34,7 @@ install: $(DEPENDENCIES)
 
 $(DEPENDENCIES): Pipfile* setup.py
 	pipenv run python setup.py develop
-	pipenv install --dev
+	pipenv install --dev -r requirements-dev.txt
 	@ touch $@
 
 # CHECKS ######################################################################
