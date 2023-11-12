@@ -1,33 +1,19 @@
 [[source]]
-
 url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi"
 
 [packages]
-
-Flask = "*"
-Markdown = "<3"
+flask = "*"
+markdown = "*"
 
 [dev-packages]
-
-# Linters
-flake8 = "~=3.7.9"
-
-# Testing
-nose = "*"
-
-# Reports
-coveragespace = "~=4.1"
-
-# Documentation
-mkdocs = "~=1.2.3"
+flake8 = "*"
+pytest = "*"
+pytest-cov = "*"
+twine = "*"
+mkdocs = "*"
 docutils = "*"
 
-# Release
-twine = "*"
-
-# Tooling
-sniffer = "*"
-pync = { version = "<2.0", sys_platform = "== 'darwin'" }
-MacFSEvents = { version = "*", sys_platform = "== 'darwin'" }
+[requires]
+python_version = "3.11"
