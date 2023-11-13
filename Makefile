@@ -15,17 +15,11 @@ VENV := .venv
 
 # MAIN TASKS ##################################################################
 
-SNIFFER := pipenv run sniffer
-
 .PHONY: all
 all: install
 
 .PHONY: ci
 ci: check test ## Run all tasks that determine CI status
-
-.PHONY: watch
-watch: install .clean-test ## Continuously run all CI tasks when files chanage
-	$(SNIFFER)
 
 .PHONY: run ## Start the program
 run: install
@@ -40,7 +34,7 @@ install: $(DEPENDENCIES)
 
 $(DEPENDENCIES): Pipfile* setup.py
 	pipenv run python setup.py develop
-	pipenv install --dev
+	pipenv install --dev -r requirements-dev.txt
 	@ touch $@
 
 # CHECKS ######################################################################
@@ -56,20 +50,14 @@ flake8: install
 
 # TESTS #######################################################################
 
-NOSE := pipenv run nosetests
-COVERAGE := pipenv run coverage
+PYTEST := pipenv run pytest --cov=$(PACKAGE) --cov-report=html
 COVERAGESPACE := pipenv run coveragespace
 
 RANDOM_SEED ?= $(shell date +%s)
 
-NOSE_OPTIONS := --with-doctest
-ifndef DISABLE_COVERAGE
-NOSE_OPTIONS += --with-coverage --cover-package=$(PACKAGE) --cover-erase --cover-html --cover-html-dir=htmlcov --cover-branches
-endif
-
 .PHONY: test
 test: install ## Run unit and integration tests
-	$(NOSE) $(PACKAGE) $(NOSE_OPTIONS)
+	$(PYTEST) $(PACKAGE) $(NOSE_OPTIONS)
 	$(COVERAGESPACE) update overall
 
 .PHONY: read-coverage
