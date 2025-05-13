@@ -24,8 +24,8 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
-          pip install --upgrade pip
-          pip install pipenv
+          pip install --upgrade pip 
+          pip install pipenv setuptools
           python --version; pip --version; pipenv --version
           pipenv run pip install flask==${{ matrix.flask-version }}
       - name: Run tests
