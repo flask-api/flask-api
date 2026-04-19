@@ -105,9 +105,18 @@ class BrowsableAPIRenderer(BaseRenderer):
         adapter = ctx.url_adapter
         allowed_methods = adapter.allowed_methods()
 
-        endpoint = request.url_rule.endpoint
-        view_name = str(endpoint)
-        view_description = current_app.view_functions[endpoint].__doc__
+        # request.url_rule may be None when the renderer is invoked from an
+        # error handler (e.g. a custom 404 handler).  Guard against that so
+        # we don't raise an AttributeError.
+        if request.url_rule is not None:
+            endpoint = request.url_rule.endpoint
+            view_name = str(endpoint)
+            view_description = current_app.view_functions[endpoint].__doc__
+        else:
+            endpoint = None
+            view_name = ""
+            view_description = None
+
         if view_description:
             if apply_markdown:
                 view_description = dedent(view_description)
