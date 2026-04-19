@@ -102,6 +102,32 @@ class RendererTests(unittest.TestCase):
             self.assertTrue("<h1>Happiness</h1>" in html)
             self.assertTrue("/_happiness" in html)
 
+    def test_render_browsable_from_error_handler(self):
+        """BrowsableAPIRenderer must not crash when request.url_rule is None.
+
+        This happens when the renderer is called from a custom error handler
+        (e.g. a 404 handler) where Flask hasn't matched any URL rule.
+        Regression test for https://github.com/flask-api/flask-api/issues/40.
+        """
+        app = FlaskAPI(__name__)
+
+        @app.route("/_base", methods=["GET"])
+        def base():
+            return {}
+
+        @app.errorhandler(404)
+        def not_found(error):
+            return {"detail": "Not found."}, status.HTTP_404_NOT_FOUND
+
+        with app.test_client() as client:
+            response = client.get(
+                "/_nonexistent", headers={"Accept": "text/html"}
+            )
+            self.assertEqual(response.status_code, 404)
+            html = str(response.get_data())
+            # Should render the browsable API without raising AttributeError
+            self.assertIn("Not found", html)
+
     def test_renderer_negotiation_not_implemented(self):
         renderer = renderers.BaseRenderer()
         with self.assertRaises(NotImplementedError) as context:
